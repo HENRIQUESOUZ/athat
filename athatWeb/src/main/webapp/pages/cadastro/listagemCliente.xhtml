@@ -1,0 +1,59 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui" 
+                template="/pages/template.xhtml">
+    
+    <ui:define name="titulo">
+        <h3>Listagem de Cliente</h3>
+    </ui:define>
+
+    <ui:define name="conteudo">
+        
+        <h:form id="listagemCliente">
+        
+            <p:commandButton value="Novo Cliente" action="/pages/cadastro/cadastroCliente?faces-redirect=true" 
+                             immediate="true" ajax="false"/>
+
+            <br /> <br />
+            
+            <p:panel header="Consulta">
+                <h:panelGrid columns="2">
+                    <h:outputText value="Nome: " />
+                    <p:inputText value="#{clienteController.cliente.pessoa.nomeRazao}" />
+                    <h:outputText value="CPF/CNPJ: " />
+                    <p:inputText value="#{clienteController.cliente.pessoa.cpfCnpj}" />
+                </h:panelGrid>
+                <p:commandButton value="Buscar" action="#{clienteController.buscar}" update="clienteDataTable"/>
+            </p:panel>
+            
+            <br />
+            
+            <p:dataTable id="clienteDataTable" value="#{clienteController.clientes}" var="cliente" 
+                         emptyMessage="Não existem Clientes cadastros.">
+                <p:column headerText="Nome">
+                    <h:outputText value="#{cliente.pessoa.nomeRazao}" />
+                </p:column>
+                <p:column headerText="CPF/CNPJ">
+                    <h:outputText value="#{cliente.pessoa.cpfCnpj}" />
+                </p:column>
+                <p:column headerText="Opções">
+                    <p:commandButton alt="Editar" action="/pages/cadastro/cadastroCliente"
+                                     ajax="false" immediate="true" icon="ui-icon-pencil">
+                        <f:param name="clienteId"  value="#{cliente.id.toString()}" />
+                        <f:param name="pessoaId"  value="#{cliente.pessoa.id.toString()}" />
+                    </p:commandButton>    
+                </p:column>
+            </p:dataTable>    
+            
+            <br />
+            
+            <p:toolbar style="height:46px;">
+            <p:toolbarGroup align="right" >  
+                <p:commandButton value="Voltar" action="/pages/principal?faces-redirect=true" ajax="false" immediate="true"/>
+            </p:toolbarGroup>
+        </p:toolbar>            
+     </h:form>     
+    </ui:define>
+</ui:composition>

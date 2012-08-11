@@ -1,0 +1,28 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui" 
+                template="/pages/cadastro/cadastroPessoa.xhtml">
+    
+    <ui:define name="titulo">
+        <h:outputText value="Cadastro de Fornecedor" />
+    </ui:define>
+
+    <ui:define name="papel">
+        
+        <p:toolbar style="height:46px;">
+            <p:toolbarGroup align="right" >
+                <p:commandButton value="Salvar" action="#{fornecedorController.salvar}">
+                    <f:setPropertyActionListener value="#{pessoaController.pessoa}" target="#{fornecedorController.pessoa}" />
+                </p:commandButton>    
+                <p:commandButton value="Limpar" action="#{fornecedorController.limpar}" ajax="false" immediate="true">
+                    <f:setPropertyActionListener value="#{fornecedorController.fornecedor.pessoa}" target="#{pessoaController.pessoa}" />
+                </p:commandButton>    
+                <p:commandButton value="Voltar" action="/pages/principal?faces-redirect=true" ajax="false" immediate="true"/>
+            </p:toolbarGroup>
+        </p:toolbar>    
+        
+        
+    </ui:define>
+</ui:composition>

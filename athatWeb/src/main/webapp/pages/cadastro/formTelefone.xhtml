@@ -1,0 +1,57 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui">
+
+
+    <p:panel id="panelTelefone" header="Telefone" rendered="#{pessoaController.pessoa ne null}">
+        
+        <p:commandButton value="Novo" immediate="true" update="panelTelefone" process="@this"
+                         rendered="#{!pessoaController.renderCadTelefone}">
+            <f:setPropertyActionListener value="#{true}" target="#{pessoaController.renderCadTelefone}" />
+        </p:commandButton>
+        
+        <br />
+        
+        <h:panelGrid id="cadTelefone"  columns="3" rendered="#{pessoaController.renderCadTelefone}">
+            <h:outputLabel value="Tipo Telefone: "/>
+            <p:selectOneMenu id="telefoneType" value="#{pessoaController.telefone.enderecoType}" >
+                <f:selectItems value="#{enunsToSelectItem.enderecosType}"/>
+            </p:selectOneMenu>    
+            <p:message for="telefoneType"/>
+
+            <h:outputLabel value="Telefone: "/>
+            <p:inputMask id="telefone" value="#{pessoaController.telefone.numero}" required="true"
+                         mask="(99) 9999-9999"/>
+            <p:message for="telefone"/>
+
+            <p:commandButton value="Adicionar" action="#{pessoaController.adicionarTelefone}" 
+                            update="panelTelefone" process="cadTelefone,@this,listTelefone"  >
+                <f:setPropertyActionListener value="#{false}" target="#{pessoaController.renderCadTelefone}" />
+            </p:commandButton>    
+        </h:panelGrid>
+
+        <br />
+
+        <p:dataTable id="listTelefone" var="telefone" value="#{pessoaController.pessoa.telefones}"
+                     rendered="#{!empty pessoaController.pessoa.telefones}"
+                     emptyMessage="Não existe telefones cadastros.">
+            <p:column headerText="Tipo Endereço">
+                <h:outputText value="#{telefone.enderecoType.descricao}" />
+            </p:column>
+
+            <p:column headerText="Telefone">
+                <h:outputText value="#{telefone.numero}" />
+            </p:column>
+
+            <p:column headerText="Opções">
+                <p:commandButton icon="ui-icon-trash" actionListener="#{pessoaController.removerTelefone}"
+                                 update=":formCadastro" process="@this">
+                    <f:attribute name="telefone" value="#{telefone}" />
+                </p:commandButton>     
+            </p:column>
+        </p:dataTable>
+    </p:panel>    
+
+</ui:composition>

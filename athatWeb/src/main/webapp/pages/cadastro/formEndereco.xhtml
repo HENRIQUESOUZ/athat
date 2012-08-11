@@ -1,0 +1,123 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui">
+    
+    <p:panel id="panelEndereco" header="Endereço" rendered="#{pessoaController.pessoa ne null}" >
+        
+        <p:commandButton value="Novo" immediate="true" update="panelEndereco" process="@this"
+                         rendered="#{!pessoaController.renderCadEndereco}">
+            <f:setPropertyActionListener value="#{true}" target="#{pessoaController.renderCadEndereco}" />
+        </p:commandButton>
+        
+        <br />
+
+        <h:panelGrid id="cadEndereco" columns="3" rendered="#{pessoaController.renderCadEndereco}">
+            <h:outputLabel value="Tipo Endereço: "/>
+            <p:selectOneMenu id="enderecoType" value="#{pessoaController.endereco.enderecoType}">
+                <f:selectItems value="#{enunsToSelectItem.enderecosType}"/>
+            </p:selectOneMenu>    
+            <p:message for="enderecoType"/>
+
+            <h:outputLabel value="Tipo Logradouro: "/>
+            <p:selectOneMenu id="logradouroType" value="#{pessoaController.endereco.logradouroType}">
+                <f:selectItems value="#{enunsToSelectItem.logradourosType}"/>
+            </p:selectOneMenu>    
+            <p:message for="logradouroType"/>
+
+            <h:outputLabel value="Logradouro: "/>
+            <p:inputText id="logradouro" value="#{pessoaController.endereco.logradouro}" required="true"
+                         requiredMessage="Campo Logradouro obrigatório." maxlength="70"/>
+            <p:message for="logradouro"/>
+
+            <h:outputLabel value="Número: "/>
+            <p:inputText id="numero" value="#{pessoaController.endereco.numero}" required="true"
+                         requiredMessage="Campo Número obrigatório." maxlength="10"/>
+            <p:message for="numero"/>
+
+            <h:outputLabel value="Complemento: "/>
+            <p:inputText id="complemento"  value="#{pessoaController.endereco.complemento}"
+                        maxlength="70"/>
+            <p:message for="complemento"/>
+
+            <h:outputLabel value="Bairro: "/>
+            <p:inputText id="bairro" value="#{pessoaController.endereco.bairro}" required="true"
+                         requiredMessage="Campo Endereço obrigatório." maxlength="70"/>
+            <p:message for="bairro"/>
+
+            <h:outputLabel value="Cep: "/>
+            <p:inputMask id="cep" value="#{pessoaController.endereco.cep}" required="true"
+                         requiredMessage="Campo Cep obrigatório." mask="99.999-999"/>
+            <p:message for="cep"/>
+            
+            <h:outputLabel value="Estado: "/>
+            <p:selectOneMenu id="estadoType" value="#{pessoaController.estadoType}" required="true"
+                             requiredMessage="Campo Estado Obrigatório.">
+                <f:selectItem  itemLabel="Selecione" value="#{null}"/>
+                <f:selectItems value="#{enunsToSelectItem.estadoType}"/>
+                <p:ajax event="change" listener="#{pessoaController.buscarCidades}" update="cidade"/>
+            </p:selectOneMenu>    
+            <p:message for="estadoType"/>
+            
+             <h:outputLabel value="Cidade: "/>
+            <p:selectOneMenu id="cidade" value="#{pessoaController.endereco.cidade}" required="true"
+                             requiredMessage="Campo Cidade Obrigatório." converter="cidadeConverter"
+                             disabled="#{pessoaController.estadoType eq null}">
+                <f:selectItem  itemLabel="Selecione" value="#{null}"/>
+                <f:selectItems value="#{pessoaController.cidadeItens}"/>
+            </p:selectOneMenu>    
+            <p:message for="cidade"/>
+                
+   
+
+            <p:commandButton value="Adicionar" action="#{pessoaController.adicionarEndereco}" 
+                            update="panelEndereco" process="cadEndereco,@this,listEndereco">
+                 <f:setPropertyActionListener value="#{false}" target="#{pessoaController.renderCadEndereco}" />
+            </p:commandButton>     
+        </h:panelGrid>
+
+        <br />
+
+        <p:dataTable id="listEndereco" var="endereco" value="#{pessoaController.pessoa.enderecos}" 
+                     rendered="#{!empty pessoaController.pessoa.enderecos}"
+                     emptyMessage="Não existe endereços cadastrados.">
+            <p:column headerText="Tipo Endereço">
+                <h:outputText value="#{endereco.enderecoType.descricao}" />
+            </p:column>
+
+            <p:column headerText="Tipo Logradouro">
+                <h:outputText value="#{endereco.logradouroType.descricao}" />
+            </p:column>
+
+            <p:column headerText="Logradouro">
+                <h:outputText value="#{endereco.logradouro}" />
+            </p:column>
+
+            <p:column headerText="Número">
+                <h:outputText value="#{endereco.numero}" />
+            </p:column>
+
+            <p:column headerText="Complemento">
+                <h:outputText value="#{endereco.complemento}" />
+            </p:column>
+
+            <p:column headerText="Bairro">
+                <h:outputText value="#{endereco.bairro}" />
+            </p:column>
+
+            <p:column headerText="Cep">
+                <h:outputText value="#{endereco.cep}" />
+            </p:column>
+
+            <p:column headerText="Opções">
+                <p:commandButton icon="ui-icon-trash" actionListener="#{pessoaController.removerEndereco}"
+                                 update=":formCadastro" process="@this" alt="Remover">
+                    <f:attribute name="endereco" value="#{endereco}" />
+                </p:commandButton>     
+            </p:column>
+        </p:dataTable>
+        
+    </p:panel>
+
+</ui:composition>

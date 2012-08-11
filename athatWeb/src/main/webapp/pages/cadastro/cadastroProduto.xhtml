@@ -1,0 +1,86 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui" 
+                template="/pages/template.xhtml">
+
+    <ui:define name="titulo">
+        <h3>Cadastro de Produto</h3>
+    </ui:define>
+
+    <ui:define name="conteudo">
+
+        <h:form id="cadastroProduto">
+
+            <h:panelGrid columns="4">
+                <h:outputText value="Categoria: "/>
+                <p:inputText id="categoria" value="#{produtoController.produto.categoria}" 
+                             required="true" requiredMessage="Campo Categoria obrigatório."/>
+                <p:commandButton icon="ui-icon-search" onclick="popCategoria.show()"/>
+                <p:message for="categoria" />
+
+                <h:outputText value="Descrição: "/>
+                <p:inputText id="descricao" value="#{produtoController.produto.descricao}" 
+                             required="true" requiredMessage="Campo Descrição obrigatório."/>
+                <p:message for="descricao" />
+
+            </h:panelGrid>
+
+            <br />
+
+            <p:toolbar style="height:46px;">
+                <p:toolbarGroup align="right" >
+                    <p:commandButton value="Salvar" action="#{produtoController.salvar}" ajax="false" />    
+                    <p:commandButton value="Limpar" action="#{produtoController.limpar}" ajax="false" immediate="true"/>
+                    <p:commandButton value="Voltar" action="/pages/principal?faces-redirect=true"
+                                     ajax="false" immediate="true"/>
+                </p:toolbarGroup>
+            </p:toolbar>  
+
+            <p:dialog header="Categoria" widgetVar="popCategoria" resizable="false">  
+                <h:form id="formPopCategoria">  
+
+                    <h:panelGrid columns="2">  
+                        <h:outputText value="Código: "/>
+                        <p:inputText id="codigo" value="#{produtoController.categoria.id}"/>
+
+                        <h:outputText value="Descrição: "/>
+                        <p:inputText id="descricao" value="#{produtoController.categoria.descricao}"/>
+
+                        <h:outputLabel value="Tipo do Produto: "/>
+                        <p:selectOneMenu id="produtoType" value="#{produtoController.categoria.produtoType}">
+                            <f:selectItems value="#{enunsToSelectItem.produtoType}"/>
+                        </p:selectOneMenu>    
+
+                        <p:commandButton value="Buscar" action="#{produtoController.buscarCategoria}" update="categoriaDataTable"/>
+                    </h:panelGrid>  
+
+                    <br />
+
+                    <p:dataTable id="categoriaDataTable" value="#{produtoController.categorias}" var="categoria" 
+                                 emptyMessage="Nenhuma Categoria foi encontrado." paginator="true" rows="15"
+                                 paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                 rowsPerPageTemplate="15,30" paginatorAlwaysVisible="false" rowKey="#{categoria}"
+                                 selection="#{produtoController.produto.categoria}" selectionMode="single">
+                        
+                        <p:column headerText="Descrição">
+                            <h:outputText value="#{categoria.descricao}" />
+                        </p:column>
+
+                        <p:column headerText="Tipo de Produto">
+                            <h:outputText value="#{categoria.produtoType.descricao}" />
+                        </p:column>
+
+                    </p:dataTable>    
+
+                    <p:commandButton value="Confirmar" update=":cadastroProduto:categoria" 
+                                        oncomplete="popCategoria.hide();"/>
+                    <p:commandButton value="Voltar" oncomplete="popCategoria.hide();"/>  
+
+                </h:form>  
+            </p:dialog>  
+
+        </h:form>     
+    </ui:define>
+</ui:composition>

@@ -1,0 +1,55 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui" 
+                template="/pages/template.xhtml">
+    
+    <ui:define name="titulo">
+        <h3>Cadastro de Categoria</h3>
+    </ui:define>
+
+    <ui:define name="conteudo">
+        
+        <h:form id="cadastroCategoria">
+
+            <h:panelGrid columns="3">
+                <h:outputLabel value="Tipo do Produto: "/>
+                <p:selectOneMenu id="produtoType" value="#{categoriaController.categoria.produtoType}"
+                                 required="true" requiredMessage="Campo Tipo do Produto obrigatório.">
+                    <f:selectItems value="#{enunsToSelectItem.produtoType}"/>
+                </p:selectOneMenu>    
+                <p:message for="produtoType"/>
+
+                <h:outputText value="Descrição: "/>
+                <p:inputText id="descricao" value="#{categoriaController.categoria.descricao}" 
+                             required="true" requiredMessage="Campo Descrição obrigatório."/>
+                <p:message for="descricao" />
+
+                <h:outputLabel value="Unidade de Medida: "/>
+                <p:selectOneMenu id="unidadeMedidaType" value="#{categoriaController.categoria.unidadeMedidaType}"
+                                 required="true" requiredMessage="Campo Tipo do Produto obrigatório.">
+                    <f:selectItems value="#{enunsToSelectItem.unidadeMedidaType}"/>
+                </p:selectOneMenu>    
+                <p:message for="unidadeMedidaType"/>
+                
+                <h:outputLabel value="Identificação: "/>
+                <p:selectOneMenu id="identificacaoType" value="#{categoriaController.categoria.identificacaoType}"
+                                 required="true" requiredMessage="Campo Identificação obrigatório.">
+                    <f:selectItems value="#{enunsToSelectItem.identificacaoType}"/>
+                </p:selectOneMenu>    
+                <p:message for="identificacaoType"/>
+            </h:panelGrid>
+
+            <br />
+
+            <p:toolbar style="height:46px;">
+                <p:toolbarGroup align="right" >
+                    <p:commandButton value="Salvar" action="#{categoriaController.salvar}" ajax="false" />    
+                    <p:commandButton value="Limpar" action="#{categoriaController.limpar}" ajax="false" immediate="true"/>
+                    <p:commandButton value="Voltar" action="/pages/principal?faces-redirect=true" ajax="false" immediate="true"/>
+                </p:toolbarGroup>
+            </p:toolbar>            
+        </h:form>     
+    </ui:define>
+</ui:composition>

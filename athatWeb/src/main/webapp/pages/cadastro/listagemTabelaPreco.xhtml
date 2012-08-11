@@ -1,0 +1,61 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui" 
+                template="/pages/template.xhtml">
+    
+    <ui:define name="titulo">
+        <h3>Listagem de Tabela de Preço</h3>
+    </ui:define>
+
+    <ui:define name="conteudo">
+        
+        <h:form id="listagemTabelaPreco">
+        
+            <p:commandButton value="Nova Tabela de Preço" action="/pages/cadastro/cadastroTabelaPreco?faces-redirect=true" 
+                             immediate="true" ajax="false"/>
+
+            <br /> <br />
+            
+            <p:panel header="Consulta">
+                <h:outputText value="Descrição: "/>
+                <p:inputText id="nome" value="#{tabelaPrecoController.tabelaPreco.descricao}" />
+
+                <br />
+                
+                <p:commandButton value="Buscar" action="#{tabelaPrecoController.buscar}" 
+                                 update="tabelaPrecoDataTable"/>
+            </p:panel>
+            
+            <br />
+            
+            <p:dataTable id="tabelaPrecoDataTable" value="#{tabelaPrecoController.tabelaPrecos}" var="tabelaPreco" 
+                         emptyMessage="Não existe Tabela de Preços cadastradas.">
+                
+                <p:column headerText="Código">
+                    <h:outputText value="#{tabelaPreco.id}" />
+                </p:column>
+                
+                <p:column headerText="Descrição">
+                    <h:outputText value="#{tabelaPreco.descricao}" />
+                </p:column>
+               
+                 <p:column headerText="Opções">
+                     <p:commandButton alt="Editar" action="/pages/cadastro/cadastroTabelaPreco"
+                                      immediate="true" ajax="false" icon="ui-icon-pencil">
+                        <f:param name="id" value="#{tabelaPreco.id.toString()}" />
+                     </p:commandButton>    
+                </p:column>
+            </p:dataTable>    
+            
+            <br />
+            
+            <p:toolbar style="height:46px;">
+            <p:toolbarGroup align="right" >  
+                <p:commandButton value="Voltar" action="/pages/principal?faces-redirect=true" ajax="false" immediate="true"/>
+            </p:toolbarGroup>
+        </p:toolbar>            
+     </h:form>     
+    </ui:define>
+</ui:composition>

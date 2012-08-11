@@ -1,0 +1,53 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui" 
+                template="/pages/template.xhtml">
+
+    <ui:define name="conteudo">
+        <h:form id="formConsulta">
+            <h:panelGrid columns="2">
+
+                <h:outputLabel value="Tipo Pessoa: " /> 
+                <p:selectOneRadio id="tipoPessoa" value="#{pessoaController.tipoPessoa}" 
+                                disabled="#{pessoaController.pessoa ne null}">
+                    <f:selectItem itemLabel="Física" itemValue="FISICA"/>
+                    <f:selectItem itemLabel="Jurídica" itemValue="JURIDICA"/>
+                    <p:ajax update="cpfCnpjPanel" event="change"/>
+                </p:selectOneRadio>
+            </h:panelGrid> 
+
+            <h:panelGrid id ="cpfCnpjPanel" columns="3">      
+
+                <h:outputLabel value="CPF: " rendered="#{pessoaController.tipoPessoa eq 'FISICA'}"/> 
+                <p:inputMask id="cpf" mask="999.999.999-99" rendered="#{pessoaController.tipoPessoa eq 'FISICA'}" 
+                             disabled="#{pessoaController.pessoa ne null}" value="#{pessoaController.cpfCnpj}"
+                             required="true" requiredMessage="Informe o CPF."/>
+
+                <h:outputLabel value="CNPJ: " rendered="#{pessoaController.tipoPessoa eq 'JURIDICA'}"/> 
+                <p:inputMask id="cnpj" mask="99.999.999/9999-99" rendered="#{pessoaController.tipoPessoa eq 'JURIDICA'}"
+                            disabled="#{pessoaController.pessoa ne null}" value="#{pessoaController.cpfCnpj}"
+                            required="true" requiredMessage="Informe o CNPJ."/>
+
+                <p:commandButton value="buscar" action="#{pessoaController.buscaCpfCnpj}" 
+                                 update=":formCadastro,:formConsulta"
+                                 process=":formCadastro,:formConsulta"
+                                 disabled="#{pessoaController.pessoa ne null}"/>
+            </h:panelGrid>
+                <p:message for="cnpj" />
+                <p:message for="cpf" />
+        </h:form>    
+        
+        <br />
+        <h:form id="formCadastro">
+
+            <ui:include src="formPessoa.xhtml" /> <br />
+            <ui:include src="formEndereco.xhtml" /> <br />
+            <ui:include src="formTelefone.xhtml" /> <br />
+            <ui:insert name="papel" />   
+            
+        </h:form> 
+                   
+    </ui:define>
+</ui:composition>

@@ -1,0 +1,46 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui" 
+                template="/pages/template.xhtml">
+    
+    <ui:define name="titulo">
+        <h3>Cadstro de Cidade</h3>
+    </ui:define>
+
+    <ui:define name="conteudo">
+        
+        <h:form id="cadastroCidade">
+        
+            <h:panelGrid columns="3">
+                
+                <h:outputText value="IBGE: "/>
+                <p:inputText id="ibge" value="#{cidadeController.cidade.ibge}" 
+                             required="true" requiredMessage="Campo IBGE obrigatório."/>
+                <p:message for="ibge" />
+                
+                <h:outputText value="Nome: "/>
+                <p:inputText id="nome" value="#{cidadeController.cidade.nome}" 
+                             required="true" requiredMessage="Campo Nome obrigatório."/>
+                <p:message for="nome" />
+      
+                <h:outputLabel value="Tipo Endereço: "/>
+                <p:selectOneMenu id="estadoType" value="#{cidadeController.cidade.estadoType}">
+                    <f:selectItems value="#{enunsToSelectItem.estadoType}"/>
+                </p:selectOneMenu>    
+                <p:message for="estadoType"/>
+            </h:panelGrid>
+
+            <br />
+            
+            <p:toolbar style="height:46px;">
+            <p:toolbarGroup align="right" >
+                <p:commandButton value="Salvar" action="#{cidadeController.salvar}" ajax="false" />    
+                <p:commandButton value="Limpar" action="#{cidadeController.limpar}" ajax="false" immediate="true"/>
+                <p:commandButton value="Voltar" action="/pages/principal?faces-redirect=true" ajax="false" immediate="true"/>
+            </p:toolbarGroup>
+        </p:toolbar>            
+     </h:form>     
+    </ui:define>
+</ui:composition>

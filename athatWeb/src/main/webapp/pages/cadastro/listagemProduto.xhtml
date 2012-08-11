@@ -1,0 +1,69 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui" 
+                template="/pages/template.xhtml">
+    
+    <ui:define name="titulo">
+        <h3>Listagem de Produto</h3>
+    </ui:define>
+
+    <ui:define name="conteudo">
+        
+        <h:form id="listagemProduto">
+        
+            <p:commandButton value="Novo Produto" action="/pages/cadastro/cadastroProduto?faces-redirect=true" 
+                             immediate="true" ajax="false"/>
+
+            <br /> <br />
+            
+            <p:panel header="Consulta">
+                 <h:outputText value="Código: "/>
+                 <p:inputText id="codigo" value="#{produtoController.produto.id}"/>
+
+                 <h:outputText value="Descrição: "/>
+                 <p:inputText id="descricao" value="#{produtoController.produto.descricao}"/>
+
+                <br />
+                
+                <p:commandButton value="Buscar" action="#{produtoController.buscar}" 
+                                 update="produtoDataTable"/>
+            </p:panel>
+            
+            <br />
+            
+            <p:dataTable id="produtoDataTable" value="#{produtoController.produtos}" var="produto" 
+                         emptyMessage="Não existe Produtos cadastradas.">
+                
+                 <p:column headerText="Código">
+                    <h:outputText value="#{produto.id}" />
+                </p:column>
+                
+                 <p:column headerText="Descrição">
+                    <h:outputText value="#{produto.descricao}" />
+                </p:column>
+                
+                 <p:column headerText="Categoria">
+                    <h:outputText value="#{produto.categoria.descricao}" />
+                </p:column>
+               
+                 <p:column headerText="Opções">
+                     <p:commandButton alt="Editar" action="/pages/cadastro/cadastroProduto"
+                                      immediate="true" ajax="false" icon="ui-icon-pencil">
+                        <f:param name="id" value="#{produto.id.toString()}" />
+                     </p:commandButton>    
+                </p:column>
+            </p:dataTable>    
+            
+            <br />
+            
+            <p:toolbar style="height:46px;">
+            <p:toolbarGroup align="right" >  
+                <p:commandButton value="Voltar" action="/pages/principal?faces-redirect=true" 
+                                 ajax="false" immediate="true"/>
+            </p:toolbarGroup>
+        </p:toolbar>            
+     </h:form>     
+    </ui:define>
+</ui:composition>

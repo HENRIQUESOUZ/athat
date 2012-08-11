@@ -1,0 +1,74 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui" 
+                template="/pages/template.xhtml">
+    
+    <ui:define name="titulo">
+        <h3>Listagem de Cidade</h3>
+    </ui:define>
+
+    <ui:define name="conteudo">
+        
+        <h:form id="listagemCidade">
+        
+            <p:commandButton value="Novo Cidade" action="/pages/cadastro/cadastroCidade?faces-redirect=true" 
+                             immediate="true" ajax="false"/>
+
+            <br /> <br />
+            
+            <p:panel header="Consulta">
+                <h:panelGrid columns="2">
+                    <h:outputText value="IBGE: " />
+                    <p:inputText value="#{cidadeController.cidade.ibge}" />
+                    
+                    <h:outputText value="Nome: " />
+                    <p:inputText value="#{cidadeController.cidade.nome}" />
+                    
+                    <h:outputText value="Estado: " />
+                    <p:selectOneMenu id="estadoType" value="#{cidadeController.cidade.estadoType}">
+                        <f:selectItems value="#{enunsToSelectItem.estadoType}"/>
+                    </p:selectOneMenu> 
+                </h:panelGrid>
+                
+                <br />
+                
+                <p:commandButton value="Buscar" action="#{cidadeController.buscar}" 
+                                 update="cidadeDataTable"/>
+            </p:panel>
+            
+            <br />
+            
+            <p:dataTable id="cidadeDataTable" value="#{cidadeController.cidades}" var="cidade" 
+                         emptyMessage="Não existe Cidades cadastradas.">
+                 <p:column headerText="IBGE">
+                    <h:outputText value="#{cidade.ibge}" />
+                </p:column>
+                
+                <p:column headerText="Nome">
+                    <h:outputText value="#{cidade.nome}" />
+                </p:column>
+               
+                 <p:column headerText="Estado">
+                    <h:outputText value="#{cidade.estadoType.descricao}" />
+                </p:column>
+                
+                <p:column headerText="Opções">
+                     <p:commandButton alt="Editar" action="/pages/cadastro/cadastroCidade"
+                                      immediate="true" ajax="false" icon="ui-icon-pencil">
+                        <f:param name="id"  value="#{cidade.id.toString()}" />
+                     </p:commandButton>    
+                </p:column>
+            </p:dataTable>    
+            
+            <br />
+            
+            <p:toolbar style="height:46px;">
+            <p:toolbarGroup align="right" >  
+                <p:commandButton value="Voltar" action="/pages/principal?faces-redirect=true" ajax="false" immediate="true"/>
+            </p:toolbarGroup>
+        </p:toolbar>            
+     </h:form>     
+    </ui:define>
+</ui:composition>

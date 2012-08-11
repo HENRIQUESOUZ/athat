@@ -1,0 +1,57 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui" 
+                template="/pages/template.xhtml">
+    
+    <ui:define name="titulo">
+        <h3>Listagem de Fornecedor</h3>
+    </ui:define>
+
+    <ui:define name="conteudo">
+        
+        <h:form id="listagemFornecedor">
+        
+            <p:commandButton value="Novo Fornecedor" action="/pages/cadastro/cadastroFornecedor?faces-redirect=true" 
+                             immediate="true" ajax="false"/>
+
+            <br /> <br />
+            
+            <p:panel header="Consulta">
+                <h:panelGrid columns="2">
+                    <h:outputText value="Nome: " />
+                    <p:inputText value="#{fornecedorController.fornecedor.pessoa.nomeRazao}" />
+                    <h:outputText value="CPF/CNPJ: " />
+                    <p:inputText value="#{forcedorController.fornecedor.pessoa.cpfCnpj}" />
+                </h:panelGrid>
+                <p:commandButton value="Buscar" action="#{fornecedorController.buscar}" update="fornecedorDataTable"/>
+            </p:panel>
+            
+            <br />
+            
+            <p:dataTable id="fornecedorDataTable" value="#{fornecedorController.fornecedores}" var="fornecedor" >
+                <p:column headerText="Nome">
+                    <h:outputText value="#{fornecedor.pessoa.nomeRazao}" />
+                </p:column>
+                <p:column headerText="CPF/CNPJ">
+                    <h:outputText value="#{fornecedor.pessoa.cpfCnpj}" />
+                </p:column>
+                <p:column headerText="Opções">
+                    <p:commandButton alt="Editar" action="/pages/cadastro/cadastroFornecedor"
+                                     ajax="false" immediate="true" icon="ui-icon-pencil">
+                        <f:param name="id"  value="#{fornecedor.id.toString()}" />
+                    </p:commandButton>    
+                </p:column>
+            </p:dataTable>    
+            
+            <br />
+            
+            <p:toolbar style="height:46px;">
+            <p:toolbarGroup align="right" >  
+                <p:commandButton value="Voltar" action="/pages/principal?faces-redirect=true" ajax="false" immediate="true"/>
+            </p:toolbarGroup>
+        </p:toolbar>            
+     </h:form>     
+    </ui:define>
+</ui:composition>

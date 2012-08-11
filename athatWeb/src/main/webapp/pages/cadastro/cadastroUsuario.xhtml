@@ -1,0 +1,31 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui" template="/pages/template.xhtml">
+
+    <ui:define name="conteudo">
+        
+        <h:form id="cadastroUsuario">
+        
+            <h:panelGrid columns="3">
+                <h:outputText value="Nome: "/>
+                <p:inputText id="name" value="#{usuarioController.usuario.name}" />
+                <p:message for="name" />
+
+                <h:outputText value="Usuário: "/>
+                <p:inputText id="username" value="#{usuarioController.usuario.username}" />
+                <p:message for="username"/>
+
+                <h:outputText value="Senha: "/>
+                <p:inputText id="password" value="#{usuarioController.usuario.password}" />
+                <p:message for="password" />
+            </h:panelGrid>
+
+            <br />
+
+            <p:commandButton value="Salvar" action="#{usuarioController.salvar}" ajax="false"/>
+        
+     </h:form>     
+    </ui:define>
+</ui:composition>

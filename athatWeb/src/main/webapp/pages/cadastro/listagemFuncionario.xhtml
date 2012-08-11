@@ -1,0 +1,57 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui"
+                template="/pages/template.xhtml">
+    
+    <ui:define name="titulo">
+        <h3>Listagem de Funcionário</h3>
+    </ui:define>
+
+    <ui:define name="conteudo">
+        
+        <h:form id="listagemFuncionario">
+        
+            <p:commandButton value="Novo Funcionario" action="/pages/cadastro/cadastroFuncionario?faces-redirect=true" 
+                             immediate="true" ajax="false"/>
+
+            <br /> <br />
+            
+            <p:panel header="Consulta">
+                <h:panelGrid columns="2">
+                    <h:outputText value="Nome: " />
+                    <p:inputText value="#{funcionarioController.funcionario.pessoa.nomeRazao}" />
+                    <h:outputText value="CPF/CNPJ: " />
+                    <p:inputText value="#{funcionarioController.funcionario.pessoa.cpfCnpj}" />
+                </h:panelGrid>
+                <p:commandButton value="Buscar" action="#{funcionarioController.buscar}" update="funcionarioDataTable"/>
+            </p:panel>
+            
+            <br />
+            
+            <p:dataTable id="funcionarioDataTable" value="#{funcionarioController.funcionarios}" var="funcionario" >
+                <p:column headerText="Nome">
+                    <h:outputText value="#{funcionario.pessoa.nomeRazao}" />
+                </p:column>
+                <p:column headerText="CPF/CNPJ">
+                    <h:outputText value="#{funcionario.pessoa.cpfCnpj}" />
+                </p:column>
+                <p:column headerText="Opções">
+                    <p:commandButton alt="Editar" action="/pages/cadastro/cadastroFuncionario"
+                                     ajax="false" immediate="true" icon="ui-icon-pencil">
+                        <f:param name="id"  value="#{funcionario.id.toString()}" />
+                    </p:commandButton>    
+                </p:column>
+            </p:dataTable>    
+            
+            <br />
+            
+            <p:toolbar style="height:46px;">
+            <p:toolbarGroup align="right" >  
+                <p:commandButton value="Voltar" action="/pages/principal?faces-redirect=true" ajax="false" immediate="true"/>
+            </p:toolbarGroup>
+        </p:toolbar>            
+     </h:form>     
+    </ui:define>
+</ui:composition>

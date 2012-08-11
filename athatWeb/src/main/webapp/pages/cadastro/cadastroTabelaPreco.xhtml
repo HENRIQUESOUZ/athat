@@ -1,0 +1,39 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui" 
+                template="/pages/template.xhtml">
+    
+    <ui:define name="titulo">
+        <h3>Cadastro de Tabela de Preço</h3>
+    </ui:define>
+
+    <ui:define name="conteudo">
+        
+        <h:form id="cadastroTabelaPreco">
+
+            <h:panelGrid columns="3">
+                <h:outputText value="Descrição: "/>
+                <p:inputText id="descricao" value="#{tabelaPrecoController.tabelaPreco.descricao}" 
+                             required="true" requiredMessage="Campo Descrição obrigatório."/>
+                <p:message for="descricao" />
+                
+                <h:outputText value="Porcentagem: "/>
+                <p:inputText id="porcentagem" value="#{tabelaPrecoController.tabelaPreco.porcentagem}" 
+                             required="true" requiredMessage="Campo Porcentagem obrigatório."/>
+                <p:message for="porcentagem" />
+            </h:panelGrid>
+
+            <br />
+
+            <p:toolbar style="height:46px;">
+                <p:toolbarGroup align="right" >
+                    <p:commandButton value="Salvar" action="#{tabelaPrecoController.salvar}" ajax="false" />    
+                    <p:commandButton value="Limpar" action="#{tabelaPrecoController.limpar}" ajax="false" immediate="true"/>
+                    <p:commandButton value="Voltar" action="/pages/principal?faces-redirect=true" ajax="false" immediate="true"/>
+                </p:toolbarGroup>
+            </p:toolbar>            
+        </h:form>     
+    </ui:define>
+</ui:composition>

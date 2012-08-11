@@ -1,0 +1,59 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui" 
+                template="/pages/template.xhtml">
+    
+    <ui:define name="titulo">
+        <h3>Listagem de Cidade</h3>
+    </ui:define>
+
+    <ui:define name="conteudo">
+        
+        <h:form id="listagemEmpresa">
+        
+            <p:commandButton value="Novo Empresa" action="/pages/cadastro/cadastroEmpresa?faces-redirect=true" 
+                             immediate="true" ajax="false"/>
+
+            <br /> <br />
+            
+            <p:panel header="Consulta">
+                <h:panelGrid columns="2">                   
+                    <h:outputText value="Nome: " />
+                    <p:inputText value="#{empresaController.empresa.nome}" />
+                </h:panelGrid>
+                
+                <br />
+                
+                <p:commandButton value="Buscar" action="#{empresaController.buscar}" 
+                                 update="empresaDataTable"/>
+            </p:panel>
+            
+            <br />
+            
+            <p:dataTable id="empresaDataTable" value="#{empresaController.empresas}" var="empresa" 
+                         emptyMessage="Não existe Empresas cadastradas.">
+               
+                <p:column headerText="Nome">
+                    <h:outputText value="#{empresa.nome}" />
+                </p:column>
+ 
+                <p:column headerText="Opções">
+                     <p:commandButton alt="Editar" action="/pages/cadastro/cadastroEmpresa"
+                                      immediate="true" ajax="false" icon="ui-icon-pencil">
+                        <f:param name="id"  value="#{empresa.id.toString()}" />
+                     </p:commandButton>    
+                </p:column>
+            </p:dataTable>    
+            
+            <br />
+            
+            <p:toolbar style="height:46px;">
+            <p:toolbarGroup align="right" >  
+                <p:commandButton value="Voltar" action="/pages/principal?faces-redirect=true" ajax="false" immediate="true"/>
+            </p:toolbarGroup>
+        </p:toolbar>            
+     </h:form>     
+    </ui:define>
+</ui:composition>
