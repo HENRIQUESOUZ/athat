@@ -20,7 +20,7 @@
     <class>br.com.athat.core.cadastro.produto.estoque.entity.Estoque</class>
     <class>br.com.athat.core.cadastro.produto.estoque.entity.ItemEstoque</class>
     <class>br.com.athat.core.cadastro.produto.tabelaPreco.entity.TabelaPreco</class>
-    <class>br.com.athat.core.movimentacao.Compra</class>
+    <class>br.com.athat.core.movimentacao.compra.entity.Compra</class>
     <class>br.com.athat.core.movimentacao.ItemProduto</class>
     
     <exclude-unlisted-classes>true</exclude-unlisted-classes>

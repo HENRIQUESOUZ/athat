@@ -10,7 +10,9 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import br.com.athat.core.entity.AbstractEntity;
 import br.com.athat.core.movimentacao.enuns.SituacaoMovimentacaoType;
+import javax.persistence.MappedSuperclass;
 
+@MappedSuperclass
 public abstract class Movimentacao extends AbstractEntity{
 
 	private static final long serialVersionUID = 1L;
