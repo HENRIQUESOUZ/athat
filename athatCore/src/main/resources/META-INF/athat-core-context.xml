@@ -40,6 +40,7 @@
     <bean id="categoriaManager" class="br.com.athat.core.cadastro.produto.categoria.manager.CategoriaManagerImpl"/>
     <bean id="clienteManager" class="br.com.athat.core.cadastro.pessoa.cliente.manager.ClienteManagerImpl"/>
     <bean id="estoqueManager" class="br.com.athat.core.cadastro.produto.estoque.EstoqueManagerImpl"/>
+    <bean id="itemEstoqueManager" class="br.com.athat.core.cadastro.produto.estoque.ItemEstoqueManagerImpl"/>
     <bean id="funcionarioManager" class="br.com.athat.core.cadastro.pessoa.funcionario.manager.FuncionarioManagerImpl"/>
     <bean id="fornecedorManager" class="br.com.athat.core.cadastro.pessoa.fornecedor.manager.FornecedorManagerImpl"/>
     <bean id="pessoaManager" class="br.com.athat.core.cadastro.pessoa.manager.PessoaManagerImpl"/>

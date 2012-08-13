@@ -24,6 +24,10 @@ import br.com.athat.core.cadastro.produto.entity.Produto;
 import br.com.athat.core.cadastro.produto.entity.ProdutoType;
 import br.com.athat.core.cadastro.produto.estoque.entity.Estoque;
 import br.com.athat.core.cadastro.produto.tabelaPreco.entity.TabelaPreco;
+import br.com.athat.core.movimentacao.ItemProduto;
+import br.com.athat.core.movimentacao.compra.entity.Compra;
+import br.com.athat.core.movimentacao.enuns.SituacaoMovimentacaoType;
+import java.util.List;
 
 public class Populate {
 	
@@ -132,5 +136,26 @@ public class Populate {
 		
 		return fornecedor;
 	}
+        
+        public static Compra populateCompra(Fornecedor fornecedor,List<ItemProduto> produtos){
+                Compra compra = new Compra();
+                compra.setDataEmissaoNF(new Date());
+                compra.setFornecedor(fornecedor);
+                compra.setNotaFiscal("312321454");
+                compra.setSituacaoMovimentacaoType(SituacaoMovimentacaoType.ABERTA);
+                compra.setValoBigDecimal(BigDecimal.valueOf(1000));
+                compra.setItensMovimentacao(produtos);
+                
+                return compra;
+        }
+        
+        public static ItemProduto populateItemProduto(Produto produto,int quantidade,BigDecimal valor){
+            ItemProduto itemProduto = new ItemProduto();
+            itemProduto.setProduto(produto);
+            itemProduto.setQuantidade(quantidade);
+            itemProduto.setValor(valor);
+            
+            return itemProduto;
+        }
     
 }

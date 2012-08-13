@@ -10,6 +10,10 @@ import br.com.athat.core.cadastro.pessoa.funcionario.entity.Funcionario;
 import br.com.athat.core.cadastro.produto.categoria.entity.Categoria;
 import br.com.athat.core.cadastro.produto.entity.Produto;
 import br.com.athat.core.cadastro.produto.tabelaPreco.entity.TabelaPreco;
+import br.com.athat.core.movimentacao.ItemProduto;
+import br.com.athat.core.movimentacao.compra.entity.Compra;
+import java.math.BigDecimal;
+import java.util.List;
 
 public class PopulateBD {
 	
@@ -68,4 +72,18 @@ public class PopulateBD {
 		
 		return fornecedor;
 	}
+        
+         public static Compra populateCompra(EntityManager entityManager,Fornecedor fornecedor,List<ItemProduto> produtos){
+                Compra compra = Populate.populateCompra(fornecedor, produtos);
+                entityManager.persist(compra);
+                
+                return compra;
+         }
+         
+         public static ItemProduto populateItemProduto(EntityManager entityManager, Produto produto,int quantidade,BigDecimal valor){
+                ItemProduto itemProduto = Populate.populateItemProduto(produto, quantidade, valor);
+                entityManager.persist(itemProduto);
+                
+                return itemProduto;
+         }
 }

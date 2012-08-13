@@ -1,5 +1,7 @@
 package br.com.athat.utils.validators;
 
+import java.util.List;
+
 public class ValidatorUtils {
 
     public static String getDigitsOnly(Object value) {
@@ -8,5 +10,9 @@ public class ValidatorUtils {
     
     public static boolean isNotEmptyAndNotNull(String value){
     	return  value != null && !value.trim().isEmpty() ? true : false;
+    }
+    
+    public static boolean isNotEmptyAndNotNull(List value){
+    	return  value != null && !value.isEmpty() ? true : false;
     }
 }

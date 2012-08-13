@@ -17,16 +17,16 @@ public abstract class Movimentacao extends AbstractEntity{
 
 	private static final long serialVersionUID = 1L;
 	
-	private BigDecimal valoBigDecimal = BigDecimal.ZERO;
+	protected BigDecimal valoBigDecimal = BigDecimal.ZERO;
 	
 	@Temporal(TemporalType.DATE)
-	private Date dataEncerramento;
+	protected Date dataEncerramento;
 	
 	@Enumerated
-	private SituacaoMovimentacaoType situacaoMovimentacaoType;
+	protected SituacaoMovimentacaoType situacaoMovimentacaoType;
 	
 	@OneToMany(fetch = FetchType.LAZY)
-	private List<ItemProduto> itensMovimentacao;
+	protected List<ItemProduto> itensMovimentacao;
 
 	public BigDecimal getValoBigDecimal() {
 		return valoBigDecimal;
