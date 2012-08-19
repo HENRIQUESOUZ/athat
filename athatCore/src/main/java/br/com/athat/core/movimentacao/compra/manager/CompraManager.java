@@ -9,5 +9,6 @@ public interface CompraManager{
 	void salvar(Compra compra);
 	
 	List<Compra> buscar(Compra compra);
+        
 
 }
