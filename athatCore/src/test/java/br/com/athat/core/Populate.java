@@ -27,6 +27,7 @@ import br.com.athat.core.cadastro.produto.tabelaPreco.entity.TabelaPreco;
 import br.com.athat.core.movimentacao.ItemProduto;
 import br.com.athat.core.movimentacao.compra.entity.Compra;
 import br.com.athat.core.movimentacao.enuns.SituacaoMovimentacaoType;
+import br.com.athat.core.movimentacao.venda.entity.Venda;
 import java.util.List;
 
 public class Populate {
@@ -137,16 +138,26 @@ public class Populate {
 		return fornecedor;
 	}
         
-        public static Compra populateCompra(Fornecedor fornecedor,List<ItemProduto> produtos){
+        public static Compra populateCompra(Fornecedor fornecedor,List<ItemProduto> produtos, BigDecimal valorTotal){
                 Compra compra = new Compra();
                 compra.setDataEmissaoNF(new Date());
                 compra.setFornecedor(fornecedor);
                 compra.setNotaFiscal("312321454");
                 compra.setSituacaoMovimentacaoType(SituacaoMovimentacaoType.ABERTA);
-                compra.setValoBigDecimal(BigDecimal.valueOf(1000));
+                compra.setValorTotal(BigDecimal.valueOf(1000));
                 compra.setItensMovimentacao(produtos);
                 
                 return compra;
+        }
+        
+        public static Venda populateVenda(Cliente cliente,List<ItemProduto> produtos, BigDecimal valorTotal){
+            Venda venda = new Venda();
+            venda.setCliente(cliente);
+            venda.setItensMovimentacao(produtos);
+            venda.setSituacaoMovimentacaoType(SituacaoMovimentacaoType.ABERTA);
+            venda.setValorTotal(valorTotal);
+            
+            return venda;
         }
         
         public static ItemProduto populateItemProduto(Produto produto,int quantidade,BigDecimal valor){

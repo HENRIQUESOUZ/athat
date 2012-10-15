@@ -35,6 +35,7 @@ public class EstoqueManagerImpl extends AbstractManager implements EstoqueManage
 	public void sair(ItemProduto itemProduto) {
              final Estoque estoque = itemProduto.getProduto().getEstoque();
             
+             //TODO validar se tem o produto em estoques
             if(itemProduto.getQuantidade() <= estoque.getQuantidade()) {
                 estoque.setQuantidade(estoque.getQuantidade() - itemProduto.getQuantidade());
             }

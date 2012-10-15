@@ -17,7 +17,7 @@ public abstract class Movimentacao extends AbstractEntity{
 
 	private static final long serialVersionUID = 1L;
 	
-	protected BigDecimal valoBigDecimal = BigDecimal.ZERO;
+	protected BigDecimal valorTotal = BigDecimal.ZERO;
 	
 	@Temporal(TemporalType.DATE)
 	protected Date dataEncerramento;
@@ -28,13 +28,13 @@ public abstract class Movimentacao extends AbstractEntity{
 	@OneToMany(fetch = FetchType.LAZY)
 	protected List<ItemProduto> itensMovimentacao;
 
-	public BigDecimal getValoBigDecimal() {
-		return valoBigDecimal;
-	}
-
-	public void setValoBigDecimal(BigDecimal valoBigDecimal) {
-		this.valoBigDecimal = valoBigDecimal;
-	}
+        public BigDecimal getValorTotal() {
+         return valorTotal;
+        }
+    
+        public void setValorTotal(BigDecimal valorTotal) {
+            this.valorTotal = valorTotal;
+        }
 
 	public Date getDataEncerramento() {
 		return dataEncerramento;

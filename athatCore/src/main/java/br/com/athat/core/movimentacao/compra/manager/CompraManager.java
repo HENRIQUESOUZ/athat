@@ -6,7 +6,7 @@ import br.com.athat.core.movimentacao.compra.entity.Compra;
 
 public interface CompraManager{
 	
-	void salvar(Compra compra);
+	Compra salvar(Compra compra);
 	
 	List<Compra> buscar(Compra compra);
         

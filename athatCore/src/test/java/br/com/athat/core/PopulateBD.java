@@ -12,6 +12,7 @@ import br.com.athat.core.cadastro.produto.entity.Produto;
 import br.com.athat.core.cadastro.produto.tabelaPreco.entity.TabelaPreco;
 import br.com.athat.core.movimentacao.ItemProduto;
 import br.com.athat.core.movimentacao.compra.entity.Compra;
+import br.com.athat.core.movimentacao.venda.entity.Venda;
 import java.math.BigDecimal;
 import java.util.List;
 
@@ -73,11 +74,19 @@ public class PopulateBD {
 		return fornecedor;
 	}
         
-         public static Compra populateCompra(EntityManager entityManager,Fornecedor fornecedor,List<ItemProduto> produtos){
-                Compra compra = Populate.populateCompra(fornecedor, produtos);
+         public static Compra populateCompra(EntityManager entityManager,Fornecedor fornecedor,List<ItemProduto> produtos,BigDecimal valorTotal){
+                Compra compra = Populate.populateCompra(fornecedor, produtos,valorTotal);
                 entityManager.persist(compra);
                 
                 return compra;
+         }
+         
+         public static Venda populateVenda(EntityManager entityManager,Cliente cliente,List<ItemProduto> produtos,BigDecimal valorTotal){
+                Venda venda = Populate.populateVenda(cliente, produtos, valorTotal);
+                entityManager.persist(venda);
+                
+                return venda;
+                
          }
          
          public static ItemProduto populateItemProduto(EntityManager entityManager, Produto produto,int quantidade,BigDecimal valor){

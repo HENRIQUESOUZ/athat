@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 import br.com.athat.core.manager.AbstractManager;
 import br.com.athat.core.movimentacao.ItemProduto;
 import br.com.athat.core.movimentacao.compra.entity.Compra;
+import br.com.athat.core.movimentacao.enuns.SituacaoMovimentacaoType;
 import org.springframework.beans.factory.annotation.Autowired;
 
 public class CompraManagerImpl extends AbstractManager implements CompraManager {
@@ -19,17 +20,20 @@ public class CompraManagerImpl extends AbstractManager implements CompraManager 
     private EstoqueManager estoqueManager;
 
     @Transactional
-    public void salvar(Compra compra) {
+    public Compra salvar(Compra compra) {
         
         for(ItemProduto itemProduto : compra.getItensMovimentacao()){
             estoqueManager.entrar(itemProduto);           
         }
         
         if (compra != null) {
+            compra.setSituacaoMovimentacaoType(SituacaoMovimentacaoType.ABERTA);
             getEntityManager().persist(compra);
         } else {
             getEntityManager().merge(compra);
         }
+        
+        return compra;
     }
 
     @SuppressWarnings("unchecked")
@@ -43,10 +47,6 @@ public class CompraManagerImpl extends AbstractManager implements CompraManager 
 
         if (compra.getDataEmissaoNF() != null) {
             criteria.add(Restrictions.eq("dataEmissaoNF", compra.getDataEmissaoNF()));
-        }
-
-        if (compra.getDataEncerramento() != null) {
-            criteria.add(Restrictions.eq("dataEncerramento", compra.getDataEncerramento()));
         }
 
         if (compra.getSituacaoMovimentacaoType() != null) {
