@@ -2,11 +2,12 @@ package br.com.athat.test.movimentacao.venda;
 
 import br.com.athat.core.AbstractTest;
 import br.com.athat.core.PopulateBD;
-import br.com.athat.core.cadastro.pessoa.cliente.entity.Cliente;
-import br.com.athat.core.cadastro.pessoa.entity.endereco.Cidade;
-import br.com.athat.core.movimentacao.enuns.SituacaoMovimentacaoType;
-import br.com.athat.core.movimentacao.venda.entity.Venda;
-import br.com.athat.core.movimentacao.venda.manager.VendaManager;
+import br.com.athat.core.entity.movimentacao.enuns.SituacaoMovimentacaoType;
+import br.com.athat.core.entity.movimentacao.venda.Venda;
+import br.com.athat.core.entity.pessoa.cliente.Cliente;
+import br.com.athat.core.entity.pessoa.endereco.Cidade;
+import br.com.athat.core.manager.movimentacao.venda.VendaManager;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;

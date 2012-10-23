@@ -7,7 +7,7 @@ import org.hibernate.envers.RevisionListener;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 
-import br.com.athat.core.usuario.entity.Usuario;
+import br.com.athat.core.entity.usuario.Usuario;
 
 
 public class AthatRevisionListener implements RevisionListener {

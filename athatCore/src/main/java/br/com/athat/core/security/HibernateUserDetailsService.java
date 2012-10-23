@@ -14,7 +14,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.transaction.annotation.Transactional;
 
-import br.com.athat.core.usuario.entity.Usuario;
+import br.com.athat.core.entity.usuario.Usuario;
 
 public class HibernateUserDetailsService implements UserDetailsService, Serializable {
 

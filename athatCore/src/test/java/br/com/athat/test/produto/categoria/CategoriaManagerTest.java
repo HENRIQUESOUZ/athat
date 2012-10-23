@@ -8,11 +8,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import br.com.athat.core.AbstractTest;
 import br.com.athat.core.Populate;
 import br.com.athat.core.PopulateBD;
-import br.com.athat.core.cadastro.produto.categoria.entity.Categoria;
-import br.com.athat.core.cadastro.produto.categoria.entity.IdentificacaoType;
-import br.com.athat.core.cadastro.produto.categoria.entity.UnidadeMedidaType;
-import br.com.athat.core.cadastro.produto.categoria.manager.CategoriaManager;
-import br.com.athat.core.cadastro.produto.entity.ProdutoType;
+import br.com.athat.core.entity.produto.ProdutoType;
+import br.com.athat.core.entity.produto.categoria.Categoria;
+import br.com.athat.core.entity.produto.categoria.IdentificacaoType;
+import br.com.athat.core.entity.produto.categoria.UnidadeMedidaType;
+import br.com.athat.core.manager.produto.categoria.CategoriaManager;
 
 public class CategoriaManagerTest extends AbstractTest{
 	

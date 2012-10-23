@@ -12,10 +12,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import br.com.athat.core.AbstractTest;
 import br.com.athat.core.Populate;
 import br.com.athat.core.PopulateBD;
-import br.com.athat.core.cadastro.pessoa.cliente.entity.Cliente;
-import br.com.athat.core.cadastro.pessoa.cliente.manager.ClienteManager;
-import br.com.athat.core.cadastro.pessoa.entity.Pessoa;
-import br.com.athat.core.cadastro.pessoa.entity.endereco.Cidade;
+import br.com.athat.core.entity.pessoa.Pessoa;
+import br.com.athat.core.entity.pessoa.cliente.Cliente;
+import br.com.athat.core.entity.pessoa.endereco.Cidade;
+import br.com.athat.core.manager.pessoa.cliente.ClienteManager;
 
 public class ClienteManagerTest extends AbstractTest{
     

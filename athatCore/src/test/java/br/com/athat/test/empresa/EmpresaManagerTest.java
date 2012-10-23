@@ -8,8 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import br.com.athat.core.AbstractTest;
 import br.com.athat.core.Populate;
 import br.com.athat.core.PopulateBD;
-import br.com.athat.core.cadastro.empresa.entity.Empresa;
-import br.com.athat.core.empresa.manager.EmpresaManager;
+import br.com.athat.core.entity.empresa.Empresa;
+import br.com.athat.core.manager.empresa.EmpresaManager;
 
 public class EmpresaManagerTest extends AbstractTest{
 

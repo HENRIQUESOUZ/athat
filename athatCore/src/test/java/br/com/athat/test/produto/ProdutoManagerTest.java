@@ -9,9 +9,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import br.com.athat.core.AbstractTest;
 import br.com.athat.core.Populate;
 import br.com.athat.core.PopulateBD;
-import br.com.athat.core.cadastro.produto.categoria.entity.Categoria;
-import br.com.athat.core.cadastro.produto.entity.Produto;
-import br.com.athat.core.cadastro.produto.manager.ProdutoManager;
+import br.com.athat.core.entity.produto.Produto;
+import br.com.athat.core.entity.produto.categoria.Categoria;
+import br.com.athat.core.manager.produto.ProdutoManager;
 
 public class ProdutoManagerTest extends AbstractTest{
 	

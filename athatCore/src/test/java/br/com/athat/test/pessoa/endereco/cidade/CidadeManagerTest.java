@@ -8,9 +8,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import br.com.athat.core.AbstractTest;
 import br.com.athat.core.Populate;
 import br.com.athat.core.PopulateBD;
-import br.com.athat.core.cadastro.pessoa.entity.endereco.Cidade;
-import br.com.athat.core.cadastro.pessoa.entity.endereco.EstadoType;
-import br.com.athat.core.cadastro.pessoa.manager.CidadeManager;
+import br.com.athat.core.entity.pessoa.endereco.Cidade;
+import br.com.athat.core.entity.pessoa.endereco.EstadoType;
+import br.com.athat.core.manager.pessoa.CidadeManager;
 
 public class CidadeManagerTest extends AbstractTest{
 

@@ -9,11 +9,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import br.com.athat.core.AbstractTest;
 import br.com.athat.core.Populate;
 import br.com.athat.core.PopulateBD;
-import br.com.athat.core.cadastro.pessoa.entity.Pessoa;
-import br.com.athat.core.cadastro.pessoa.entity.endereco.Cidade;
-import br.com.athat.core.cadastro.pessoa.entity.enuns.FornecedorType;
-import br.com.athat.core.cadastro.pessoa.fornecedor.entity.Fornecedor;
-import br.com.athat.core.cadastro.pessoa.fornecedor.manager.FornecedorManager;
+import br.com.athat.core.entity.pessoa.Pessoa;
+import br.com.athat.core.entity.pessoa.endereco.Cidade;
+import br.com.athat.core.entity.pessoa.enuns.FornecedorType;
+import br.com.athat.core.entity.pessoa.fornecedor.Fornecedor;
+import br.com.athat.core.manager.pessoa.fornecedor.FornecedorManager;
 
 public class FornecedorManagerTest extends AbstractTest {
 	

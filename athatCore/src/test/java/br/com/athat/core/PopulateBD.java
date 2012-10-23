@@ -2,17 +2,17 @@ package br.com.athat.core;
 
 import javax.persistence.EntityManager;
 
-import br.com.athat.core.cadastro.empresa.entity.Empresa;
-import br.com.athat.core.cadastro.pessoa.cliente.entity.Cliente;
-import br.com.athat.core.cadastro.pessoa.entity.endereco.Cidade;
-import br.com.athat.core.cadastro.pessoa.fornecedor.entity.Fornecedor;
-import br.com.athat.core.cadastro.pessoa.funcionario.entity.Funcionario;
-import br.com.athat.core.cadastro.produto.categoria.entity.Categoria;
-import br.com.athat.core.cadastro.produto.entity.Produto;
-import br.com.athat.core.cadastro.produto.tabelaPreco.entity.TabelaPreco;
-import br.com.athat.core.movimentacao.ItemProduto;
-import br.com.athat.core.movimentacao.compra.entity.Compra;
-import br.com.athat.core.movimentacao.venda.entity.Venda;
+import br.com.athat.core.entity.empresa.Empresa;
+import br.com.athat.core.entity.movimentacao.ItemProduto;
+import br.com.athat.core.entity.movimentacao.compra.Compra;
+import br.com.athat.core.entity.movimentacao.venda.Venda;
+import br.com.athat.core.entity.pessoa.cliente.Cliente;
+import br.com.athat.core.entity.pessoa.endereco.Cidade;
+import br.com.athat.core.entity.pessoa.fornecedor.Fornecedor;
+import br.com.athat.core.entity.pessoa.funcionario.Funcionario;
+import br.com.athat.core.entity.produto.Produto;
+import br.com.athat.core.entity.produto.categoria.Categoria;
+import br.com.athat.core.entity.produto.tabelaPreco.TabelaPreco;
 import java.math.BigDecimal;
 import java.util.List;
 

@@ -7,12 +7,12 @@ import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import br.com.athat.core.AbstractTest;
 import br.com.athat.core.PopulateBD;
-import br.com.athat.core.cadastro.produto.categoria.entity.Categoria;
-import br.com.athat.core.cadastro.produto.entity.Produto;
-import br.com.athat.core.cadastro.produto.estoque.EstoqueManager;
-import br.com.athat.core.cadastro.produto.estoque.entity.Estoque;
-import br.com.athat.core.cadastro.produto.estoque.entity.ItemEstoque;
-import br.com.athat.core.movimentacao.ItemProduto;
+import br.com.athat.core.entity.movimentacao.ItemProduto;
+import br.com.athat.core.entity.produto.Produto;
+import br.com.athat.core.entity.produto.categoria.Categoria;
+import br.com.athat.core.entity.produto.estoque.Estoque;
+import br.com.athat.core.entity.produto.estoque.ItemEstoque;
+import br.com.athat.core.manager.produto.estoque.EstoqueManager;
 import java.math.BigDecimal;
 
 public class EstoqueManagerTest extends AbstractTest{

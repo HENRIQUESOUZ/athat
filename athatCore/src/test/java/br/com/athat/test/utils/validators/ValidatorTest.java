@@ -3,7 +3,7 @@ package br.com.athat.test.utils.validators;
 import org.junit.Assert;
 import org.junit.Test;
 
-import br.com.athat.core.cadastro.pessoa.entity.Pessoa;
+import br.com.athat.core.entity.pessoa.Pessoa;
 import br.com.athat.utils.validators.CpfCnpjValidator;
 import br.com.athat.utils.validators.ValidatorUtils;
 

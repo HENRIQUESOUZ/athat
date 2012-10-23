@@ -6,8 +6,8 @@ import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import br.com.athat.core.AbstractTest;
 import br.com.athat.core.Populate;
-import br.com.athat.core.cadastro.produto.tabelaPreco.entity.TabelaPreco;
-import br.com.athat.core.cadastro.produto.tabelaPreco.manager.TabelaPrecoManager;
+import br.com.athat.core.entity.produto.tabelaPreco.TabelaPreco;
+import br.com.athat.core.manager.produto.tabelaPreco.TabelaPrecoManager;
 
 public class TabelaPrecoManagerTest extends AbstractTest{
 	
