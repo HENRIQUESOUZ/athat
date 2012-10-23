@@ -42,6 +42,11 @@ public class CompraManagerTest extends AbstractTest{
         itemProduto2 = PopulateBD.populateItemProduto(entityManager, produto2, 5, BigDecimal.valueOf(100));
     }
     
+    @Test
+    public void test(){
+    	
+    }
+    
 //    @Test
 //    public void salvar(){
 //        List<ItemProduto> itensProduto = new ArrayList<ItemProduto>();

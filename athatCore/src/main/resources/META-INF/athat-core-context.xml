@@ -35,6 +35,7 @@
 
     <bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager" p:entityManagerFactory-ref="entityManagerFactory" />
     
+<<<<<<< HEAD
     <bean id="usuarioManager"     class="br.com.athat.core.manager.usuario.UsuarioManagerImpl"/>
     <bean id="usuarioBuilder"     class="br.com.athat.core.manager.usuario.builder.UsuarioBuilder"/>
     <bean id="categoriaManager"   class="br.com.athat.core.manager.produto.categoria.CategoriaManagerImpl"/>
@@ -49,5 +50,22 @@
     <bean id="empresaManager"     class="br.com.athat.core.manager.empresa.EmpresaManagerImpl"/>
     <bean id="tabelaPrecoManager" class="br.com.athat.core.manager.cadastro.produto.tabelaPreco.TabelaPrecoManagerImpl"/>
     <bean id="compraManager"      class="br.com.athat.core.manager.movimentacao.compra.CompraManagerImpl"/>
+=======
+    <bean id="usuarioManager" class="br.com.athat.core.usuario.manager.UsuarioManagerImpl"/>
+    <bean id="usuarioBuilder" class="br.com.athat.core.usuario.builder.UsuarioBuilder"/>
+    <bean id="categoriaManager" class="br.com.athat.core.cadastro.produto.categoria.manager.CategoriaManagerImpl"/>
+    <bean id="clienteManager" class="br.com.athat.core.cadastro.pessoa.cliente.manager.ClienteManagerImpl"/>
+    <bean id="estoqueManager" class="br.com.athat.core.cadastro.produto.estoque.EstoqueManagerImpl"/>
+    <bean id="itemEstoqueManager" class="br.com.athat.core.cadastro.produto.estoque.ItemEstoqueManagerImpl"/>
+    <bean id="funcionarioManager" class="br.com.athat.core.cadastro.pessoa.funcionario.manager.FuncionarioManagerImpl"/>
+    <bean id="fornecedorManager" class="br.com.athat.core.cadastro.pessoa.fornecedor.manager.FornecedorManagerImpl"/>
+    <bean id="pessoaManager" class="br.com.athat.core.cadastro.pessoa.manager.PessoaManagerImpl"/>
+    <bean id="produtoManager" class="br.com.athat.core.cadastro.produto.manager.ProdutoManagerImpl"/>
+    <bean id="cidadeManager" class="br.com.athat.core.cadastro.pessoa.manager.CidadeManagerImpl"/>
+    <bean id="empresaManager" class="br.com.athat.core.empresa.manager.EmpresaManagerImpl"/>
+    <bean id="tabelaPrecoManager" class="br.com.athat.core.cadastro.produto.tabelaPreco.manager.TabelaPrecoManagerImpl"/>
+    <bean id="compraManager" class="br.com.athat.core.movimentacao.compra.manager.CompraManagerImpl"/>
+    <bean id="vendaManager" class="br.com.athat.core.movimentacao.venda.manager.VendaManagerImpl"/>
+>>>>>>> correções na aplicação para compilar
     
 </beans>

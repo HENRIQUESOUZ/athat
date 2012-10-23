@@ -5,6 +5,11 @@ import java.math.BigDecimal;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.ManyToOne;
+<<<<<<< HEAD:athatCore/src/main/java/br/com/athat/core/entity/movimentacao/ItemProduto.java
+=======
+
+import br.com.athat.core.cadastro.produto.entity.Produto;
+>>>>>>> correções na aplicação para compilar:athatCore/src/main/java/br/com/athat/core/movimentacao/ItemProduto.java
 import br.com.athat.core.entity.AbstractEntity;
 import br.com.athat.core.entity.produto.Produto;
 
