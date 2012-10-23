@@ -12,17 +12,14 @@
     <class>br.com.athat.core.entity.pessoa.Pessoa</class>
     <class>br.com.athat.core.entity.pessoa.Telefone</class>
     <class>br.com.athat.core.entity.pessoa.endereco.Cidade</class>
-    <class>br.com.athat.core.entity.pessoa.cliente.entity.Cliente</class>
     <class>br.com.athat.core.entity.pessoa.fornecedor.Fornecedor</class>
     <class>br.com.athat.core.entity.pessoa.funcionario.Funcionario</class>
-    <class>br.com.athat.core.entity.produto.entity.Produto</class>
-    <class>br.com.athat.core.entity.produto.categoria.entity.Categoria</class>
     <class>br.com.athat.core.entity.produto.estoque.Estoque</class>
     <class>br.com.athat.core.entity.produto.estoque.ItemEstoque</class>
     <class>br.com.athat.core.entity.produto.tabelaPreco.TabelaPreco</class>
     <class>br.com.athat.core.entity.movimentacao.compra.Compra</class>
     <class>br.com.athat.core.entity.movimentacao.ItemProduto</class>
-    
+   
     <exclude-unlisted-classes>true</exclude-unlisted-classes>
     
     <properties>

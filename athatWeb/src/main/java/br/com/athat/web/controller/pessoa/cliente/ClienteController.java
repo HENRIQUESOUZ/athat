@@ -2,11 +2,14 @@ package br.com.athat.web.controller.pessoa.cliente;
 
 import java.util.ArrayList;
 import java.util.List;
+
 import javax.annotation.PostConstruct;
+
 import org.springframework.beans.factory.annotation.Autowired;
-import br.com.athat.core.cadastro.pessoa.cliente.entity.Cliente;
-import br.com.athat.core.cadastro.pessoa.cliente.manager.ClienteManager;
-import br.com.athat.core.cadastro.pessoa.entity.Pessoa;
+
+import br.com.athat.core.entity.pessoa.Pessoa;
+import br.com.athat.core.entity.pessoa.cliente.Cliente;
+import br.com.athat.core.manager.pessoa.cliente.ClienteManager;
 import br.com.athat.web.utils.AbstractController;
 
 public class ClienteController extends AbstractController{

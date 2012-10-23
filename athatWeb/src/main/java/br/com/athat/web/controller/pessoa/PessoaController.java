@@ -8,16 +8,18 @@ import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.event.ActionEvent;
 import javax.faces.model.SelectItem;
+
 import org.springframework.beans.factory.annotation.Autowired;
-import br.com.athat.core.cadastro.pessoa.entity.Endereco;
-import br.com.athat.core.cadastro.pessoa.entity.Pessoa;
-import br.com.athat.core.cadastro.pessoa.entity.Telefone;
-import br.com.athat.core.cadastro.pessoa.entity.endereco.Cidade;
-import br.com.athat.core.cadastro.pessoa.entity.endereco.EstadoType;
-import br.com.athat.core.cadastro.pessoa.entity.enuns.EnderecoType;
-import br.com.athat.core.cadastro.pessoa.entity.enuns.PessoaType;
-import br.com.athat.core.cadastro.pessoa.manager.CidadeManager;
-import br.com.athat.core.cadastro.pessoa.manager.PessoaManager;
+
+import br.com.athat.core.entity.pessoa.Endereco;
+import br.com.athat.core.entity.pessoa.Pessoa;
+import br.com.athat.core.entity.pessoa.Telefone;
+import br.com.athat.core.entity.pessoa.endereco.Cidade;
+import br.com.athat.core.entity.pessoa.endereco.EstadoType;
+import br.com.athat.core.entity.pessoa.enuns.EnderecoType;
+import br.com.athat.core.entity.pessoa.enuns.PessoaType;
+import br.com.athat.core.manager.pessoa.CidadeManager;
+import br.com.athat.core.manager.pessoa.PessoaManager;
 import br.com.athat.utils.validators.CpfCnpjValidator;
 import br.com.athat.web.utils.AbstractController;
 

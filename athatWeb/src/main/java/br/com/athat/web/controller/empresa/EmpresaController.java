@@ -5,6 +5,8 @@ import java.util.List;
 
 import javax.annotation.PostConstruct;
 
+import org.springframework.beans.factory.annotation.Autowired;
+
 import br.com.athat.core.entity.empresa.Empresa;
 import br.com.athat.core.manager.empresa.EmpresaManager;
 import br.com.athat.web.utils.AbstractController;

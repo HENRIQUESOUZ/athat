@@ -3,9 +3,11 @@ package br.com.athat.web.utils.jsfConverters;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
+
 import org.springframework.web.jsf.FacesContextUtils;
-import br.com.athat.core.cadastro.pessoa.entity.endereco.Cidade;
-import br.com.athat.core.cadastro.pessoa.manager.CidadeManager;
+
+import br.com.athat.core.entity.pessoa.endereco.Cidade;
+import br.com.athat.core.manager.pessoa.CidadeManager;
 
 public class CidadeConverter implements Converter{
 	

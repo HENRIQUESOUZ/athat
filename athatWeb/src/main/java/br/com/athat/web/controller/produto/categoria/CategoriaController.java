@@ -2,10 +2,13 @@ package br.com.athat.web.controller.produto.categoria;
 
 import java.util.ArrayList;
 import java.util.List;
+
 import javax.annotation.PostConstruct;
+
 import org.springframework.beans.factory.annotation.Autowired;
-import br.com.athat.core.cadastro.produto.categoria.entity.Categoria;
-import br.com.athat.core.cadastro.produto.categoria.manager.CategoriaManager;
+
+import br.com.athat.core.entity.produto.categoria.Categoria;
+import br.com.athat.core.manager.produto.categoria.CategoriaManager;
 import br.com.athat.web.utils.AbstractController;
 
 public class CategoriaController extends AbstractController{

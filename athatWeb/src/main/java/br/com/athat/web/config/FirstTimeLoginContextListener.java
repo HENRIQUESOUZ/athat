@@ -6,7 +6,7 @@ import javax.servlet.ServletContextListener;
 import org.springframework.context.ApplicationContext;
 import org.springframework.web.context.support.WebApplicationContextUtils;
 
-import br.com.athat.core.usuario.manager.UsuarioManager;
+import br.com.athat.core.manager.usuario.UsuarioManager;
 
 
 public class FirstTimeLoginContextListener implements ServletContextListener {

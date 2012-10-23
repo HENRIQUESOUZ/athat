@@ -2,10 +2,11 @@ package br.com.athat.web.controller.usuario;
 
 
 
-import br.com.athat.core.usuario.builder.UsuarioBuilder;
-import br.com.athat.core.usuario.entity.Usuario;
-import br.com.athat.web.utils.AbstractController;
 import org.springframework.beans.factory.annotation.Autowired;
+
+import br.com.athat.core.entity.usuario.Usuario;
+import br.com.athat.core.manager.usuario.builder.UsuarioBuilder;
+import br.com.athat.web.utils.AbstractController;
 
 public class UsuarioController extends AbstractController{
     

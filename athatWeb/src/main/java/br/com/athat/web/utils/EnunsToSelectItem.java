@@ -3,13 +3,15 @@ package br.com.athat.web.utils;
 import java.io.Serializable;
 import java.util.LinkedList;
 import java.util.List;
+
 import javax.faces.model.SelectItem;
-import br.com.athat.core.cadastro.pessoa.entity.endereco.EstadoType;
-import br.com.athat.core.cadastro.pessoa.entity.enuns.EnderecoType;
-import br.com.athat.core.cadastro.pessoa.entity.enuns.LogradouroType;
-import br.com.athat.core.cadastro.produto.categoria.entity.IdentificacaoType;
-import br.com.athat.core.cadastro.produto.categoria.entity.UnidadeMedidaType;
-import br.com.athat.core.cadastro.produto.entity.ProdutoType;
+
+import br.com.athat.core.entity.pessoa.endereco.EstadoType;
+import br.com.athat.core.entity.pessoa.enuns.EnderecoType;
+import br.com.athat.core.entity.pessoa.enuns.LogradouroType;
+import br.com.athat.core.entity.produto.ProdutoType;
+import br.com.athat.core.entity.produto.categoria.IdentificacaoType;
+import br.com.athat.core.entity.produto.categoria.UnidadeMedidaType;
 
 public class EnunsToSelectItem implements Serializable{
 

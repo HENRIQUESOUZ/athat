@@ -13,8 +13,8 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.context.ApplicationContext;
 import org.springframework.web.context.support.WebApplicationContextUtils;
 
-import br.com.athat.core.usuario.entity.Usuario;
-import br.com.athat.core.usuario.manager.UsuarioManager;
+import br.com.athat.core.entity.usuario.Usuario;
+import br.com.athat.core.manager.usuario.UsuarioManager;
 
 public class LoadDomain implements Filter {
 

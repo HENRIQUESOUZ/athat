@@ -6,9 +6,10 @@ import java.util.List;
 import javax.annotation.PostConstruct;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import br.com.athat.core.cadastro.pessoa.entity.Pessoa;
-import br.com.athat.core.cadastro.pessoa.fornecedor.entity.Fornecedor;
-import br.com.athat.core.cadastro.pessoa.fornecedor.manager.FornecedorManager;
+
+import br.com.athat.core.entity.pessoa.Pessoa;
+import br.com.athat.core.entity.pessoa.fornecedor.Fornecedor;
+import br.com.athat.core.manager.pessoa.fornecedor.FornecedorManager;
 import br.com.athat.web.utils.AbstractController;
 
 public class FornecedorController extends AbstractController{

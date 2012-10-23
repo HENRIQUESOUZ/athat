@@ -5,9 +5,10 @@ import java.util.List;
 import javax.annotation.PostConstruct;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import br.com.athat.core.cadastro.pessoa.entity.Pessoa;
-import br.com.athat.core.cadastro.pessoa.funcionario.entity.Funcionario;
-import br.com.athat.core.cadastro.pessoa.funcionario.manager.FuncionarioManager;
+
+import br.com.athat.core.entity.pessoa.Pessoa;
+import br.com.athat.core.entity.pessoa.funcionario.Funcionario;
+import br.com.athat.core.manager.pessoa.funcionario.FuncionarioManager;
 import br.com.athat.web.utils.AbstractController;
 
 public class FuncionarioController extends AbstractController{
