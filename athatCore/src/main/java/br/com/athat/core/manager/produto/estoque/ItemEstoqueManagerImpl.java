@@ -6,7 +6,9 @@ import org.springframework.transaction.annotation.Transactional;
 
 public class ItemEstoqueManagerImpl extends AbstractManager implements ItemEstoqueManager{
 
-    @Transactional
+	private static final long serialVersionUID = 1L;
+
+	@Transactional
     public void salvar(ItemEstoque itemEstoque) {
         if(itemEstoque != null) {
             getEntityManager().persist(itemEstoque);
