@@ -3,8 +3,8 @@
   <persistence-unit name="athatPU" transaction-type="RESOURCE_LOCAL">
     <provider>org.hibernate.ejb.HibernatePersistence</provider>
     
+    <class>br.com.athat.core.entity.AbstractEntity</class>
     <class>br.com.athat.core.security.AthatRevisionEntity</class>
-<<<<<<< HEAD
     <class>br.com.athat.core.entity.usuario.Usuario</class>
     <class>br.com.athat.core.entity.usuario.Perfil</class>
     <class>br.com.athat.core.entity.usuario.UsuarioPerfil</class>
@@ -15,34 +15,14 @@
     <class>br.com.athat.core.entity.pessoa.endereco.Cidade</class>
     <class>br.com.athat.core.entity.pessoa.fornecedor.Fornecedor</class>
     <class>br.com.athat.core.entity.pessoa.funcionario.Funcionario</class>
+    <class>br.com.athat.core.entity.produto.categoria.Categoria</class>
+    <class>br.com.athat.core.entity.produto.Produto</class>
     <class>br.com.athat.core.entity.produto.estoque.Estoque</class>
     <class>br.com.athat.core.entity.produto.estoque.ItemEstoque</class>
     <class>br.com.athat.core.entity.produto.tabelaPreco.TabelaPreco</class>
     <class>br.com.athat.core.entity.movimentacao.compra.Compra</class>
     <class>br.com.athat.core.entity.movimentacao.ItemProduto</class>
    
-=======
-    <class>br.com.athat.core.usuario.entity.Usuario</class>
-    <class>br.com.athat.core.usuario.entity.Perfil</class>
-    <class>br.com.athat.core.usuario.entity.UsuarioPerfil</class>
-    <class>br.com.athat.core.cadastro.empresa.entity.Empresa</class>
-    <class>br.com.athat.core.cadastro.pessoa.entity.Endereco</class>
-    <class>br.com.athat.core.cadastro.pessoa.entity.Pessoa</class>
-    <class>br.com.athat.core.cadastro.pessoa.entity.Telefone</class>
-    <class>br.com.athat.core.cadastro.pessoa.entity.endereco.Cidade</class>
-    <class>br.com.athat.core.cadastro.pessoa.cliente.entity.Cliente</class>
-    <class>br.com.athat.core.cadastro.pessoa.fornecedor.entity.Fornecedor</class>
-    <class>br.com.athat.core.cadastro.pessoa.funcionario.entity.Funcionario</class>
-    <class>br.com.athat.core.cadastro.produto.entity.Produto</class>
-    <class>br.com.athat.core.cadastro.produto.categoria.entity.Categoria</class>
-    <class>br.com.athat.core.cadastro.produto.estoque.entity.Estoque</class>
-    <class>br.com.athat.core.cadastro.produto.estoque.entity.ItemEstoque</class>
-    <class>br.com.athat.core.cadastro.produto.tabelaPreco.entity.TabelaPreco</class>
-    <class>br.com.athat.core.movimentacao.compra.entity.Compra</class>
-    <class>br.com.athat.core.movimentacao.ItemProduto</class>
-    <class>br.com.athat.core.movimentacao.venda.entity.Venda</class>
-    
->>>>>>> correções na aplicação para compilar
     <exclude-unlisted-classes>true</exclude-unlisted-classes>
     
     <properties>

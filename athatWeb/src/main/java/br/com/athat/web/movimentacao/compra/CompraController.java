@@ -5,11 +5,11 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
-import br.com.athat.core.cadastro.produto.entity.Produto;
-import br.com.athat.core.cadastro.produto.manager.ProdutoManager;
-import br.com.athat.core.movimentacao.ItemProduto;
-import br.com.athat.core.movimentacao.compra.entity.Compra;
-import br.com.athat.core.movimentacao.compra.manager.CompraManager;
+import br.com.athat.core.entity.movimentacao.ItemProduto;
+import br.com.athat.core.entity.movimentacao.compra.Compra;
+import br.com.athat.core.entity.produto.Produto;
+import br.com.athat.core.manager.movimentacao.compra.CompraManager;
+import br.com.athat.core.manager.produto.ProdutoManager;
 import br.com.athat.web.utils.AbstractController;
 
 public class CompraController extends AbstractController {
