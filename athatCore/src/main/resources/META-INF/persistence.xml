@@ -3,7 +3,6 @@
   <persistence-unit name="athatPU" transaction-type="RESOURCE_LOCAL">
     <provider>org.hibernate.ejb.HibernatePersistence</provider>
     
-    <class>br.com.athat.core.entity.AbstractEntity</class>
     <class>br.com.athat.core.security.AthatRevisionEntity</class>
 <<<<<<< HEAD
     <class>br.com.athat.core.entity.usuario.Usuario</class>
