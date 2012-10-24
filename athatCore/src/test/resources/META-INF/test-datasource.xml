@@ -14,7 +14,7 @@
 	        p:driverClassName="com.mysql.jdbc.Driver"
 	        p:username="athat"
 	        p:password="athat"
-	        p:url="jdbc:mysql://localhost:3306/athat-test"
+	        p:url="jdbc:mysql://localhost:3306/athat_test"
 	        p:validationQuery="SELECT 1"
     />
                                 
