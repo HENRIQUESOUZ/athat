@@ -3,6 +3,7 @@
   <persistence-unit name="athatPU" transaction-type="RESOURCE_LOCAL">
     <provider>org.hibernate.ejb.HibernatePersistence</provider>
     
+    <class>br.com.athat.core.entity.AbstractEntity</class>
     <class>br.com.athat.core.security.AthatRevisionEntity</class>
     <class>br.com.athat.core.entity.usuario.Usuario</class>
     <class>br.com.athat.core.entity.usuario.Perfil</class>
@@ -14,6 +15,8 @@
     <class>br.com.athat.core.entity.pessoa.endereco.Cidade</class>
     <class>br.com.athat.core.entity.pessoa.fornecedor.Fornecedor</class>
     <class>br.com.athat.core.entity.pessoa.funcionario.Funcionario</class>
+    <class>br.com.athat.core.entity.produto.categoria.Categoria</class>
+    <class>br.com.athat.core.entity.produto.Produto</class>
     <class>br.com.athat.core.entity.produto.estoque.Estoque</class>
     <class>br.com.athat.core.entity.produto.estoque.ItemEstoque</class>
     <class>br.com.athat.core.entity.produto.tabelaPreco.TabelaPreco</class>

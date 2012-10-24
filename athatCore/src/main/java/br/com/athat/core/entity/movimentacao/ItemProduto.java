@@ -5,6 +5,7 @@ import java.math.BigDecimal;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.ManyToOne;
+
 import br.com.athat.core.entity.AbstractEntity;
 import br.com.athat.core.entity.produto.Produto;
 
