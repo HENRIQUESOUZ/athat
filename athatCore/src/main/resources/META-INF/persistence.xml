@@ -20,11 +20,9 @@
     <class>br.com.athat.core.entity.produto.estoque.Estoque</class>
     <class>br.com.athat.core.entity.produto.estoque.ItemEstoque</class>
     <class>br.com.athat.core.entity.produto.tabelaPreco.TabelaPreco</class>
-    <class>br.com.athat.core.entity.produto.Produto</class>
-    <class>br.com.athat.core.entity.produto.categoria.Categoria</class>
     <class>br.com.athat.core.entity.movimentacao.compra.Compra</class>
     <class>br.com.athat.core.entity.movimentacao.ItemProduto</class>
-    <class>br.com.athat.core.entity.AbstractEntity</class>
+
    
     <exclude-unlisted-classes>true</exclude-unlisted-classes>
     
