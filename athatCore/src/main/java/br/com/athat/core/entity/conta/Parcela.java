@@ -3,6 +3,8 @@ package br.com.athat.core.entity.conta;
 import java.util.List;
 
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
@@ -12,11 +14,16 @@ import br.com.athat.core.entity.conta.financeiro.Lancamento;
 
 @Entity
 public class Parcela extends AbstractEntity {
-	@ManyToOne(fetch = FetchType.EAGER)
+
+	private static final long serialVersionUID = 1L;
+	
+	@ManyToOne(fetch = FetchType.EAGER, optional = false)
 	private Conta conta;
-	@OneToMany
+
+	@OneToMany(fetch=FetchType.LAZY)
 	private List<Lancamento> lancamentos;
 	
+	@Enumerated(EnumType.STRING)
 	private SituacaoContaType situacao;
 
 	public Conta getConta() {
@@ -42,7 +49,4 @@ public class Parcela extends AbstractEntity {
 	public void setSituacao(SituacaoContaType situacao) {
 		this.situacao = situacao;
 	}
-	
-	
-
 }

@@ -9,7 +9,7 @@ import javax.persistence.TemporalType;
 import br.com.athat.core.entity.pessoa.Papel;
 
 @Entity
-public class Cliente extends Papel{
+public class Cliente extends Papel {
     
 	private static final long serialVersionUID = 1L;
 

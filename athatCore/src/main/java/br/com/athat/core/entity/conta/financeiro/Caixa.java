@@ -5,12 +5,20 @@ import java.math.BigDecimal;
 import javax.persistence.Entity;
 
 import br.com.athat.core.entity.AbstractEntity;
+
 @Entity
 public class Caixa extends AbstractEntity {
+	
+	private static final long serialVersionUID = 1L;
+
 	private BigDecimal entrada = BigDecimal.ZERO;
+	
 	private BigDecimal saida = BigDecimal.ZERO;
+	
 	private BigDecimal saldoDiario = BigDecimal.ZERO;
+	
 	private BigDecimal saldoAtual = BigDecimal.ZERO;
+	
 	public BigDecimal getEntrada() {
 		return entrada;
 	}
@@ -35,5 +43,4 @@ public class Caixa extends AbstractEntity {
 	public void setSaldoAtual(BigDecimal saldoAtual) {
 		this.saldoAtual = saldoAtual;
 	}
-
 }

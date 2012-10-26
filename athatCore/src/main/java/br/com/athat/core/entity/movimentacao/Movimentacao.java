@@ -3,9 +3,12 @@ package br.com.athat.core.entity.movimentacao;
 import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
+
+import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import br.com.athat.core.entity.AbstractEntity;
@@ -24,14 +27,14 @@ public abstract class Movimentacao extends AbstractEntity {
 	@Temporal(TemporalType.DATE)
 	protected Date dataEncerramento;
 
-	@Enumerated
-	protected SituacaoMovimentacaoType situacaoMovimentacaoType;
-
 	@OneToMany(fetch = FetchType.LAZY)
 	protected List<ItemProduto> itensMovimentacao;
 
 	@OneToOne
 	protected Conta conta;
+	
+	@Enumerated(EnumType.STRING)
+	protected SituacaoMovimentacaoType situacaoMovimentacaoType;
 
 	public BigDecimal getValorTotal() {
 		return valorTotal;
@@ -73,6 +76,4 @@ public abstract class Movimentacao extends AbstractEntity {
 	public void setConta(Conta conta) {
 		this.conta = conta;
 	}
-
-	
 }

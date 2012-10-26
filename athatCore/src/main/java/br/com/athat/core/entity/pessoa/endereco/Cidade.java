@@ -2,6 +2,7 @@ package br.com.athat.core.entity.pessoa.endereco;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 
 import br.com.athat.core.entity.AbstractEntity;
@@ -11,13 +12,13 @@ public class Cidade extends AbstractEntity{
 
 	private static final long serialVersionUID = 1L;
 
-	@Column(length=100,nullable=false)
+	@Column(length=100, nullable=false)
     private String nome;
     
-    @Column(length=20,nullable=false)
+    @Column(length=20, nullable=false)
     private String ibge;
     
-    @Enumerated
+    @Enumerated(EnumType.STRING)
     private EstadoType estadoType;
 
     public String getNome() {

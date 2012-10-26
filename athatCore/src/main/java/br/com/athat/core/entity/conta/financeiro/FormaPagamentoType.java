@@ -1,6 +1,7 @@
 package br.com.athat.core.entity.conta.financeiro;
 
 public enum FormaPagamentoType {
+	
 	CARTAO_DEBITO("Cartao Debito"),
 	CARTAO_CREDITO("Cartao Credito"),
 	CHEQUE("Cheque"),
@@ -16,6 +17,4 @@ public enum FormaPagamentoType {
 	public String getDescricao() {
 		return descricao;
 	}
-	
-	
 }

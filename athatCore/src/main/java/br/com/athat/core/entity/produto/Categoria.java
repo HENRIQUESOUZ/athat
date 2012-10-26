@@ -11,7 +11,7 @@ public abstract class Categoria  extends AbstractEntity{
 
 	private static final long serialVersionUID = 1L;
 
-	@Column(length = 100,nullable = false)
+	@Column(length = 100, nullable = false)
     private String descricao;
     
     @ManyToOne

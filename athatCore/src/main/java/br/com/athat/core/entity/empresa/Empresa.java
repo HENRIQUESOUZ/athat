@@ -9,9 +9,9 @@ import br.com.athat.core.entity.AbstractEntity;
 public class Empresa extends AbstractEntity{
 	private static final long serialVersionUID = 1L;
 
+	@Column(length = 200, nullable = false)
 	private String nome;
 
-    @Column(length = 200)
     public String getNome() {
         return nome;
     }

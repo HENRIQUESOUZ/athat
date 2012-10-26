@@ -18,7 +18,7 @@ public class TabelaPreco extends AbstractEntity{
 	@Column(length = 70 , nullable = false)
 	private String nome; 
 	
-	private BigDecimal porcentagem;
+	private BigDecimal porcentagem = BigDecimal.ZERO;
 	
 	@Temporal(TemporalType.DATE)
 	private Date dataInicio;
@@ -26,6 +26,7 @@ public class TabelaPreco extends AbstractEntity{
 	@Temporal(TemporalType.DATE)
 	private Date dataFim;
 	
+	@Column(length = 240)
 	private String observacao;
 
 	public String getNome() {
