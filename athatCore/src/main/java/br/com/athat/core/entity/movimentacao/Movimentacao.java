@@ -9,33 +9,37 @@ import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import br.com.athat.core.entity.AbstractEntity;
+import br.com.athat.core.entity.conta.Conta;
 import br.com.athat.core.entity.movimentacao.enuns.SituacaoMovimentacaoType;
 
 import javax.persistence.MappedSuperclass;
 
 @MappedSuperclass
-public abstract class Movimentacao extends AbstractEntity{
+public abstract class Movimentacao extends AbstractEntity {
 
 	private static final long serialVersionUID = 1L;
-	
+
 	protected BigDecimal valorTotal = BigDecimal.ZERO;
-	
+
 	@Temporal(TemporalType.DATE)
 	protected Date dataEncerramento;
-	
+
 	@Enumerated
 	protected SituacaoMovimentacaoType situacaoMovimentacaoType;
-	
+
 	@OneToMany(fetch = FetchType.LAZY)
 	protected List<ItemProduto> itensMovimentacao;
 
-        public BigDecimal getValorTotal() {
-         return valorTotal;
-        }
-    
-        public void setValorTotal(BigDecimal valorTotal) {
-            this.valorTotal = valorTotal;
-        }
+	@OneToOne
+	protected Conta conta;
+
+	public BigDecimal getValorTotal() {
+		return valorTotal;
+	}
+
+	public void setValorTotal(BigDecimal valorTotal) {
+		this.valorTotal = valorTotal;
+	}
 
 	public Date getDataEncerramento() {
 		return dataEncerramento;
@@ -49,7 +53,8 @@ public abstract class Movimentacao extends AbstractEntity{
 		return situacaoMovimentacaoType;
 	}
 
-	public void setSituacaoMovimentacaoType(SituacaoMovimentacaoType situacaoMovimentacaoType) {
+	public void setSituacaoMovimentacaoType(
+			SituacaoMovimentacaoType situacaoMovimentacaoType) {
 		this.situacaoMovimentacaoType = situacaoMovimentacaoType;
 	}
 
@@ -61,4 +66,13 @@ public abstract class Movimentacao extends AbstractEntity{
 		this.itensMovimentacao = itensMovimentacao;
 	}
 
+	public Conta getConta() {
+		return conta;
+	}
+
+	public void setConta(Conta conta) {
+		this.conta = conta;
+	}
+
+	
 }

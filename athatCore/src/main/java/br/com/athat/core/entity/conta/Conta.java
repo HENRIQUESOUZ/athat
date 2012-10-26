@@ -13,14 +13,18 @@ import br.com.athat.core.entity.movimentacao.Movimentacao;
 
 @MappedSuperclass
 public class Conta extends AbstractEntity {
-	private BigDecimal valorTotal = BigDecimal.ZERO;
+	protected BigDecimal valorTotal = BigDecimal.ZERO;
 	
 	@OneToMany(fetch = FetchType.LAZY)
-	private List<Parcela> parcelas;
+	protected List<Parcela> parcelas;
 	@OneToOne
-	private Movimentacao movimentacao;
+	protected Movimentacao movimentacao;
 	
-	private SituacaoContaType situacao;
+	protected SituacaoContaType situacao;
+	
+	protected ContaType tipoConta;
+	
+	
 
 	public BigDecimal getValorTotal() {
 		return valorTotal;
@@ -53,6 +57,16 @@ public class Conta extends AbstractEntity {
 	public void setSituacao(SituacaoContaType situacao) {
 		this.situacao = situacao;
 	}
+
+	public ContaType getTipoConta() {
+		return tipoConta;
+	}
+
+	public void setTipoConta(ContaType tipoConta) {
+		this.tipoConta = tipoConta;
+	}
+
+
 	
 	
 	
