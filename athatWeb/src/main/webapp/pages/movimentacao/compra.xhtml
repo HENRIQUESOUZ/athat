@@ -1,0 +1,73 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui" 
+                template="/pages/template.xhtml">
+    
+    <ui:define name="titulo">
+        <h3>Compra</h3>
+    </ui:define>
+
+    <ui:define name="conteudo">
+        
+        <h:form id="cadastrocompra">
+
+            <h:panelGrid columns="3">
+                <h:outputText value="N�mero Nota Fiscal: "/>
+                <p:inputText id="notaFiscal" value="#{compraController.compra.notaFiscal}" 
+                	required="true" requiredMessage="Campo Nota Fiscal."/>
+                <p:message for="notaFiscal" />
+                <h:outputText value="Previsão de Entrega: "/>
+                <p:inputText id="previsaoEntrega" value="#{compraController.compra.previsaoEntrega}" 
+                	required="true" requiredMessage="Campo Previsão de Entrega."/>
+                <p:message for="previsaoEntrega" />
+            </h:panelGrid>
+            <br />
+            
+            <p:commandButton value="Novo Produto" value="#{compraController.prepararProduto}"/>
+            
+            <p:dataTable value="#{compraController.compra.itensProdutos}" var="item">
+                <p:column headerText="Codigo">
+                    <h:outputLabel value="#{item.produto.codigo}" />
+                </p:column>
+                <p:column headerText="Nome">
+                    <h:outputLabel value="#{item.produto.nome}" />
+                </p:column>
+                <p:column headerText="Quantidade">
+                    <h:outputLabel value="#{item.quantidade}" />
+                </p:column>
+                <p:column headerText="Valor Unt.">
+                    <h:outputLabel value="#{item.valor}" />
+                </p:column>
+                <p:column headerText="Valor Total">
+                    <h:outputLabel value="#{item.valorTotal}" />
+                </p:column>
+                <p:column headerText="Remover">
+                    <p:commandButton value="Remover" value="#{compraController.removerProduto}"/>
+                </p:column>
+                <p:columnGroup>
+                    <p:row>
+                        <p:column>
+                            <h:outputLabel value="Total: " />
+                        </p:column>
+                        <p:column>
+                            <h:outputLabel value="#{compraController.valorTotal}" />
+                        </p:column>
+                    </p:row>               
+                </p:columnGroup>
+            </p:dataTable>
+
+            <br />
+
+            <p:toolbar style="height:46px;">
+                <p:toolbarGroup align="right" >
+                    <p:commandButton value="Salvar" action="#{compraController.salvar}" ajax="false" />    
+                    <p:commandButton value="Finalizar" action="#{compraController.salvar}" ajax="false" />    
+                    <p:commandButton value="Limpar" action="#{compraController.limpar}" ajax="false" immediate="true"/>
+                    <p:commandButton value="Voltar" action="/pages/principal?faces-redirect=true" ajax="false" immediate="true"/>
+                </p:toolbarGroup>
+            </p:toolbar>            
+        </h:form>     
+    </ui:define>
+</ui:composition>

@@ -20,7 +20,7 @@ public class ItemProduto extends AbstractEntity{
 	
 	@ManyToOne(fetch = FetchType.EAGER)
 	private Produto produto;
-
+	
 	public BigDecimal getValor() {
 		return valor;
 	}
@@ -43,6 +43,10 @@ public class ItemProduto extends AbstractEntity{
 
 	public void setProduto(Produto produto) {
 		this.produto = produto;
+	}
+
+	public BigDecimal getValorTotal() {
+		return valor.multiply(new BigDecimal(quantidade));
 	}
 
 }
