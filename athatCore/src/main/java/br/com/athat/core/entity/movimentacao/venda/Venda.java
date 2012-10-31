@@ -3,6 +3,8 @@ package br.com.athat.core.entity.movimentacao.venda;
 import java.util.Date;
 
 import javax.persistence.Entity;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
 import javax.persistence.ManyToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -11,6 +13,7 @@ import br.com.athat.core.entity.movimentacao.Movimentacao;
 import br.com.athat.core.entity.pessoa.cliente.Cliente;
 
 @Entity
+@Inheritance(strategy=InheritanceType.TABLE_PER_CLASS)
 public class Venda extends Movimentacao{
 
 	private static final long serialVersionUID = 1L;

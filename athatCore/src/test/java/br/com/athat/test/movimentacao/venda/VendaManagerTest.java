@@ -9,6 +9,7 @@ import br.com.athat.core.entity.pessoa.endereco.Cidade;
 import br.com.athat.core.manager.movimentacao.venda.VendaManager;
 
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -25,7 +26,7 @@ public class VendaManagerTest extends AbstractTest{
         cidade = PopulateBD.populateCidade(entityManager);
         cliente = PopulateBD.populateCliente(entityManager, cidade);
     }
-    
+    @Ignore
     @Test
     public void salvar(){
         Venda venda = new Venda();

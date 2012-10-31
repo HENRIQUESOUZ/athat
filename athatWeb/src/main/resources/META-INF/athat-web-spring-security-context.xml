@@ -44,6 +44,6 @@
 
         <sec:logout invalidate-session="true" logout-url="/j_spring_security_logout" logout-success-url="/login.jsf"/>
 
-    </sec:http>-->
+    </sec:http>
 
-</beans>
+</beans>-->

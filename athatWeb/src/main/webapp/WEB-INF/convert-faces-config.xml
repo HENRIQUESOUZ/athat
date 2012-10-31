@@ -7,8 +7,8 @@
 
 
     <converter>
+   		<converter-id>cidadeConverter</converter-id>
         <converter-class>br.com.athat.web.utils.jsfConverters.CidadeConverter</converter-class>
-        <converter-id>cidadeConverter</converter-id>
     </converter>
 
 
