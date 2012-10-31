@@ -4,7 +4,12 @@
     <provider>org.hibernate.ejb.HibernatePersistence</provider>
     
     <class>br.com.athat.core.entity.AbstractEntity</class>
-    <class>br.com.athat.core.security.AthatRevisionEntity</class>
+    <class>br.com.athat.core.entity.conta.Conta</class>
+    <class>br.com.athat.core.entity.conta.ContaAPagar</class>
+    <class>br.com.athat.core.entity.conta.ContaAReceber</class>
+    <class>br.com.athat.core.entity.conta.Parcela</class>
+    <class>br.com.athat.core.entity.conta.financeiro.Caixa</class>
+    <class>br.com.athat.core.entity.conta.financeiro.Lancamento</class>
     <class>br.com.athat.core.entity.usuario.Usuario</class>
     <class>br.com.athat.core.entity.usuario.Perfil</class>
     <class>br.com.athat.core.entity.usuario.UsuarioPerfil</class>
@@ -22,6 +27,7 @@
     <class>br.com.athat.core.entity.produto.tabelaPreco.TabelaPreco</class>
     <class>br.com.athat.core.entity.movimentacao.compra.Compra</class>
     <class>br.com.athat.core.entity.movimentacao.ItemProduto</class>
+     <class>br.com.athat.core.security.AthatRevisionEntity</class>
 
    
     <exclude-unlisted-classes>true</exclude-unlisted-classes>

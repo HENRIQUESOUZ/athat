@@ -1,5 +1,6 @@
 package br.com.athat.core.entity.conta;
 
+import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 
 @Entity

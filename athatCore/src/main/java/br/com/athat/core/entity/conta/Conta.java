@@ -3,19 +3,25 @@ package br.com.athat.core.entity.conta;
 import java.math.BigDecimal;
 import java.util.List;
 
+import javax.persistence.DiscriminatorColumn;
+import javax.persistence.DiscriminatorType;
+import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
 import javax.persistence.MappedSuperclass;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
 import br.com.athat.core.entity.AbstractEntity;
 import br.com.athat.core.entity.movimentacao.Movimentacao;
-import br.com.athat.core.enuns.ContaType;
 
-@MappedSuperclass
-public abstract class Conta extends AbstractEntity {
+
+@Entity
+@Inheritance(strategy =InheritanceType.SINGLE_TABLE)
+public  class Conta extends AbstractEntity {
 	
 	private static final long serialVersionUID = 1L;
 
@@ -24,7 +30,7 @@ public abstract class Conta extends AbstractEntity {
 	@OneToMany(fetch = FetchType.LAZY)
 	protected List<Parcela> parcelas;
 	
-	@OneToOne
+	//@OneToOne
 	protected Movimentacao movimentacao;
 	
 	@Enumerated(EnumType.STRING)
