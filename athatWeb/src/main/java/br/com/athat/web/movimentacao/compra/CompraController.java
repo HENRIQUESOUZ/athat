@@ -4,10 +4,15 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.faces.event.ActionEvent;
+
+import org.primefaces.context.RequestContext;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import br.com.athat.core.entity.movimentacao.ItemProduto;
 import br.com.athat.core.entity.movimentacao.compra.Compra;
+import br.com.athat.core.entity.movimentacao.enuns.SituacaoMovimentacaoType;
+import br.com.athat.core.entity.pessoa.fornecedor.Fornecedor;
 import br.com.athat.core.entity.produto.Produto;
 import br.com.athat.core.manager.movimentacao.compra.CompraManager;
 import br.com.athat.core.manager.produto.ProdutoManager;
@@ -63,10 +68,28 @@ public class CompraController extends AbstractController {
 		return "/pages/movimentacao/compra";
 	}
 	
+	public String finalizar(){
+		compra.setSituacaoMovimentacaoType(SituacaoMovimentacaoType.FECHADA);
+		compraManager.salvar(compra);
+		return "/pages/movimentacao/compra";
+	}
+	
 	private void inicializeProduto(){
 		itemProduto = new ItemProduto();
 		produto = new Produto();
 	}
+	
+	public void validaFornecedor(ActionEvent event) {
+        RequestContext context = RequestContext.getCurrentInstance();
+        Fornecedor fornecedor = (Fornecedor) event.getComponent().getAttributes().get("pessoa");
+    	if (fornecedor == null) {
+    		context.addCallbackParam("confirmar", false);
+    		setMessage("Pessoa não selecionada.");
+    	} else {
+    		context.addCallbackParam("confirmar", true);                
+    		compra.setFornecedor(fornecedor);
+    	}
+    }
 
 	public Compra getCompra() {
 		return compra;
