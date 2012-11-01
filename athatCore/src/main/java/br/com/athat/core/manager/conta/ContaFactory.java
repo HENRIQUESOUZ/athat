@@ -1,14 +1,15 @@
 package br.com.athat.core.manager.conta;
 
 import br.com.athat.core.entity.conta.ContaType;
-import br.com.athat.core.entity.movimentacao.Movimentacao;
+import br.com.athat.core.entity.movimentacao.compra.Compra;
+import br.com.athat.core.entity.movimentacao.venda.Venda;
 
 public class ContaFactory {
-	public ContaManager contaAPagar(Movimentacao movimentacao){
+	public static ContaManager contaAPagar(Compra movimentacao){
 		return new ContaManagerImpl(movimentacao,ContaType.PAGAR);
 		
 	}
-	public ContaManager contaAReceber(Movimentacao movimentacao){
+	public static ContaManager contaAReceber(Venda movimentacao){
 		return new ContaManagerImpl(movimentacao,ContaType.RECEBER);
 		
 	}

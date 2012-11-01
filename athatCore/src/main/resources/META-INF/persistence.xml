@@ -26,7 +26,9 @@
     <class>br.com.athat.core.entity.produto.estoque.ItemEstoque</class>
     <class>br.com.athat.core.entity.produto.tabelaPreco.TabelaPreco</class>
     <class>br.com.athat.core.entity.movimentacao.compra.Compra</class>
+    <class>br.com.athat.core.entity.movimentacao.venda.Venda</class>
     <class>br.com.athat.core.entity.movimentacao.ItemProduto</class>
+    <class>br.com.athat.core.entity.pessoa.cliente.Cliente</class>
      <class>br.com.athat.core.security.AthatRevisionEntity</class>
 
    

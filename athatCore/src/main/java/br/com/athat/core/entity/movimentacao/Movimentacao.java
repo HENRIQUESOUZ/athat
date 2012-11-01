@@ -7,6 +7,8 @@ import java.util.List;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
@@ -18,6 +20,7 @@ import br.com.athat.core.entity.movimentacao.enuns.SituacaoMovimentacaoType;
 import javax.persistence.MappedSuperclass;
 
 @MappedSuperclass
+
 public abstract class Movimentacao extends AbstractEntity {
 
 	private static final long serialVersionUID = 1L;

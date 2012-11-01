@@ -17,7 +17,7 @@ public class Parcela extends AbstractEntity {
 
 	private static final long serialVersionUID = 1L;
 	
-	@ManyToOne(fetch = FetchType.EAGER, optional = false)
+	@ManyToOne
 	private Conta conta;
 
 	@OneToMany(fetch=FetchType.LAZY)

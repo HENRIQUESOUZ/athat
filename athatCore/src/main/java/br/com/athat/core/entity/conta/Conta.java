@@ -20,8 +20,8 @@ import br.com.athat.core.entity.movimentacao.Movimentacao;
 
 
 @Entity
-@Inheritance(strategy =InheritanceType.SINGLE_TABLE)
-public  class Conta extends AbstractEntity {
+@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
+public abstract class Conta extends AbstractEntity {
 	
 	private static final long serialVersionUID = 1L;
 
@@ -30,8 +30,8 @@ public  class Conta extends AbstractEntity {
 	@OneToMany(fetch = FetchType.LAZY)
 	protected List<Parcela> parcelas;
 	
-	//@OneToOne
-	protected Movimentacao movimentacao;
+//	@OneToOne
+//	protected Movimentacao movimentacao;
 	
 	@Enumerated(EnumType.STRING)
 	protected SituacaoContaType situacao;
@@ -55,13 +55,9 @@ public  class Conta extends AbstractEntity {
 		this.parcelas = parcelas;
 	}
 
-	public Movimentacao getMovimentacao() {
-		return movimentacao;
-	}
+	public abstract Movimentacao getMovimentacao() ;
 
-	public void setMovimentacao(Movimentacao movimentacao) {
-		this.movimentacao = movimentacao;
-	}
+	public abstract void setMovimentacao(Movimentacao movimentacao) ;
 
 	public SituacaoContaType getSituacao() {
 		return situacao;
