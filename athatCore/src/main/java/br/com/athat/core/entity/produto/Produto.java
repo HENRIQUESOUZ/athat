@@ -14,6 +14,9 @@ import br.com.athat.core.entity.produto.estoque.Estoque;
 public class Produto extends AbstractEntity{
 
 	private static final long serialVersionUID = 1L;
+	
+	@Column(length = 100, nullable = false)
+	private String nome;
 
 	@Column(length = 200, nullable=false)
     private String descricao;
@@ -46,5 +49,13 @@ public class Produto extends AbstractEntity{
 
 	public void setEstoque(Estoque estoque) {
 		this.estoque = estoque;
+	}
+	
+	public String getNome() {
+		return nome;
+	}
+	
+	public void setNome(String nome) {
+		this.nome = nome;
 	}
 }    

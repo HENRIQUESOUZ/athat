@@ -23,7 +23,6 @@ public class CompraController extends AbstractController {
 	private static final long serialVersionUID = 1L;
 	
 	private Compra compra;
-	private Produto produto;
 	private ItemProduto itemProduto;
 	private List<Produto> produtos;
 	private BigDecimal valorTotal;
@@ -37,30 +36,15 @@ public class CompraController extends AbstractController {
 	public CompraController() {
 		compra = new Compra();
 		compra.setItensMovimentacao(new ArrayList<ItemProduto>());
-		inicializeProduto();
 		produtos = new ArrayList<Produto>();
 		valorTotal = BigDecimal.ZERO;
-	}
-	
-	public void buscarProdutos(){
-		produtos = produtoManager.buscar(produto);
-	}
-	
-	public void prepararParaAdicionar(){
-		inicializeProduto();
-	}
-	
-	public void adicionarProduto(){
-		itemProduto.setProduto(produto);
-		compra.getItensMovimentacao().add(itemProduto);
-		valorTotal.add(itemProduto.getValorTotal());
-		inicializeProduto();
+		itemProduto = new ItemProduto();
 	}
 	
 	public void removerProduto(){
 		compra.getItensMovimentacao().remove(itemProduto);
 		valorTotal.subtract(itemProduto.getValorTotal());
-		inicializeProduto();
+		itemProduto = new ItemProduto();
 	}
 	
 	public String salvar(){
@@ -74,11 +58,6 @@ public class CompraController extends AbstractController {
 		return "/pages/movimentacao/compra";
 	}
 	
-	private void inicializeProduto(){
-		itemProduto = new ItemProduto();
-		produto = new Produto();
-	}
-	
 	public void validaFornecedor(ActionEvent event) {
         RequestContext context = RequestContext.getCurrentInstance();
         Fornecedor fornecedor = (Fornecedor) event.getComponent().getAttributes().get("pessoa");
@@ -90,6 +69,21 @@ public class CompraController extends AbstractController {
     		compra.setFornecedor(fornecedor);
     	}
     }
+	
+	public void adicionarProduto(ActionEvent event) {
+        RequestContext context = RequestContext.getCurrentInstance();
+        Produto produto = (Produto) event.getComponent().getAttributes().get("produto");
+    	if (produto == null) {
+    		context.addCallbackParam("confirmar", false);
+    		setMessage("Produto não selecionada.");
+    	} else {
+    		context.addCallbackParam("confirmar", true);                
+    		itemProduto.setProduto(produto);
+    		compra.getItensMovimentacao().add(itemProduto);
+    		valorTotal.add(itemProduto.getValorTotal());
+    		itemProduto = new ItemProduto();
+    	}
+    }
 
 	public Compra getCompra() {
 		return compra;
@@ -97,14 +91,6 @@ public class CompraController extends AbstractController {
 
 	public void setCompra(Compra compra) {
 		this.compra = compra;
-	}
-
-	public Produto getProduto() {
-		return produto;
-	}
-
-	public void setProduto(Produto produto) {
-		this.produto = produto;
 	}
 
 	public ItemProduto getItemProduto() {

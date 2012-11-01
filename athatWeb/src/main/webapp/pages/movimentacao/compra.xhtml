@@ -95,7 +95,22 @@
             </p:toolbar>
             <br/>
         </p:dialog>
+            
+        <p:dialog id="popProduto" widgetVar="popProduto" header="Consulta produto" modal="false" resizable="false" dynamic="true">
+            <ui:include src="/pages/pops/popProduto.xhtml"/>
 
+            <p:toolbar style="padding: 0px;">
+                <p:toolbarGroup align="right">
+                    <p:commandButton value="Confirmar" actionListener="#{compraController.validaProduto}"
+                                     oncomplete="handlePopConsultaProduto(xhr, status, args)" update="popProduto">
+                        <f:attribute name="produto" value="#{popProdutoController.produto}"/>
+                    </p:commandButton>
+
+                    <p:commandButton value="Voltar" onclick="popProduto.hide();"/>
+                </p:toolbarGroup>
+            </p:toolbar>
+            <br/>
+        </p:dialog>    
             
         </h:form>     
     </ui:define>
