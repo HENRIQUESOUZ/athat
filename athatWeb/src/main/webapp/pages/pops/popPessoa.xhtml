@@ -1,0 +1,61 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui" >
+
+      <p:outputPanel id="panelConsultaPessoa" style="padding: 0px;">
+        <h:panelGrid columns="2" columnClasses="label120, componente" style="padding: 0px; width: 600px;">
+            <h:outputText value="Código" />
+            <p:inputText id="id" value="#{popPessoaController.id}" />
+            
+            <h:outputText value="CPF/CNPJ" />
+            <p:inputText id="cpfCnpj" value="#{popPessoaController.cpfCnpj}" />
+
+            <h:outputText value="RazÃ£o Social" />
+            <p:inputText id="nomeRazaoSocial" value="#{popPessoaController.razaoSocial}" />
+        </h:panelGrid>
+          
+        <h:outputText value="Tipo Pessoa:" />
+        <br/>
+        
+        <p:selectOneRadio id="options" value="#{popPessoaController.papel}" >
+            <f:selectItem itemValue="cliente" itemLabel="Cliente" itemDisabled="disableCliente" />
+            <f:selectItem itemValue="fornecedor" itemLabel="Fornecedor" itemDisabled="disableFornecedor" />
+            <f:selectItem itemValue="funcionario" itemLabel="Funcionário" itemDisabled="disableFuncionario"/>
+        </p:selectOneRadio>
+        
+        <p:panel style="text-align: right; border: none; padding: 0px; width: 600px;">
+            <p:commandButton icon="ui-icon-search" value="#{i18n['button.find']}" action="#{popPessoaController.buscarPessoa}"
+                update="listaDePessoas"/>
+        </p:panel>
+
+        <br/>
+        <p:dataTable id="listaDePessoas" var="pessoa" value="#{popPessoaController.pessoas}"
+                     emptyMessage="Nenhum registro foi encontrado." paginator="true" rows="15"
+                     paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                     rowsPerPageTemplate="15,30" paginatorAlwaysVisible="false" rowKey="#{pessoa}"
+                     selection="#{popPessoaController.pessoa}" selectionMode="single">
+            <f:facet name="header">
+                Lista de Pessoas
+            </f:facet>
+            
+             <p:column headerText="Código" style="text-align: center;"  >
+                <h:outputText value="#{pessoa.pessoa.id}"/>
+            </p:column>
+
+            <p:column headerText="CPF/CNPJ" style="text-align: center;"  >
+                <h:outputText value="#{pessoa.pessoa.cpfCnpj}"/>
+            </p:column>
+
+            <p:column headerText="Nome/RazÃ£o Social" style="text-align: center;"">
+                <h:outputText value="#{pessoa.pessoa.nomeRazaoSocial}"/>
+            </p:column>
+
+            <p:column headerText="Tipo Pessoa" style="text-align: center;" >
+                <h:outputText value="#{pessoa.pessoa.tipoPessoa}"/>
+            </p:column>
+
+        </p:dataTable>
+    </p:outputPanel>
+</ui:composition>

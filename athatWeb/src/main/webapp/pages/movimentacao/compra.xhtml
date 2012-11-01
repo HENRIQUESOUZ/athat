@@ -13,14 +13,25 @@
         
         <h:form id="cadastrocompra">
 
+            <h:panelGrid columns="4">
+                <h:outputText value="Fornecedor: "/>
+                <p:inputText id="fornecedor" value="#{compraController.compra.fornecedor.pessoa.nomeRazao}" 
+                	required="true" requiredMessage="Campo Fornecedor obrigatorio"/>
+                <p:commandButton value="buscar" onclick="popPessoa.show()">
+                    <f:setPropertyActionListener value="fornecedor" target="#{popPessoaController.papel}"/>
+                    <f:setPropertyActionListener value="true" target="#{popPessoaController.disableCliente}"/>
+                    <f:setPropertyActionListener value="true" target="#{popPessoaController.disableFuncionario}"/>
+                </p:commandButton>    
+                
+            </h:panelGrid>
             <h:panelGrid columns="3">
                 <h:outputText value="N�mero Nota Fiscal: "/>
                 <p:inputText id="notaFiscal" value="#{compraController.compra.notaFiscal}" 
-                	required="true" requiredMessage="Campo Nota Fiscal."/>
+                	required="true" requiredMessage="Campo Nota Fiscal obrigatorio."/>
                 <p:message for="notaFiscal" />
                 <h:outputText value="Previsão de Entrega: "/>
                 <p:inputText id="previsaoEntrega" value="#{compraController.compra.previsaoEntrega}" 
-                	required="true" requiredMessage="Campo Previsão de Entrega."/>
+                	required="true" requiredMessage="Campo Previsão de Entrega obrigatorio."/>
                 <p:message for="previsaoEntrega" />
             </h:panelGrid>
             <br />
@@ -29,7 +40,7 @@
             
             <p:dataTable value="#{compraController.compra.itensProdutos}" var="item">
                 <p:column headerText="Codigo">
-                    <h:outputLabel value="#{item.produto.codigo}" />
+                    <h:outputLabel value="#{item.produto.id}" />
                 </p:column>
                 <p:column headerText="Nome">
                     <h:outputLabel value="#{item.produto.nome}" />
@@ -63,11 +74,29 @@
             <p:toolbar style="height:46px;">
                 <p:toolbarGroup align="right" >
                     <p:commandButton value="Salvar" action="#{compraController.salvar}" ajax="false" />    
-                    <p:commandButton value="Finalizar" action="#{compraController.salvar}" ajax="false" />    
+                    <p:commandButton value="Finalizar" action="#{compraController.finalizar}" ajax="false" rendered="#{"compraController.compra.id != null"}"/>    
                     <p:commandButton value="Limpar" action="#{compraController.limpar}" ajax="false" immediate="true"/>
                     <p:commandButton value="Voltar" action="/pages/principal?faces-redirect=true" ajax="false" immediate="true"/>
                 </p:toolbarGroup>
-            </p:toolbar>            
+            </p:toolbar>  
+            
+            <p:dialog id="popPessoa" widgetVar="popPessoa" header="Consulta pessoa" modal="false" resizable="false" dynamic="true">
+            <ui:include src="/pages/pops/popPessoa.xhtml"/>
+
+            <p:toolbar style="padding: 0px;">
+                <p:toolbarGroup align="right">
+                    <p:commandButton value="Confirmar" actionListener="#{compraController.validaFornecedor}"
+                                     oncomplete="handlePopConsultaPessoa(xhr, status, args)" update="popPessoa">
+                        <f:attribute name="pessoa" value="#{popPessoaController.pessoa}"/>
+                    </p:commandButton>
+
+                    <p:commandButton value="Voltar" onclick="popPessoa.hide();"/>
+                </p:toolbarGroup>
+            </p:toolbar>
+            <br/>
+        </p:dialog>
+
+            
         </h:form>     
     </ui:define>
 </ui:composition>

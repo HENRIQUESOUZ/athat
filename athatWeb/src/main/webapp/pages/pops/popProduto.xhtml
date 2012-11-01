@@ -1,0 +1,41 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui" >
+
+      <p:outputPanel id="panelConsultaProduto" style="padding: 0px;">
+        <h:panelGrid columns="2" columnClasses="label120, componente" style="padding: 0px; width: 600px;">
+            <h:outputText value="Código" />
+            <p:inputText id="id" value="#{popProdutoController.id}" />
+
+            <h:outputText value="Nome: " />
+            <p:inputText id="nome" value="#{popPessoaController.nome}" />
+        </h:panelGrid>
+        
+        <p:panel style="text-align: right; border: none; padding: 0px; width: 600px;">
+            <p:commandButton icon="ui-icon-search" value="#{i18n['button.find']}" action="#{popPessoaController.buscarPessoa}"
+                update="listaDePessoas"/>
+        </p:panel>
+
+        <br/>
+        <p:dataTable id="listaProdutos" var="produto" value="#{popProdutoController.produtos}"
+                     emptyMessage="Nenhum registro foi encontrado." paginator="true" rows="15"
+                     paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                     rowsPerPageTemplate="15,30" paginatorAlwaysVisible="false" rowKey="#{produto}"
+                     selection="#{popProdutoController.produto}" selectionMode="single">
+            <f:facet name="header">
+                Lista de Produtos
+            </f:facet>
+
+            <p:column headerText="código" style="text-align: center;"  >
+                <h:outputText value="#{produto.id} "/>
+            </p:column>
+
+            <p:column headerText="Nome" style="text-align: center;" >
+                <h:outputText value="#{produto.nome}" />
+            </p:column>
+
+        </p:dataTable>
+    </p:outputPanel>
+</ui:composition>
