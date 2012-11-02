@@ -4,8 +4,6 @@ import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.Inheritance;
-import javax.persistence.InheritanceType;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
@@ -17,7 +15,7 @@ import br.com.athat.core.entity.pessoa.fornecedor.Fornecedor;
 
 @Entity
 
-public class Compra extends Movimentacao{
+public class Compra extends Movimentacao {
 
 	private static final long serialVersionUID = 1L;
 	
@@ -30,7 +28,7 @@ public class Compra extends Movimentacao{
 	@Temporal(TemporalType.DATE)
 	private Date previsaoEntrega;
 	
-	@ManyToOne
+	@ManyToOne(optional = false)
 	private Fornecedor fornecedor;
 	
 	@OneToOne
