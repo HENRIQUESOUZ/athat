@@ -7,8 +7,8 @@ import javax.annotation.PostConstruct;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
-import br.com.athat.core.entity.produto.categoria.Categoria;
 import br.com.athat.core.entity.produto.Produto;
+import br.com.athat.core.entity.produto.categoria.Categoria;
 import br.com.athat.core.manager.produto.ProdutoManager;
 import br.com.athat.core.manager.produto.categoria.CategoriaManager;
 import br.com.athat.web.utils.AbstractController;
@@ -30,7 +30,6 @@ public class ProdutoController extends AbstractController{
 
     public ProdutoController() {
         produto = new Produto();
-        produto.setCategoria(new Categoria());
         produtos  = new ArrayList<Produto>();
         categoria = new Categoria();
         categorias = new ArrayList<Categoria>();
@@ -39,8 +38,9 @@ public class ProdutoController extends AbstractController{
     @PostConstruct
     public void init(){
 		String id = getParametro("id");
-		if (id != null) 
+		if (id != null) {
 			produto = produtoManager.buscarPorId(Long.valueOf(id));
+		}	
     }
     
     public String salvar (){
@@ -54,9 +54,9 @@ public class ProdutoController extends AbstractController{
     }
     
     public void buscarCategoria(){
-        setCategorias(categoriaManager.buscar(categoria));
+        categorias =  categoriaManager.buscar(categoria);
     }
-
+    
 	public List<Produto> getProdutos() {
 		return produtos;
 	}
@@ -79,5 +79,13 @@ public class ProdutoController extends AbstractController{
 
 	public void setCategorias(List<Categoria> categorias) {
 		this.categorias = categorias;
+	}
+	
+	public Categoria getCategoria() {
+		return categoria;
+	}
+	
+	public void setCategoria(Categoria categoria) {
+		this.categoria = categoria;
 	}
 }

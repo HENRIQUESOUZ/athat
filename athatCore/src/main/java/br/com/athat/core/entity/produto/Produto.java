@@ -11,7 +11,7 @@ import br.com.athat.core.entity.produto.categoria.Categoria;
 import br.com.athat.core.entity.produto.estoque.Estoque;
 
 @Entity
-public class Produto extends AbstractEntity{
+public class Produto extends AbstractEntity {
 
 	private static final long serialVersionUID = 1L;
 	
