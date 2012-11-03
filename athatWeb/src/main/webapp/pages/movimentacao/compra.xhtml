@@ -11,7 +11,7 @@
 
     <ui:define name="conteudo">
         
-        <h:form id="cadastrocompra">
+        <h:form id="compra" >
 
             <h:panelGrid columns="4">
                 <h:outputText value="Fornecedor: "/>
@@ -36,9 +36,9 @@
             </h:panelGrid>
             <br />
             
-            <p:commandButton value="Novo Produto" value="#{compraController.prepararProduto}"/>
+            <p:commandButton value="Novo Produto" action="#{compraController.prepararProduto}"/>
             
-            <p:dataTable value="#{compraController.compra.itensProdutos}" var="item">
+            <p:dataTable value="#{compraController.compra.itensMovimentacao}" var="item">
                 <p:column headerText="Codigo">
                     <h:outputLabel value="#{item.produto.id}" />
                 </p:column>
@@ -55,7 +55,7 @@
                     <h:outputLabel value="#{item.valorTotal}" />
                 </p:column>
                 <p:column headerText="Remover">
-                    <p:commandButton value="Remover" value="#{compraController.removerProduto}"/>
+                    <p:commandButton value="Remover" action="#{compraController.removerProduto}"/>
                 </p:column>
                 <p:columnGroup>
                     <p:row>
@@ -74,9 +74,9 @@
             <p:toolbar style="height:46px;">
                 <p:toolbarGroup align="right" >
                     <p:commandButton value="Salvar" action="#{compraController.salvar}" ajax="false" />    
-                    <p:commandButton value="Finalizar" action="#{compraController.finalizar}" ajax="false" rendered="#{"compraController.compra.id != null"}"/>    
-                    <p:commandButton value="Limpar" action="#{compraController.limpar}" ajax="false" immediate="true"/>
-                    <p:commandButton value="Voltar" action="/pages/principal?faces-redirect=true" ajax="false" immediate="true"/>
+                    <p:commandButton value="Finalizar" action="#{compraController.finalizar}" ajax="false" rendered="#{compraController.compra.id != null}" />    
+                    <p:commandButton value="Limpar" action="#{compraController.limpar}" ajax="false" immediate="true" />
+                    <p:commandButton value="Voltar" action="/pages/principal?faces-redirect=true" ajax="false" immediate="true" />
                 </p:toolbarGroup>
             </p:toolbar>  
             
@@ -95,7 +95,22 @@
             </p:toolbar>
             <br/>
         </p:dialog>
+            
+        <p:dialog id="popProduto" widgetVar="popProduto" header="Consulta produto" modal="false" resizable="false" dynamic="true">
+            <ui:include src="/pages/pops/popProduto.xhtml"/>
 
+            <p:toolbar style="padding: 0px;">
+                <p:toolbarGroup align="right">
+                    <p:commandButton value="Confirmar" actionListener="#{compraController.validaProduto}"
+                                     oncomplete="handlePopConsultaProduto(xhr, status, args)" update="popProduto">
+                        <f:attribute name="produto" value="#{popProdutoController.produto}"/>
+                    </p:commandButton>
+
+                    <p:commandButton value="Voltar" onclick="popProduto.hide();"/>
+                </p:toolbarGroup>
+            </p:toolbar>
+            <br/>
+        </p:dialog>    
             
         </h:form>     
     </ui:define>
