@@ -108,6 +108,7 @@ public class Populate {
     	Produto produto = new Produto();
     	produto.setEstoque(estoque);
     	produto.setCategoria(categoria);
+    	produto.setNome("Cado de Rede");
     	produto.setDescricao("Cabo de Rede");
     	estoque.setProduto(produto);
     	
