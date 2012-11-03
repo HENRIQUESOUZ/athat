@@ -3,15 +3,10 @@ package br.com.athat.core.entity.conta;
 import java.math.BigDecimal;
 import java.util.List;
 
-import javax.persistence.DiscriminatorColumn;
-import javax.persistence.DiscriminatorType;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
-import javax.persistence.Inheritance;
-import javax.persistence.InheritanceType;
-import javax.persistence.MappedSuperclass;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
@@ -29,8 +24,8 @@ public abstract class Conta extends AbstractEntity {
 	@OneToMany(fetch = FetchType.LAZY)
 	protected List<Parcela> parcelas;
 	
-//	@OneToOne
-//	protected Movimentacao movimentacao;
+	@OneToOne
+	protected Movimentacao movimentacao;
 	
 	@Enumerated(EnumType.STRING)
 	protected SituacaoContaType situacao;

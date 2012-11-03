@@ -4,22 +4,20 @@ import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
-import javax.persistence.Inheritance;
-import javax.persistence.InheritanceType;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+
 import br.com.athat.core.entity.AbstractEntity;
 import br.com.athat.core.entity.conta.Conta;
 import br.com.athat.core.entity.movimentacao.enuns.SituacaoMovimentacaoType;
 
-import javax.persistence.MappedSuperclass;
-
-@MappedSuperclass
+@Entity
 
 public abstract class Movimentacao extends AbstractEntity {
 

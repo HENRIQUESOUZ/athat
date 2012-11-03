@@ -29,7 +29,7 @@ public class ClienteManagerTest extends AbstractTest{
     public void before(){
     	cidade = PopulateBD.populateCidade(entityManager);
     }
-    @Ignore	
+    
     @Test
     public void save(){
         Cliente cliente = Populate.populateCliente(cidade);
@@ -42,7 +42,7 @@ public class ClienteManagerTest extends AbstractTest{
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
         Assert.assertEquals(dateFormat.format(new Date()), dateFormat.format(cliente.getDataAniversario()));
     }
-    @Ignore	
+    	
     @Test
     public void buscar(){
     	populate();
@@ -73,7 +73,7 @@ public class ClienteManagerTest extends AbstractTest{
     	cliente2.getPessoa().setCpfCnpj("999999");
     	clienteManager.salvar(cliente2);
     }
-    @Ignore	
+    
     @Test
     public void buscarPorId(){
     	Cliente cliente = PopulateBD.populateCliente(entityManager, cidade);
