@@ -79,7 +79,7 @@
 
                     </p:dataTable>    
 
-                    <p:commandButton value="Confirmar" update=":cadastroProduto"  process="@this" 
+                    <p:commandButton value="Confirmar" update="panelCategoria" process="categoriaDataTable"
                                      oncomplete="popCategoria.hide();"/>
                     <p:commandButton value="Voltar" oncomplete="popCategoria.hide();"/>  
             </p:dialog>  

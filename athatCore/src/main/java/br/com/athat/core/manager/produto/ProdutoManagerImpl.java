@@ -27,13 +27,13 @@ public class ProdutoManagerImpl extends AbstractManager implements ProdutoManage
 	}
 
 	@SuppressWarnings("unchecked")
-	@Transactional(readOnly = false)
+	@Transactional(readOnly = true)
 	public List<Produto> buscar(Produto produto) {
 		Criteria criteria = createSession().createCriteria(Produto.class,"p");
 		
-		if(produto.getCategoria() != null){
+		if(produto.getCategoria() != null && produto.getCategoria().getId() != null){
 			criteria.createAlias("categoria", "c");
-			criteria.add(Restrictions.eq("p.categoria", produto.getCategoria()));
+			criteria.add(Restrictions.eq("p.categoria.id", produto.getCategoria().getId()));
 		}	
 			
 		if(ValidatorUtils.isNotEmptyAndNotNull(produto.getDescricao()))
