@@ -1,92 +1,160 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+
+
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:p="http://primefaces.org/ui">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<title>Compustar</title>
+	<link rel="stylesheet" type="text/css" href="css/main.css" media="screen" />
 
-    <h:head>
-        <title> ATAH - Gerenciamento de Projetos</title>   
+	<script type="text/javascript" src="js/jquery-1.3.2.min.js"></script>
+	<script type="text/javascript" src="js/core.js"></script>
+	<script type="text/javascript" src="pngFix/jquery.pngFix.js"></script>
+	<script type="text/javascript" src="prettyphoto/js/jquery.prettyPhoto.js"></script>
+</head>
+<body>
+	<div id="wrapper">
+		<div id="logo">
+                    <h:link target="principal.xhtml">COMPUSTAR</h:link>
+		
+		</div>
+		
+		<div id="content">
+		<!-- main menu -->
+			<ul class="menu" id="jMenu">
+				<li class="current"><a href="index.html">Home</a></li>
+				<li><a href="category.html">Blog</a>
+					<ul>
+						<li><a href="#">Jim Carrey</a></li>
+						<li><a href="#">Alan Morrison</a></li>
+						<li><a href="#">Doing it right</a></li>
+					</ul>
+				</li>
+				<li><a href="category.html">Portfolio</a>
+					<ul>
+						<li><a href="#">Designs</a></li>
+						<li><a href="#">Code</a></li>
+						<li><a href="#">Consulting</a></li>
+						<li><a href="#">Help &amp; Support</a></li>
+					</ul>
+				</li>
+				<li><a href="inner.html">About</a></li>
+				<li><a href="contact.html">Contact</a></li>
+			</ul>
+			
+			<!-- search form -->
+			<div id="search">
+				<form method="post" action="index.html">
+					<input type="text" class="text" name="query" value="Search..." onfocus="this.value='';" onblur="this.value='Search...'" />
+					<input type="submit" class="submit" name="search" value="" />
+				</form>
+			</div>
+			
+			<div class="x"></div>
+			
+			<!-- image slider -->
+			<div id="pitch">
+				<div class="pitch-gallery">
+					<div class="pitch-gallery-holder" id="gallery-pitch-holder">
+						<div class="pitch-gallery-div">
+							<img src="images/pitch-1.jpg" alt="Pitch 1" />
+							<div class="infoline">Hello! We are professional team of designers and we would like to share our passion with you!</div>
+						</div>
+						<div class="pitch-gallery-div">
+							<img src="images/pitch-2.jpg" alt="Pitch 2" />
+							<div class="infoline">This is <strong>DesignHQ</strong> theme suited for business site or portfolio.</div>
+						</div>
+						<div class="pitch-gallery-div">
+							<img src="images/pitch-3.jpg" alt="Pitch 3" />
+							<div class="infoline">Just works everywhere! This theme works fine under all major browsers.</div>
+						</div>
+						<div class="pitch-gallery-div">
+							<img src="images/pitch-4.jpg" alt="Pitch 4" />
+							<div class="infoline">This is jQuery improved theme with custom drop down menu and ajax powered contact form.</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			
+			<!-- main content -->
+			<div id="left">
+				<h1><a href="inner.html">So who are we?</a></h1>
+				<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.</p>
+				<p>It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.</p>
+				<a href="inner.html" class="read-more">Read more</a>
+			</div>
+			
+			<!-- sidebar -->
+			<div id="right">
+				<h1>Latest news</h1>
+				
+				<h2><a href="#">Big picture</a></h2>
+				<p class="post-info">Posted on 12.12.2009. in Category | 12 comments</p>
 
-        <meta content='text/html; charset=UTF-8' http-equiv="Content-Type" />
+				<h2><a href="#">Earning more money</a></h2>
+				<p class="post-info">Posted on 12.12.2009. in Category | 12 comments</p>
 
-        <ui:insert name="script" />
-    </h:head>
-    
-    <h:panelGrid columns="1" style="width: 100%;">
-        <div id="topo" style="height: 50px">
-            
-            <h1>Athat</h1>
+				<h2><a href="#">Global warming in your house</a></h2>
+				<p class="post-info">Posted on 12.12.2009. in Category | 12 comments</p>
 
-            <h:form id="formMenu">
-                <p:megaMenu autoDisplay="false">
-                    <p:submenu label="Cadastros">
-                        <p:column>
-                            <p:submenu label="Pessoa">
-                                <p:menuitem value="Cliente" action="/pages/cadastro/cadastroCliente?faces-redirect=true" immediate="true" ajax="false" />
-                                <p:menuitem value="Cidade" action="/pages/cadastro/cadastroCidade?faces-redirect=true" immediate="true" ajax="false" />
-                                <p:menuitem value="Funcionario" action="cadastroFuncionario?faces-redirect=true" immediate="true" ajax="false" />
-                                <p:menuitem value="Fornecedor" action="cadastroFornecedor?faces-redirect=true" immediate="true" ajax="false" />
-                            </p:submenu>
-                            <p:submenu label="Usuário">
-                                <p:menuitem value="Usuario" action="cadastroUsuario?faces-redirect=true" immediate="true" ajax="false" />
-                            </p:submenu>
-                            <p:submenu label="Empresa">
-                                <p:menuitem value="Empresa" action="/pages/cadastro/cadastroEmpresa?faces-redirect=true" immediate="true" ajax="false" />
-                            </p:submenu>
-                        </p:column>
-                        <p:column>
-                            <p:submenu label="Listagem">
-                                <p:menuitem value="Listagem Cliente" action="/pages/cadastro/listagemCliente?faces-redirect=true" immediate="true" ajax="false" />
-                                <p:menuitem value="Listagem Cidade" action="/pages/cadastro/listagemCidade?faces-redirect=true" immediate="true" ajax="false" />
-                                <p:menuitem value="Listagem Funcionário" action="/pages/cadastro/listagemFuncionario?faces-redirect=true" immediate="true" ajax="false" />
-                                <p:menuitem value="Listagem Fornecedor" action="/pages/cadastro/listagemFornecedor?faces-redirect=true" immediate="true" ajax="false" />       
-                                <p:menuitem value="Listagem Empresa" action="/pages/cadastro/listagemEmpresa?faces-redirect=true" immediate="true" ajax="false" />
-                            </p:submenu>
-                        </p:column>
-                    </p:submenu> 
-                    <p:submenu label="Produto">
-                        <p:column>
-                            <p:submenu label="Categoria">
-                                <p:menuitem value="Categoria" action="/pages/cadastro/cadastroCategoria?faces-redirect=true" immediate="true" ajax="false" />
-                                <p:menuitem value="Listagem Categoria" action="/pages/cadastro/listagemCategoria?faces-redirect=true" immediate="true" ajax="false" />
-                            </p:submenu>      
-                            <p:submenu label="Produto">
-                                <p:menuitem value="Cadastro de Produto" action="/pages/cadastro/cadastroProduto?faces-redirect=true" immediate="true" ajax="false" />
-                                <p:menuitem value="Listagem de Produto" action="/pages/cadastro/listagemProduto?faces-redirect=true" immediate="true" ajax="false" />
-                            </p:submenu>
-                        </p:column>   
-                        <p:column>
-                            <p:submenu label="Tabela de Preço">
-                                <p:menuitem value="Tabela de Preço" action="/pages/cadastro/cadastroTabelaPreco?faces-redirect=true" immediate="true" ajax="false" />
-                                <p:menuitem value="Listagem de Tabela de Preço" action="/pages/cadastro/listagemTabelaPreco?faces-redirect=true" immediate="true" ajax="false" />
-                            </p:submenu>
-                        </p:column>
-                    </p:submenu>   
-                    <p:submenu label="Movimentações">
-                        <p:column>
-                            <p:submenu label="Compra">
-                                <p:menuitem value="Compra" action="/pages/movimentacao/compra?faces-redirect=true" immediate="true" ajax="false" />
-                            </p:submenu>      
-                        </p:column>   
-                    </p:submenu>
-                </p:megaMenu>
-            </h:form>     
-        </div>    
-        
-        <br />
+				<h2><a href="#">Do you believe?</a></h2>
+				<p class="post-info">Posted on 12.12.2009. in Category | 12 comments</p>
+			</div>
+			
+			<div class="x"></div>
+			<div class="break"></div>
+			
+			<!-- small posts -->
+			<div id="feature">
+				<div class="small-post">
+					<img src="images/clean.jpg" alt="Clean and Simple" />
+					<h1><a href="#">Clean and Simple</a></h1>
+					<p><strong>DesignHQ</strong> is a sleek modern theme best suited for business or portfolio site. It's ready out of the box and comes with all needed pages - home, category, inner and contact form with all css styled elements.</p>
+				</div>
+							
+				<div class="small-post">
+					<img src="images/newtech.jpg" alt="jQuery Powered" />
+					<h1><a href="#">jQuery Powered</a></h1>
+					<p>This template uses jQuery to enhance usability and visual performance:</p><ul><li>Custom drop down menu</li><li>Ajax powered contact form</li><li>preetyPhoto plugin</li></ul>
+				</div>
 
-        <div id="conteudo">
-            
-            <p:growl autoUpdate="true" globalOnly="true" id="growl"/>
-            
-            <ui:insert name="titulo" />
-            
-            <br />
-            
-            <ui:insert name="conteudo" />
-        </div> 
-        
-    </h:panelGrid>
-   
+				<div class="small-post last">
+					<img src="images/contact.jpg" alt="Contuct Us" />
+					<h1><a href="contact.html">Contact Us</a></h1>
+					<p>Contact form is ready to use. It works with ajax and simple PHP script that sends user submited data directly to your email. Contact form is build with Javascript math captcha to protect you from spam.</p>
+				</div>
+				<div class="x"></div>
+			</div>
+
+                </div>
+                <div id="conteudo">
+                    
+                    <p:growl autoUpdate="true" globalOnly="true" id="growl"/>
+                        
+                    <ui:insert name="titulo" />
+                        
+                    <br />
+                        
+                    <ui:insert name="conteudo" />
+                </div> 
+
+		<!-- footer -->
+		<div id="footer">
+			<p>Copyright &copy; 2009 DesignHQ &middot; Design: Borut Jegrišnik, <a href="http://www.solucija.com/" title="Free CSS Templates">Solucija</a></p>
+		</div>
+	</div>
+	
+	<!-- gallery starter and prettyPhoto starter -->
+	<script type="text/javascript">
+		jGallery('pitch');
+		$(document).pngFix();
+		$(document).ready(function(){
+			$("a[rel^='prettyPhoto']").prettyPhoto();
+		});
+	</script>
+</body>
 </html>
