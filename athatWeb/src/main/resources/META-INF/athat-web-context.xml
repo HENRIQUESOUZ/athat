@@ -17,7 +17,7 @@
                   
     <bean id="usuarioController" class="br.com.athat.web.controller.usuario.UsuarioController" scope="view"/>     
     <bean id="clienteController" class="br.com.athat.web.controller.pessoa.cliente.ClienteController" scope="view"/>   
-    <bean id="compraController" class="br.com.athat.web.movimentacao.compra.CompraController" scope="view"/>            
+    <bean id="compraController" class="br.com.athat.web.movimentacao.compra.CompraController" scope="session"/>            
     <bean id="funcionarioController" class="br.com.athat.web.controller.pessoa.funcionario.FuncionarioController" scope="view"/>            
     <bean id="fornecedorController" class="br.com.athat.web.controller.pessoa.fornecedor.FornecedorController" scope="view"/>
     <bean id="pessoaController" class="br.com.athat.web.controller.pessoa.PessoaController" scope="view"/> 

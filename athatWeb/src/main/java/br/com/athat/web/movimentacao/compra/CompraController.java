@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import br.com.athat.core.entity.movimentacao.ItemProduto;
 import br.com.athat.core.entity.movimentacao.compra.Compra;
 import br.com.athat.core.entity.movimentacao.enuns.SituacaoMovimentacaoType;
+import br.com.athat.core.entity.pessoa.Pessoa;
 import br.com.athat.core.entity.pessoa.fornecedor.Fornecedor;
 import br.com.athat.core.entity.produto.Produto;
 import br.com.athat.core.manager.movimentacao.compra.CompraManager;
@@ -27,6 +28,8 @@ public class CompraController extends AbstractController {
 	private List<Produto> produtos;
 	private BigDecimal valorTotal;
 	
+	private final String COMPRA_PAGE = "/pages/movimentacao/compra";
+	
 	@Autowired
 	private CompraManager compraManager;
 	
@@ -34,11 +37,7 @@ public class CompraController extends AbstractController {
 	private ProdutoManager produtoManager;
 	
 	public CompraController() {
-		compra = new Compra();
-		compra.setItensMovimentacao(new ArrayList<ItemProduto>());
-		produtos = new ArrayList<Produto>();
-		valorTotal = BigDecimal.ZERO;
-		itemProduto = new ItemProduto();
+		init();
 	}
 	
 	public void removerProduto(){
@@ -49,13 +48,13 @@ public class CompraController extends AbstractController {
 	
 	public String salvar(){
 		compraManager.salvar(compra);
-		return "/pages/movimentacao/compra";
+		return "COMPRA_PAGE";
 	}
 	
 	public String finalizar(){
 		compra.setSituacaoMovimentacaoType(SituacaoMovimentacaoType.FECHADA);
 		compraManager.salvar(compra);
-		return "/pages/movimentacao/compra";
+		return "COMPRA_PAGE";
 	}
 	
 	public void validaFornecedor(ActionEvent event) {
@@ -63,7 +62,7 @@ public class CompraController extends AbstractController {
         Fornecedor fornecedor = (Fornecedor) event.getComponent().getAttributes().get("pessoa");
     	if (fornecedor == null) {
     		context.addCallbackParam("confirmar", false);
-    		setMessage("Pessoa não selecionada.");
+    		setMessage("Fornecedor não selecionado.");
     	} else {
     		context.addCallbackParam("confirmar", true);                
     		compra.setFornecedor(fornecedor);
@@ -84,6 +83,21 @@ public class CompraController extends AbstractController {
     		itemProduto = new ItemProduto();
     	}
     }
+	
+	public String limpar(){
+		init();
+		return "COMPRA_PAGE";
+	}
+	
+	private void init(){
+		compra = new Compra();
+		compra.setFornecedor(new Fornecedor());
+		compra.getFornecedor().setPessoa(new Pessoa());
+		compra.setItensMovimentacao(new ArrayList<ItemProduto>());
+		produtos = new ArrayList<Produto>();
+		valorTotal = BigDecimal.ZERO;
+		itemProduto = new ItemProduto();
+	}
 
 	public Compra getCompra() {
 		return compra;

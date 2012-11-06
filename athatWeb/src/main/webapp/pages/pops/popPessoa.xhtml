@@ -20,14 +20,14 @@
         <br/>
         
         <p:selectOneRadio id="options" value="#{popPessoaController.papel}" >
-            <f:selectItem itemValue="cliente" itemLabel="Cliente" itemDisabled="disableCliente" />
-            <f:selectItem itemValue="fornecedor" itemLabel="Fornecedor" itemDisabled="disableFornecedor" />
-            <f:selectItem itemValue="funcionario" itemLabel="Funcionário" itemDisabled="disableFuncionario"/>
+            <f:selectItem itemValue="cliente" itemLabel="Cliente" itemDisabled="#{popPessoaController.disableCliente}" noSelectionOption="#{popPessoaController.selectCliente}" />
+            <f:selectItem itemValue="fornecedor" itemLabel="Fornecedor" itemDisabled="#{popPessoaController.disableFornecedor}" noSelectionOption="#{popPessoaController.selectFornecedor}"/>
+            <f:selectItem itemValue="funcionario" itemLabel="Funcionário" itemDisabled="#{popPessoaController.disableFuncionario}" noSelectionOption="#{popPessoaController.selectFuncionario}"/>
         </p:selectOneRadio>
         
         <p:panel style="text-align: right; border: none; padding: 0px; width: 600px;">
-            <p:commandButton icon="ui-icon-search" value="#{i18n['button.find']}" action="#{popPessoaController.buscarPessoa}"
-                update="listaDePessoas"/>
+            <p:commandButton icon="ui-icon-search" action="#{popPessoaController.buscarPessoa}"
+                             update="listaDePessoas" process="@this" />
         </p:panel>
 
         <br/>
@@ -49,11 +49,7 @@
             </p:column>
 
             <p:column headerText="Nome/RazÃ£o Social" style="text-align: center;">
-                <h:outputText value="#{pessoa.pessoa.nomeRazaoSocial}"/>
-            </p:column>
-
-            <p:column headerText="Tipo Pessoa" style="text-align: center;" >
-                <h:outputText value="#{pessoa.pessoa.tipoPessoa}"/>
+                <h:outputText value="#{pessoa.pessoa.nomeRazao}"/>
             </p:column>
 
         </p:dataTable>

@@ -8,19 +8,33 @@
     <ui:define name="titulo">
         <h3>Compra</h3>
     </ui:define>
+    
+    <ui:define name="script">
+        
+      <script type="text/javascript">
+            function handlePopPessoa(xhr, status, args) {
+                if (!args.confirmar) {                    
+                    jQuery('#popPessoa').effect("shake", { times:3 }, 100);
+                } else {
+                    popPessoa.hide();
+                }
+            }
+        </script>
+    </ui:define>  
 
     <ui:define name="conteudo">
         
         <h:form id="compra" >
 
-            <h:panelGrid columns="4">
+            <h:panelGrid id="panelFornecedor" columns="4">
                 <h:outputText value="Fornecedor: "/>
                 <p:inputText id="fornecedor" value="#{compraController.compra.fornecedor.pessoa.nomeRazao}" 
                 	required="true" requiredMessage="Campo Fornecedor obrigatorio"/>
-                <p:commandButton value="buscar" onclick="popPessoa.show()">
+                <p:commandButton value="buscar" oncomplete="popPessoa.show()" process="@this">
                     <f:setPropertyActionListener value="fornecedor" target="#{popPessoaController.papel}"/>
                     <f:setPropertyActionListener value="true" target="#{popPessoaController.disableCliente}"/>
                     <f:setPropertyActionListener value="true" target="#{popPessoaController.disableFuncionario}"/>
+                    <f:setPropertyActionListener value="true" target="#{popPessoaController.selectFornecedor}"/>
                 </p:commandButton>    
                 
             </h:panelGrid>
@@ -85,8 +99,8 @@
 
             <p:toolbar style="padding: 0px;">
                 <p:toolbarGroup align="right">
-                    <p:commandButton value="Confirmar" actionListener="#{compraController.validaFornecedor}"
-                                     oncomplete="handlePopConsultaPessoa(xhr, status, args)" update="popPessoa">
+                    <p:commandButton value="Confirmar" actionListener="#{compraController.validaFornecedor}" 
+                                     oncomplete="handlePopPessoa(xhr, status, args)" update="panelFornecedor"  process="popPessoa">
                         <f:attribute name="pessoa" value="#{popPessoaController.pessoa}"/>
                     </p:commandButton>
 

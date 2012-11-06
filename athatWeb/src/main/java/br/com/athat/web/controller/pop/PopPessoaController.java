@@ -10,6 +10,7 @@ import br.com.athat.core.entity.pessoa.cliente.Cliente;
 import br.com.athat.core.entity.pessoa.fornecedor.Fornecedor;
 import br.com.athat.core.entity.pessoa.funcionario.Funcionario;
 import br.com.athat.core.manager.pessoa.PessoaManager;
+import br.com.athat.utils.validators.ValidatorUtils;
 import br.com.athat.web.utils.AbstractController;
 
 public class PopPessoaController extends AbstractController {
@@ -19,11 +20,15 @@ public class PopPessoaController extends AbstractController {
 		private String id;
 	    private String cpfCnpj;
 	    private String razaoSocial;
-	    
+	   
 	    private String papel;
+	    
 	    private boolean disableCliente;
 	    private boolean disableFornecedor;
 	    private boolean disableFuncionario;
+	    private boolean selectCliente;
+	    private boolean selectFornecedor;
+	    private boolean selectFuncionario;
 	    
 	    private Papel pessoa;
 	    
@@ -39,11 +44,11 @@ public class PopPessoaController extends AbstractController {
 	    
 	    public void buscarPessoa() {
 	    	if (papel.equals("cliente")) {
-	    		pessoas = pessoaManager.buscaGenericaPop(Long.valueOf(id), cpfCnpj, razaoSocial, new Cliente());
+	    		pessoas = pessoaManager.buscaGenericaPop(ValidatorUtils.convertStringToLong(id), cpfCnpj, razaoSocial, new Cliente());
 	    	} else if (papel.equals("fornecedor")) {
-	    		pessoas = pessoaManager.buscaGenericaPop(Long.valueOf(id), cpfCnpj, razaoSocial, new Fornecedor());
+	    		pessoas = pessoaManager.buscaGenericaPop(ValidatorUtils.convertStringToLong(id), cpfCnpj, razaoSocial, new Fornecedor());
 	    	} else if (papel.equals("funcionario")) {
-	    		pessoas = pessoaManager.buscaGenericaPop(Long.valueOf(id), cpfCnpj, razaoSocial, new Funcionario());
+	    		pessoas = pessoaManager.buscaGenericaPop(ValidatorUtils.convertStringToLong(id), cpfCnpj, razaoSocial, new Funcionario());
 	    	} else {
 	    		setMessage("Selecione um tipo de pessoa!");
 	    	}	
@@ -134,5 +139,29 @@ public class PopPessoaController extends AbstractController {
 		
 		public void setPessoa(Papel pessoa) {
 			this.pessoa = pessoa;
+		}
+
+		public boolean isSelectCliente() {
+			return selectCliente;
+		}
+
+		public void setSelectCliente(boolean selectCliente) {
+			this.selectCliente = selectCliente;
+		}
+
+		public boolean isSelectFornecedor() {
+			return selectFornecedor;
+		}
+
+		public void setSelectFornecedor(boolean selectFornecedor) {
+			this.selectFornecedor = selectFornecedor;
+		}
+
+		public boolean isSelectFuncionario() {
+			return selectFuncionario;
+		}
+
+		public void setSelectFuncionario(boolean selectFuncionario) {
+			this.selectFuncionario = selectFuncionario;
 		}
 }
