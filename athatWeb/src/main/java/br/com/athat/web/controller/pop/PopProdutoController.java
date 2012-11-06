@@ -30,7 +30,7 @@ public class PopProdutoController extends AbstractController {
 	public void buscarProdutos(){
 		Produto p = new Produto();
 		if(id != null){
-			produto.setId(id);
+			p.setId(id);
 		} else if(ValidatorUtils.isNotEmptyAndNotNull(nome)){
 			p.setNome(nome);
 		}

@@ -79,7 +79,6 @@ public class CompraController extends AbstractController {
     		context.addCallbackParam("confirmar", true);                
     		itemProduto.setProduto(produto);
     		compra.getItensMovimentacao().add(itemProduto);
-    		valorTotal.add(itemProduto.getValorTotal());
     		itemProduto = new ItemProduto();
     	}
     }

@@ -20,6 +20,16 @@
                 }
             }
         </script>
+        
+         <script type="text/javascript">
+            function handlePopProduto(xhr, status, args) {
+                if (!args.confirmar) {                    
+                    jQuery('#popProduto').effect("shake", { times:3 }, 100);
+                } else {
+                    popProduto.hide();
+                }
+            }
+        </script>
     </ui:define>  
 
     <ui:define name="conteudo">
@@ -50,9 +60,10 @@
             </h:panelGrid>
             <br />
             
-            <p:commandButton value="Novo Produto" action="#{compraController.prepararProduto}"/>
+            <p:commandButton value="Novo Produto" actionListener="#{compraController.prepararProduto}" oncomplete="popProduto.show();"/>
             
-            <p:dataTable value="#{compraController.compra.itensMovimentacao}" var="item">
+            <p:dataTable  id="listaDeProdutos" value="#{compraController.compra.itensMovimentacao}" var="item"
+                          emptyMessage="Não possui produtos adicionados.">
                 <p:column headerText="Codigo">
                     <h:outputLabel value="#{item.produto.id}" />
                 </p:column>
@@ -69,16 +80,13 @@
                     <h:outputLabel value="#{item.valorTotal}" />
                 </p:column>
                 <p:column headerText="Remover">
-                    <p:commandButton value="Remover" action="#{compraController.removerProduto}"/>
+                    <p:commandButton value="Remover" action="#{compraController.removerProduto}" update="listaDeProdutos" 
+                                     process="@this"/>
                 </p:column>
-                <p:columnGroup>
+                <p:columnGroup type="footer">
                     <p:row>
-                        <p:column>
-                            <h:outputLabel value="Total: " />
-                        </p:column>
-                        <p:column>
-                            <h:outputLabel value="#{compraController.valorTotal}" />
-                        </p:column>
+                        <p:column colspan="3" headerText="Total: " />
+                        <p:column headerText="#{compraController.valorTotal}" />
                     </p:row>               
                 </p:columnGroup>
             </p:dataTable>
@@ -100,7 +108,7 @@
             <p:toolbar style="padding: 0px;">
                 <p:toolbarGroup align="right">
                     <p:commandButton value="Confirmar" actionListener="#{compraController.validaFornecedor}" 
-                                     oncomplete="handlePopPessoa(xhr, status, args)" update="panelFornecedor"  process="popPessoa">
+                                     oncomplete="handlePopPessoa(xhr, status, args)" update="panelFornecedor" process="popPessoa">
                         <f:attribute name="pessoa" value="#{popPessoaController.pessoa}"/>
                     </p:commandButton>
 
@@ -115,8 +123,8 @@
 
             <p:toolbar style="padding: 0px;">
                 <p:toolbarGroup align="right">
-                    <p:commandButton value="Confirmar" actionListener="#{compraController.validaProduto}"
-                                     oncomplete="handlePopConsultaProduto(xhr, status, args)" update="popProduto">
+                    <p:commandButton value="Confirmar" actionListener="#{compraController.adicionarProduto}"
+                                     oncomplete="handlePopProduto(xhr, status, args)" update="listaDeProdutos" process="popProduto">
                         <f:attribute name="produto" value="#{popProdutoController.produto}"/>
                     </p:commandButton>
 
