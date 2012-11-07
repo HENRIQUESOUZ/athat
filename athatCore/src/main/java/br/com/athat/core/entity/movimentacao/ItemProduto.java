@@ -16,7 +16,7 @@ public class ItemProduto extends AbstractEntity{
 	
 	private BigDecimal valor = BigDecimal.ZERO;
 	
-	private int quantidade = 0;
+	private int quantidade = 1;
 	
 	@ManyToOne(fetch = FetchType.EAGER)
 	private Produto produto;

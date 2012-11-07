@@ -53,10 +53,14 @@
                 <p:inputText id="notaFiscal" value="#{compraController.compra.notaFiscal}" 
                 	required="true" requiredMessage="Campo Nota Fiscal obrigatorio."/>
                 <p:message for="notaFiscal" />
+            </h:panelGrid>
+            <h:panelGrid columns="2">
+                <h:outputText value="Data de emissão NF. "/>
+                <p:calendar id="emissaoNF" value="#{compraController.compra.dataEmissaoNF}"
+                            pattern="dd/MM/yyyy" locale="pt_BR" size="20"/>
                 <h:outputText value="Previsão de Entrega: "/>
-                <p:inputText id="previsaoEntrega" value="#{compraController.compra.previsaoEntrega}" 
-                	required="true" requiredMessage="Campo Previsão de Entrega obrigatorio."/>
-                <p:message for="previsaoEntrega" />
+                <p:calendar id="previsaoEntrega" value="#{compraController.compra.previsaoEntrega}"
+                            pattern="dd/MM/yyyy" locale="pt_BR" size="20"/>
             </h:panelGrid>
             <br />
             
@@ -71,10 +75,14 @@
                     <h:outputLabel value="#{item.produto.nome}" />
                 </p:column>
                 <p:column headerText="Quantidade">
-                    <h:outputLabel value="#{item.quantidade}" />
+                    <p:inputText value="#{item.quantidade}" >
+                        <p:ajax listener="#{compraController.calculaValorTotal()}" event="change" update="listaDeProdutos" process="@this" />
+                    </p:inputText>    
                 </p:column>
                 <p:column headerText="Valor Unt.">
-                    <h:outputLabel value="#{item.valor}" />
+                    <p:inputText value="#{item.valor}">
+                        <p:ajax listener="#{compraController.calculaValorTotal()}" event="change" update="listaDeProdutos" process="@this" />
+                    </p:inputText>   
                 </p:column>
                 <p:column headerText="Valor Total">
                     <h:outputLabel value="#{item.valorTotal}" />
@@ -85,8 +93,15 @@
                 </p:column>
                 <p:columnGroup type="footer">
                     <p:row>
-                        <p:column colspan="3" headerText="Total: " />
-                        <p:column headerText="#{compraController.valorTotal}" />
+                      <p:column colspan="4" footerText="Total :" style="text-align:right"/> 
+                        <p:column>
+                            <f:facet name="footer">
+                                <h:outputLabel value="#{compraController.compra.valorTotal}">
+                                      <f:convertNumber locale="pt_BR" type="currency"/>
+                                </h:outputLabel>
+                            </f:facet>   
+                        </p:column>    
+                        <p:column footerText="" />
                     </p:row>               
                 </p:columnGroup>
             </p:dataTable>
@@ -96,7 +111,7 @@
             <p:toolbar style="height:46px;">
                 <p:toolbarGroup align="right" >
                     <p:commandButton value="Salvar" action="#{compraController.salvar}" ajax="false" />    
-                    <p:commandButton value="Finalizar" action="#{compraController.finalizar}" ajax="false" rendered="#{compraController.compra.id != null}" />    
+                    <p:commandButton value="Finalizar" action="#{compraController.finalizar}" ajax="false" disabled="#{compraController.compra.id == null}" />    
                     <p:commandButton value="Limpar" action="#{compraController.limpar}" ajax="false" immediate="true" />
                     <p:commandButton value="Voltar" action="/pages/principal?faces-redirect=true" ajax="false" immediate="true" />
                 </p:toolbarGroup>

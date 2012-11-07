@@ -4,23 +4,21 @@ import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
-import javax.persistence.Inheritance;
-import javax.persistence.InheritanceType;
+import javax.persistence.MappedSuperclass;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+
 import br.com.athat.core.entity.AbstractEntity;
 import br.com.athat.core.entity.conta.Conta;
 import br.com.athat.core.entity.movimentacao.enuns.SituacaoMovimentacaoType;
 
-import javax.persistence.MappedSuperclass;
-
 @MappedSuperclass
-
 public abstract class Movimentacao extends AbstractEntity {
 
 	private static final long serialVersionUID = 1L;
@@ -30,7 +28,7 @@ public abstract class Movimentacao extends AbstractEntity {
 	@Temporal(TemporalType.DATE)
 	protected Date dataEncerramento;
 
-	@OneToMany(fetch = FetchType.LAZY)
+	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	protected List<ItemProduto> itensMovimentacao;
 
 	@OneToOne

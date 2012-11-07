@@ -4,6 +4,8 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
 
 import org.primefaces.context.RequestContext;
@@ -26,9 +28,6 @@ public class CompraController extends AbstractController {
 	private Compra compra;
 	private ItemProduto itemProduto;
 	private List<Produto> produtos;
-	private BigDecimal valorTotal;
-	
-	private final String COMPRA_PAGE = "/pages/movimentacao/compra";
 	
 	@Autowired
 	private CompraManager compraManager;
@@ -42,19 +41,27 @@ public class CompraController extends AbstractController {
 	
 	public void removerProduto(){
 		compra.getItensMovimentacao().remove(itemProduto);
-		valorTotal.subtract(itemProduto.getValorTotal());
 		itemProduto = new ItemProduto();
+		calculaValorTotal();
 	}
 	
 	public String salvar(){
-		compraManager.salvar(compra);
-		return "COMPRA_PAGE";
+		try {
+			if(validade()){
+				compraManager.salvar(compra);
+				getMessageCadastroSucesso();
+			}
+		} catch(Exception e){
+			getMessageInstabilidade();
+		}
+		
+		return "/pages/movimentacao/compra";
 	}
 	
 	public String finalizar(){
 		compra.setSituacaoMovimentacaoType(SituacaoMovimentacaoType.FECHADA);
 		compraManager.salvar(compra);
-		return "COMPRA_PAGE";
+		return "/pages/movimentacao/compra";
 	}
 	
 	public void validaFornecedor(ActionEvent event) {
@@ -85,7 +92,15 @@ public class CompraController extends AbstractController {
 	
 	public String limpar(){
 		init();
-		return "COMPRA_PAGE";
+		return "/pages/movimentacao/compra";
+	}
+	
+	public void calculaValorTotal() {
+		BigDecimal valor = BigDecimal.ZERO;
+		for(ItemProduto it : compra.getItensMovimentacao()){
+			valor = valor.add(it.getValorTotal());
+		}
+		compra.setValorTotal(valor);
 	}
 	
 	private void init(){
@@ -93,9 +108,25 @@ public class CompraController extends AbstractController {
 		compra.setFornecedor(new Fornecedor());
 		compra.getFornecedor().setPessoa(new Pessoa());
 		compra.setItensMovimentacao(new ArrayList<ItemProduto>());
+		compra.setValorTotal(BigDecimal.ZERO);
 		produtos = new ArrayList<Produto>();
-		valorTotal = BigDecimal.ZERO;
 		itemProduto = new ItemProduto();
+	}
+	
+	private boolean validade() {
+		if(compra.getValorTotal().compareTo(BigDecimal.ZERO) <= 0) {
+			setMessage(FacesMessage.SEVERITY_INFO, null, "Compra com valor total zero.");
+			return false;
+		}
+		
+		for(ItemProduto it : compra.getItensMovimentacao()) {
+			if(it.getValorTotal().compareTo(BigDecimal.ZERO) <= 0) {
+				setMessage(FacesMessage.SEVERITY_INFO, null, "Produto(s) com valor total zero.");
+				return false;
+			}
+		}
+		
+		return true;
 	}
 
 	public Compra getCompra() {
@@ -120,14 +151,6 @@ public class CompraController extends AbstractController {
 
 	public void setProdutos(List<Produto> produtos) {
 		this.produtos = produtos;
-	}
-
-	public BigDecimal getValorTotal() {
-		return valorTotal;
-	}
-
-	public void setValorTotal(BigDecimal valorTotal) {
-		this.valorTotal = valorTotal;
 	}
 
 	public CompraManager getCompraManager() {

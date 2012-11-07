@@ -23,10 +23,6 @@ public class CompraManagerImpl extends AbstractManager implements CompraManager 
     @Transactional
     public Compra salvar(Compra compra) {
         
-        for(ItemProduto itemProduto : compra.getItensMovimentacao()){
-            estoqueManager.entrar(itemProduto);           
-        }
-        
         if (compra != null) {
             compra.setSituacaoMovimentacaoType(SituacaoMovimentacaoType.ABERTA);
             getEntityManager().persist(compra);
