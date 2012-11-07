@@ -14,7 +14,6 @@ import br.com.athat.core.entity.movimentacao.Movimentacao;
 import br.com.athat.core.entity.pessoa.fornecedor.Fornecedor;
 
 @Entity
-
 public class Compra extends Movimentacao {
 
 	private static final long serialVersionUID = 1L;
