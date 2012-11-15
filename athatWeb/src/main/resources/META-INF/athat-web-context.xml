@@ -29,5 +29,7 @@
     <bean id="tabelaPrecoController" class="br.com.athat.web.controller.produto.tabelaPreco.TabelaPrecoController" scope="view"/>
     <bean id="empresaController" class="br.com.athat.web.controller.empresa.EmpresaController" scope="view"/>
     <bean id="produtoController" class="br.com.athat.web.controller.produto.ProdutoController" scope="view"/>
+    <bean id="entradaController" class="br.com.athat.web.controller.entrada.EntradaController" scope="session"/>
+        
                            
 </beans>

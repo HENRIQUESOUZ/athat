@@ -1,12 +1,9 @@
 package br.com.athat.core.manager.usuario;
 
-import org.apache.commons.codec.digest.DigestUtils;
 import org.hibernate.Criteria;
 import org.hibernate.criterion.Restrictions;
 
-import br.com.athat.core.entity.usuario.Perfil;
 import br.com.athat.core.entity.usuario.Usuario;
-import br.com.athat.core.entity.usuario.UsuarioPerfil;
 import br.com.athat.core.manager.AbstractManager;
 
 public class UsuarioManagerImpl extends AbstractManager implements UsuarioManager{
@@ -24,32 +21,32 @@ public class UsuarioManagerImpl extends AbstractManager implements UsuarioManage
 
     public void createAdmin() {
         
-        Criteria criteria = createSession().createCriteria(Perfil.class)
-                .add(Restrictions.eq("descricao", "ROLE_ADMIN"));
-        
-        Perfil perfil = (Perfil) criteria.uniqueResult();
-
-        if (perfil == null) {
-            perfil = new Perfil();
-            perfil.setDescricao("ROLE_ADMIN");
-            getEntityManager().persist(perfil);
-
-            Usuario usuario = new Usuario();
-            usuario.setUsername("admin");
-            usuario.setName("admin");
-            usuario.setPassword(DigestUtils.sha512Hex("123"));
-            usuario.setEnabled(true);
-            getEntityManager().persist(usuario);
-
-            UsuarioPerfil usuarioPerfil = new UsuarioPerfil();
-            usuarioPerfil.setUsuario(usuario);
-            usuarioPerfil.setPerfil(perfil);
-            getEntityManager().persist(usuarioPerfil);
-        }
+//        Criteria criteria = createSession().createCriteria(Perfil.class)
+//                .add(Restrictions.eq("descricao", "ROLE_ADMIN"));
+//        
+//        Perfil perfil = (Perfil) criteria.uniqueResult();
+//
+//        if (perfil == null) {
+//            perfil = new Perfil();
+//            perfil.setDescricao("ROLE_ADMIN");
+//            getEntityManager().persist(perfil);
+//
+//            Usuario usuario = new Usuario();
+//            usuario.setUsername("admin");
+//            usuario.setName("admin");
+//            usuario.setPassword(DigestUtils.sha512Hex("123"));
+//            usuario.setEnabled(true);
+//            getEntityManager().persist(usuario);
+//
+//            UsuarioPerfil usuarioPerfil = new UsuarioPerfil();
+//            usuarioPerfil.setUsuario(usuario);
+//            usuarioPerfil.setPerfil(perfil);
+//            getEntityManager().persist(usuarioPerfil);
+//        }
 
     }
 
-    public void salvar(Usuario usuario) {
+		public void salvar(Usuario usuario) {
         
 //        if (usuario.getId() == null) {
 //                getEntityManager().persist(usuario);

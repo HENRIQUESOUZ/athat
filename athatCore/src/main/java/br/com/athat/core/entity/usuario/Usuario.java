@@ -3,6 +3,7 @@ package br.com.athat.core.entity.usuario;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.Basic;
 import javax.persistence.Column;
@@ -13,10 +14,13 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 
 import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.GrantedAuthorityImpl;
+import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import br.com.athat.core.entity.AbstractEntity;
+
+import com.google.common.collect.ImmutableList;
+import com.google.common.collect.Sets;
 
 @Entity
 public class Usuario extends AbstractEntity implements UserDetails {
@@ -41,12 +45,29 @@ public class Usuario extends AbstractEntity implements UserDetails {
                         @JoinColumn(name = "perfil_fk"))
     private List<Perfil> perfis = new ArrayList<Perfil>();
 
+    @Override
     public Collection<GrantedAuthority> getAuthorities() {
-        List<GrantedAuthority> list = new ArrayList<GrantedAuthority>();
-        for (Perfil perfil : getPerfis()) {
-            list.add(new GrantedAuthorityImpl(perfil.getAuthority()));
+        return AuthorityUtils.createAuthorityList("ROLE_USER");
+    }
+
+    public List<PermissaoUsuarioType> getAutorizacoes() {
+        Set<PermissaoUsuarioType> permissoes = Sets.newHashSet();
+        for (Perfil perfil : perfis) {
+            if (perfil.getPerfilType() == PerfilType.PERMISSAO) {
+                permissoes.addAll(perfil.getPermissoes());
+            }
         }
-        return list;
+        return ImmutableList.copyOf(permissoes);
+    }
+
+    public List<PermissaoUsuarioType> getNegacoes() {
+        Set<PermissaoUsuarioType> permissoes = Sets.newHashSet();
+        for (Perfil perfil : perfis) {
+            if (perfil.getPerfilType() == PerfilType.NEGACAO) {
+                permissoes.addAll(perfil.getPermissoes());
+            }
+        }
+        return ImmutableList.copyOf(permissoes);
     }
 
     @Override

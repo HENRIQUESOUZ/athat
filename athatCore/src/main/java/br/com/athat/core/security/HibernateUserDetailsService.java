@@ -42,10 +42,13 @@ public class HibernateUserDetailsService implements UserDetailsService, Serializ
 
     public Usuario getUser(String username,Session session) {
         Criteria criteria = session.createCriteria(Usuario.class)
-                .add(Restrictions.eq("username",username));
-        return (Usuario) criteria.uniqueResult();
+        		.add(Restrictions.eq("username",username));
+        Usuario usuario = (Usuario) criteria.uniqueResult();
+        usuario.getAuthorities();
+        usuario.getAutorizacoes();
+        usuario.getNegacoes();
+        
+        return usuario;
     }
-
-
   
 }

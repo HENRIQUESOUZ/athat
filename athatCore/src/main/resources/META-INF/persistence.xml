@@ -12,7 +12,6 @@
     <class>br.com.athat.core.entity.conta.financeiro.Lancamento</class>
     <class>br.com.athat.core.entity.usuario.Usuario</class>
     <class>br.com.athat.core.entity.usuario.Perfil</class>
-    <class>br.com.athat.core.entity.usuario.UsuarioPerfil</class>
     <class>br.com.athat.core.entity.empresa.Empresa</class>
     <class>br.com.athat.core.entity.pessoa.Endereco</class>
     <class>br.com.athat.core.entity.pessoa.Pessoa</class>
