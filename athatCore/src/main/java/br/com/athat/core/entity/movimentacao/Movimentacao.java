@@ -8,6 +8,9 @@ import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
+
+import javax.persistence.CascadeType;
+
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
@@ -28,7 +31,7 @@ public abstract class Movimentacao extends AbstractEntity {
 	@Temporal(TemporalType.DATE)
 	protected Date dataEncerramento;
 
-	@OneToMany(fetch = FetchType.LAZY)
+	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	protected List<ItemProduto> itensMovimentacao;
 
 	@OneToOne

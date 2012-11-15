@@ -17,11 +17,12 @@
                   
     <bean id="usuarioController" class="br.com.athat.web.controller.usuario.UsuarioController" scope="view"/>     
     <bean id="clienteController" class="br.com.athat.web.controller.pessoa.cliente.ClienteController" scope="view"/>   
-    <bean id="compraController" class="br.com.athat.web.movimentacao.compra.CompraController" scope="view"/>            
+    <bean id="compraController" class="br.com.athat.web.movimentacao.compra.CompraController" scope="session"/>            
     <bean id="funcionarioController" class="br.com.athat.web.controller.pessoa.funcionario.FuncionarioController" scope="view"/>            
     <bean id="fornecedorController" class="br.com.athat.web.controller.pessoa.fornecedor.FornecedorController" scope="view"/>
     <bean id="pessoaController" class="br.com.athat.web.controller.pessoa.PessoaController" scope="view"/> 
-    <bean id="popPessoaController" class="br.com.athat.web.controller.pop.PopPessoaController" scope="view"/>   
+    <bean id="popPessoaController" class="br.com.athat.web.controller.pop.PopPessoaController" scope="view"/> 
+    <bean id="popProdutoController" class="br.com.athat.web.controller.pop.PopProdutoController" scope="view"/>   
     <bean id="categoriaController" class="br.com.athat.web.controller.produto.categoria.CategoriaController" scope="view"/> 
     <bean id="cidadeController" class="br.com.athat.web.controller.cidade.CidadeController" scope="view"/> 
     <bean id="enunsToSelectItem" class="br.com.athat.web.utils.EnunsToSelectItem" scope="request"/> 

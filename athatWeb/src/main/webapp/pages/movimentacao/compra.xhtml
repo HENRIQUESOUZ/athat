@@ -8,19 +8,43 @@
     <ui:define name="titulo">
         <h3>Compra</h3>
     </ui:define>
+    
+    <ui:define name="script">
+        
+      <script type="text/javascript">
+            function handlePopPessoa(xhr, status, args) {
+                if (!args.confirmar) {                    
+                    jQuery('#popPessoa').effect("shake", { times:3 }, 100);
+                } else {
+                    popPessoa.hide();
+                }
+            }
+        </script>
+        
+         <script type="text/javascript">
+            function handlePopProduto(xhr, status, args) {
+                if (!args.confirmar) {                    
+                    jQuery('#popProduto').effect("shake", { times:3 }, 100);
+                } else {
+                    popProduto.hide();
+                }
+            }
+        </script>
+    </ui:define>  
 
     <ui:define name="conteudo">
         
         <h:form id="compra" >
 
-            <h:panelGrid columns="4">
+            <h:panelGrid id="panelFornecedor" columns="4">
                 <h:outputText value="Fornecedor: "/>
                 <p:inputText id="fornecedor" value="#{compraController.compra.fornecedor.pessoa.nomeRazao}" 
                 	required="true" requiredMessage="Campo Fornecedor obrigatorio"/>
-                <p:commandButton value="buscar" onclick="popPessoa.show()">
+                <p:commandButton value="buscar" oncomplete="popPessoa.show()" process="@this">
                     <f:setPropertyActionListener value="fornecedor" target="#{popPessoaController.papel}"/>
                     <f:setPropertyActionListener value="true" target="#{popPessoaController.disableCliente}"/>
                     <f:setPropertyActionListener value="true" target="#{popPessoaController.disableFuncionario}"/>
+                    <f:setPropertyActionListener value="true" target="#{popPessoaController.selectFornecedor}"/>
                 </p:commandButton>    
                 
             </h:panelGrid>
@@ -29,16 +53,21 @@
                 <p:inputText id="notaFiscal" value="#{compraController.compra.notaFiscal}" 
                 	required="true" requiredMessage="Campo Nota Fiscal obrigatorio."/>
                 <p:message for="notaFiscal" />
+            </h:panelGrid>
+            <h:panelGrid columns="2">
+                <h:outputText value="Data de emissão NF. "/>
+                <p:calendar id="emissaoNF" value="#{compraController.compra.dataEmissaoNF}"
+                            pattern="dd/MM/yyyy" locale="pt_BR" size="20"/>
                 <h:outputText value="Previsão de Entrega: "/>
-                <p:inputText id="previsaoEntrega" value="#{compraController.compra.previsaoEntrega}" 
-                	required="true" requiredMessage="Campo Previsão de Entrega obrigatorio."/>
-                <p:message for="previsaoEntrega" />
+                <p:calendar id="previsaoEntrega" value="#{compraController.compra.previsaoEntrega}"
+                            pattern="dd/MM/yyyy" locale="pt_BR" size="20"/>
             </h:panelGrid>
             <br />
             
-            <p:commandButton value="Novo Produto" action="#{compraController.prepararProduto}"/>
+            <p:commandButton value="Novo Produto" actionListener="#{compraController.prepararProduto}" oncomplete="popProduto.show();"/>
             
-            <p:dataTable value="#{compraController.compra.itensMovimentacao}" var="item">
+            <p:dataTable  id="listaDeProdutos" value="#{compraController.compra.itensMovimentacao}" var="item"
+                          emptyMessage="Não possui produtos adicionados.">
                 <p:column headerText="Codigo">
                     <h:outputLabel value="#{item.produto.id}" />
                 </p:column>
@@ -46,25 +75,33 @@
                     <h:outputLabel value="#{item.produto.nome}" />
                 </p:column>
                 <p:column headerText="Quantidade">
-                    <h:outputLabel value="#{item.quantidade}" />
+                    <p:inputText value="#{item.quantidade}" >
+                        <p:ajax listener="#{compraController.calculaValorTotal()}" event="change" update="listaDeProdutos" process="@this" />
+                    </p:inputText>    
                 </p:column>
                 <p:column headerText="Valor Unt.">
-                    <h:outputLabel value="#{item.valor}" />
+                    <p:inputText value="#{item.valor}">
+                        <p:ajax listener="#{compraController.calculaValorTotal()}" event="change" update="listaDeProdutos" process="@this" />
+                    </p:inputText>   
                 </p:column>
                 <p:column headerText="Valor Total">
                     <h:outputLabel value="#{item.valorTotal}" />
                 </p:column>
                 <p:column headerText="Remover">
-                    <p:commandButton value="Remover" action="#{compraController.removerProduto}"/>
+                    <p:commandButton value="Remover" action="#{compraController.removerProduto}" update="listaDeProdutos" 
+                                     process="@this"/>
                 </p:column>
-                <p:columnGroup>
+                <p:columnGroup type="footer">
                     <p:row>
+                      <p:column colspan="4" footerText="Total :" style="text-align:right"/> 
                         <p:column>
-                            <h:outputLabel value="Total: " />
-                        </p:column>
-                        <p:column>
-                            <h:outputLabel value="#{compraController.valorTotal}" />
-                        </p:column>
+                            <f:facet name="footer">
+                                <h:outputLabel value="#{compraController.compra.valorTotal}">
+                                      <f:convertNumber locale="pt_BR" type="currency"/>
+                                </h:outputLabel>
+                            </f:facet>   
+                        </p:column>    
+                        <p:column footerText="" />
                     </p:row>               
                 </p:columnGroup>
             </p:dataTable>
@@ -74,7 +111,7 @@
             <p:toolbar style="height:46px;">
                 <p:toolbarGroup align="right" >
                     <p:commandButton value="Salvar" action="#{compraController.salvar}" ajax="false" />    
-                    <p:commandButton value="Finalizar" action="#{compraController.finalizar}" ajax="false" rendered="#{compraController.compra.id != null}" />    
+                    <p:commandButton value="Finalizar" action="#{compraController.finalizar}" ajax="false" disabled="#{compraController.compra.id == null}" />    
                     <p:commandButton value="Limpar" action="#{compraController.limpar}" ajax="false" immediate="true" />
                     <p:commandButton value="Voltar" action="/pages/principal?faces-redirect=true" ajax="false" immediate="true" />
                 </p:toolbarGroup>
@@ -85,8 +122,8 @@
 
             <p:toolbar style="padding: 0px;">
                 <p:toolbarGroup align="right">
-                    <p:commandButton value="Confirmar" actionListener="#{compraController.validaFornecedor}"
-                                     oncomplete="handlePopConsultaPessoa(xhr, status, args)" update="popPessoa">
+                    <p:commandButton value="Confirmar" actionListener="#{compraController.validaFornecedor}" 
+                                     oncomplete="handlePopPessoa(xhr, status, args)" update="panelFornecedor" process="popPessoa">
                         <f:attribute name="pessoa" value="#{popPessoaController.pessoa}"/>
                     </p:commandButton>
 
@@ -101,8 +138,8 @@
 
             <p:toolbar style="padding: 0px;">
                 <p:toolbarGroup align="right">
-                    <p:commandButton value="Confirmar" actionListener="#{compraController.validaProduto}"
-                                     oncomplete="handlePopConsultaProduto(xhr, status, args)" update="popProduto">
+                    <p:commandButton value="Confirmar" actionListener="#{compraController.adicionarProduto}"
+                                     oncomplete="handlePopProduto(xhr, status, args)" update="listaDeProdutos" process="popProduto">
                         <f:attribute name="produto" value="#{popProdutoController.produto}"/>
                     </p:commandButton>
 

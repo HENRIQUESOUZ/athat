@@ -14,11 +14,17 @@ public class ContaAReceber extends Conta {
 	@OneToOne
 	private Venda venda;
 
-	public Movimentacao getMovimentacao() {
+	public Venda getMovimentacao() {
 		return venda;
 	}
 
 	public void setMovimentacao(Movimentacao venda) {
-		this.venda = (Venda) venda;
+		this.venda = venda;
+	}
+
+	@Override
+	public void setMovimentacao(Movimentacao movimentacao) {
+		// TODO Auto-generated method stub
+		
 	}
 }

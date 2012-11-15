@@ -4,6 +4,8 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
 
 import org.primefaces.context.RequestContext;
@@ -12,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import br.com.athat.core.entity.movimentacao.ItemProduto;
 import br.com.athat.core.entity.movimentacao.compra.Compra;
 import br.com.athat.core.entity.movimentacao.enuns.SituacaoMovimentacaoType;
+import br.com.athat.core.entity.pessoa.Pessoa;
 import br.com.athat.core.entity.pessoa.fornecedor.Fornecedor;
 import br.com.athat.core.entity.produto.Produto;
 import br.com.athat.core.manager.movimentacao.compra.CompraManager;
@@ -25,7 +28,6 @@ public class CompraController extends AbstractController {
 	private Compra compra;
 	private ItemProduto itemProduto;
 	private List<Produto> produtos;
-	private BigDecimal valorTotal;
 	
 	@Autowired
 	private CompraManager compraManager;
@@ -34,21 +36,25 @@ public class CompraController extends AbstractController {
 	private ProdutoManager produtoManager;
 	
 	public CompraController() {
-		compra = new Compra();
-		compra.setItensMovimentacao(new ArrayList<ItemProduto>());
-		produtos = new ArrayList<Produto>();
-		valorTotal = BigDecimal.ZERO;
-		itemProduto = new ItemProduto();
+		init();
 	}
 	
 	public void removerProduto(){
 		compra.getItensMovimentacao().remove(itemProduto);
-		valorTotal.subtract(itemProduto.getValorTotal());
 		itemProduto = new ItemProduto();
+		calculaValorTotal();
 	}
 	
 	public String salvar(){
-		compraManager.salvar(compra);
+		try {
+			if(validade()){
+				compraManager.salvar(compra);
+				getMessageCadastroSucesso();
+			}
+		} catch(Exception e){
+			getMessageInstabilidade();
+		}
+		
 		return "/pages/movimentacao/compra";
 	}
 	
@@ -63,7 +69,7 @@ public class CompraController extends AbstractController {
         Fornecedor fornecedor = (Fornecedor) event.getComponent().getAttributes().get("pessoa");
     	if (fornecedor == null) {
     		context.addCallbackParam("confirmar", false);
-    		setMessage("Pessoa não selecionada.");
+    		setMessage("Fornecedor não selecionado.");
     	} else {
     		context.addCallbackParam("confirmar", true);                
     		compra.setFornecedor(fornecedor);
@@ -80,10 +86,48 @@ public class CompraController extends AbstractController {
     		context.addCallbackParam("confirmar", true);                
     		itemProduto.setProduto(produto);
     		compra.getItensMovimentacao().add(itemProduto);
-    		valorTotal.add(itemProduto.getValorTotal());
     		itemProduto = new ItemProduto();
     	}
     }
+	
+	public String limpar(){
+		init();
+		return "/pages/movimentacao/compra";
+	}
+	
+	public void calculaValorTotal() {
+		BigDecimal valor = BigDecimal.ZERO;
+		for(ItemProduto it : compra.getItensMovimentacao()){
+			valor = valor.add(it.getValorTotal());
+		}
+		compra.setValorTotal(valor);
+	}
+	
+	private void init(){
+		compra = new Compra();
+		compra.setFornecedor(new Fornecedor());
+		compra.getFornecedor().setPessoa(new Pessoa());
+		compra.setItensMovimentacao(new ArrayList<ItemProduto>());
+		compra.setValorTotal(BigDecimal.ZERO);
+		produtos = new ArrayList<Produto>();
+		itemProduto = new ItemProduto();
+	}
+	
+	private boolean validade() {
+		if(compra.getValorTotal().compareTo(BigDecimal.ZERO) <= 0) {
+			setMessage(FacesMessage.SEVERITY_INFO, null, "Compra com valor total zero.");
+			return false;
+		}
+		
+		for(ItemProduto it : compra.getItensMovimentacao()) {
+			if(it.getValorTotal().compareTo(BigDecimal.ZERO) <= 0) {
+				setMessage(FacesMessage.SEVERITY_INFO, null, "Produto(s) com valor total zero.");
+				return false;
+			}
+		}
+		
+		return true;
+	}
 
 	public Compra getCompra() {
 		return compra;
@@ -107,14 +151,6 @@ public class CompraController extends AbstractController {
 
 	public void setProdutos(List<Produto> produtos) {
 		this.produtos = produtos;
-	}
-
-	public BigDecimal getValorTotal() {
-		return valorTotal;
-	}
-
-	public void setValorTotal(BigDecimal valorTotal) {
-		this.valorTotal = valorTotal;
 	}
 
 	public CompraManager getCompraManager() {

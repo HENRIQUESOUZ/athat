@@ -30,6 +30,7 @@ public class ProdutoController extends AbstractController{
 
     public ProdutoController() {
         produto = new Produto();
+        produto.setCategoria(new Categoria());
         produtos  = new ArrayList<Produto>();
         categoria = new Categoria();
         categorias = new ArrayList<Categoria>();

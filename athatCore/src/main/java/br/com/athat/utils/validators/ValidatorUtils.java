@@ -15,4 +15,8 @@ public class ValidatorUtils {
     public static boolean isNotEmptyAndNotNull(List value){
     	return  value != null && !value.isEmpty() ? true : false;
     }
+    
+    public static Long convertStringToLong(String value){
+    	return value != null && !value.isEmpty() ? Long.valueOf(value) : null;
+    }
 }

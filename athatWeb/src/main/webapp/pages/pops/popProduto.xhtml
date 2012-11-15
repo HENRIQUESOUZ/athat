@@ -10,14 +10,13 @@
             <p:inputText id="produtoId" value="#{popProdutoController.id}" />
 
             <h:outputText value="Nome: " />
-            <p:inputText id="nome" value="#{popPessoaController.nome}" />
+            <p:inputText id="nome" value="#{popProdutoController.nome}" />
         </h:panelGrid>
-        
-        <p:panel style="text-align: right; border: none; padding: 0px; width: 600px;">
-            <p:commandButton icon="ui-icon-search" value="#{i18n['button.find']}" action="#{popPessoaController.buscarPessoa}"
-                update="listaDePessoas"/>
-        </p:panel>
-
+          <br />
+          
+          <p:commandButton value="buscar" action="#{popProdutoController.buscarProdutos}" update="listaProdutos" 
+                           process="@this"/>
+          
         <br/>
         <p:dataTable id="listaProdutos" var="produto" value="#{popProdutoController.produtos}"
                      emptyMessage="Nenhum registro foi encontrado." paginator="true" rows="15"
