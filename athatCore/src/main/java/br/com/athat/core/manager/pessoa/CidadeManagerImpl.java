@@ -9,10 +9,10 @@ import org.springframework.transaction.annotation.Transactional;
 
 import br.com.athat.core.entity.pessoa.endereco.Cidade;
 import br.com.athat.core.entity.pessoa.endereco.EstadoType;
-import br.com.athat.core.manager.AbstractManager;
+import br.com.athat.core.manager.AbstractManagerImpl;
 import br.com.athat.utils.validators.ValidatorUtils;
 
-public class CidadeManagerImpl extends AbstractManager implements CidadeManager {
+public class CidadeManagerImpl extends AbstractManagerImpl implements CidadeManager {
 
 	private static final long serialVersionUID = 1L;
 

@@ -7,10 +7,10 @@ import org.hibernate.criterion.Restrictions;
 import org.springframework.transaction.annotation.Transactional;
 
 import br.com.athat.core.entity.empresa.Empresa;
-import br.com.athat.core.manager.AbstractManager;
+import br.com.athat.core.manager.AbstractManagerImpl;
 import br.com.athat.utils.validators.ValidatorUtils;
 
-public class EmpresaManagerImpl extends AbstractManager implements EmpresaManager{
+public class EmpresaManagerImpl extends AbstractManagerImpl implements EmpresaManager{
 
 	private static final long serialVersionUID = 1L;
 

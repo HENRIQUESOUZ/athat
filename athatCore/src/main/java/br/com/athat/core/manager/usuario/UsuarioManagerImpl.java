@@ -4,9 +4,9 @@ import org.hibernate.Criteria;
 import org.hibernate.criterion.Restrictions;
 
 import br.com.athat.core.entity.usuario.Usuario;
-import br.com.athat.core.manager.AbstractManager;
+import br.com.athat.core.manager.AbstractManagerImpl;
 
-public class UsuarioManagerImpl extends AbstractManager implements UsuarioManager{
+public class UsuarioManagerImpl extends AbstractManagerImpl implements UsuarioManager{
 
 	private static final long serialVersionUID = 1L;
 

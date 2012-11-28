@@ -1,0 +1,92 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui" 
+                template="/pages/template.xhtml">
+    
+    <ui:define name="titulo">
+        <h3>Listagem de Entradas</h3>
+    </ui:define>
+
+    <ui:define name="conteudo">
+        
+        <h:form id="listagemCategoria">
+            
+            <p:panel header="Consulta">
+                <h:panelGrid columns="2">
+                    <h:outputText value="Código: "/>
+                    <p:inputText value="#{entradaController.compraVO.id}"/>
+                    
+                    <h:outputText value="Número Nota Fiscal:  "/>
+                    <p:inputText value="#{entradaController.compraVO.numeroNF}"/>
+                </h:panelGrid>
+                
+                <h:panelGrid columns="4">
+                    <h:outputText value="Data Emissão NF:  "/>
+                    <p:calendar  value="#{entradaController.compraVO.dataInicioNF}"
+                                pattern="dd/MM/yyyy" locale="pt_BR" size="20"/>
+                    <h:outputText value=" até "/>
+                    <p:calendar  value="#{entradaController.compraVO.dataFimNF}"
+                                pattern="dd/MM/yyyy" locale="pt_BR" size="20"/>
+                    
+                    <h:outputText value="Data Compra: "/>
+                    <p:calendar  value="#{entradaController.compraVO.dataInicioCompra}"
+                                pattern="dd/MM/yyyy" locale="pt_BR" size="20"/>
+                    <h:outputText value=" até "/>
+                    <p:calendar  value="#{entradaController.compraVO.dataFimCompra}"
+                                pattern="dd/MM/yyyy" locale="pt_BR" size="20"/>
+                </h:panelGrid>
+                
+                <br />
+                
+                <p:commandButton value="Buscar" action="#{entradaController.buscar}" 
+                                 update="entradaDatable"/>
+            </p:panel>
+            
+            <br />
+            
+            <p:dataTable id="entradaDatable" value="#{entradaController.compras}" var="compra" 
+                         emptyMessage="Não existe Compras para realizar entrada .">
+                <p:column headerText="Código">
+                    <h:outputText value="#{compra.id}" />
+                </p:column>
+                
+                <p:column headerText="Cliente">
+                    <h:outputText value="#{compra.fornecedor.pessoa.nomeRazao}" />
+                </p:column>
+                
+                <p:column headerText="Nota Fiscal">
+                    <h:outputText value="#{compra.notaFiscal}" />
+                </p:column>
+                
+                <p:column headerText="Data Nota Fiscal">
+                    <h:outputText value="#{compra.dataEmissaoNF}" >
+                        <f:convertDateTime pattern="dd/MM/yyyy" locale="pt_BR"  />
+                    </h:outputText>    
+                </p:column>
+                
+                 <p:column headerText="Data Compra">
+                    <h:outputText value="#{compra.dataCadastro}" >
+                         <f:convertDateTime pattern="dd/MM/yyyy" locale="pt_BR"  />
+                    </h:outputText>    
+                </p:column>
+                
+                 <p:column headerText="Opções">
+                     <p:commandButton alt="Visualizar" action="#{entradaController.carregarCompra}"
+                                      immediate="true" ajax="false" icon="ui-icon-pencil">
+                        <f:setPropertyActionListener value="#{compra}" target="#{entradaController.compra}" />
+                     </p:commandButton>
+                </p:column>
+            </p:dataTable>    
+            
+            <br />
+            
+            <p:toolbar style="height:46px;">
+                <p:toolbarGroup align="right" >  
+                    <p:commandButton value="Voltar" action="/pages/principal?faces-redirect=true" ajax="false" immediate="true"/>
+                </p:toolbarGroup>
+             </p:toolbar>            
+     </h:form>     
+    </ui:define>
+</ui:composition>

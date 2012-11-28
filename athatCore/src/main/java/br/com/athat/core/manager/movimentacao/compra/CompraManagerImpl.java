@@ -1,19 +1,22 @@
 package br.com.athat.core.manager.movimentacao.compra;
 
 import java.util.List;
+
 import org.hibernate.Criteria;
-import org.hibernate.criterion.Criterion;
+import org.hibernate.Hibernate;
 import org.hibernate.criterion.Restrictions;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 
 import br.com.athat.core.entity.movimentacao.ItemProduto;
 import br.com.athat.core.entity.movimentacao.compra.Compra;
+import br.com.athat.core.entity.movimentacao.enuns.SituacaoEntradaType;
 import br.com.athat.core.entity.movimentacao.enuns.SituacaoMovimentacaoType;
-import br.com.athat.core.manager.AbstractManager;
+import br.com.athat.core.manager.AbstractManagerImpl;
 import br.com.athat.core.manager.produto.estoque.EstoqueManager;
-import org.springframework.beans.factory.annotation.Autowired;
+import br.com.athat.core.vo.compra.CompraVO;
 
-public class CompraManagerImpl extends AbstractManager implements CompraManager {
+public class CompraManagerImpl extends AbstractManagerImpl implements CompraManager {
 
     private static final long serialVersionUID = 1L;
     
@@ -22,12 +25,13 @@ public class CompraManagerImpl extends AbstractManager implements CompraManager 
 
     @Transactional
     public Compra salvar(Compra compra) {
-        
-        if (compra != null) {
+        if (compra.getId() == null) {
             compra.setSituacaoMovimentacaoType(SituacaoMovimentacaoType.ABERTA);
+            compra.setSituacaoEntradaType(SituacaoEntradaType.AGUARDANDO);
             getEntityManager().persist(compra);
         } else {
             getEntityManager().merge(compra);
+            getEntityManager().flush();
         }
         
         return compra;
@@ -35,26 +39,42 @@ public class CompraManagerImpl extends AbstractManager implements CompraManager 
 
     @SuppressWarnings("unchecked")
     @Transactional(readOnly = true)
-    public List<Compra> buscar(Compra compra) {
-        Criteria criteria = createSession().createCriteria(Compra.class);
+    public List<Compra> buscar(CompraVO compra) {
+        Criteria criteria = createSession().createCriteria(Compra.class)
+        		.add(Restrictions.between("dataCadastro", compra.getDataInicioCompra(), compra.getDataFimCompra()))
+        		.add(Restrictions.between("dataEmissaoNF", compra.getDataInicioNF(), compra.getDataFimNF()))
+        ;
 
-        if (compra.getDataCadastro() != null) {
-            criteria.add(Restrictions.eq("dataCadastro", compra.getDataCadastro()));
-        }
+//        if (compra.getSituacaoMovimentacaoType() != null) {
+//            criteria.add(Restrictions.eq("situacaoMovimentacaoType", compra.getSituacaoMovimentacaoType()));
+//        }
+//        
+//        if (compra.getSituacaoEntradaType() != null) {
+//            criteria.add(Restrictions.eq("situacaoEntradaType", compra.getSituacaoEntradaType()));
+//        }
 
-        if (compra.getDataEmissaoNF() != null) {
-            criteria.add(Restrictions.eq("dataEmissaoNF", compra.getDataEmissaoNF()));
-        }
-
-        if (compra.getSituacaoMovimentacaoType() != null) {
-            criteria.add(Restrictions.eq("situacaoMovimentacao", compra.getSituacaoMovimentacaoType()));
-        }
-
-        if (compra.getFornecedor().getId() != null) {
+        if (compra.getFornecedor() != null && compra.getFornecedor().getId() != null) {
             criteria.createAlias("fornecedor", "for");
             criteria.add(Restrictions.eq("for.id", compra.getFornecedor().getId()));
         }
 
         return criteria.list();
     }
+
+	@Override
+	@Transactional
+	public void entrada(Compra compra) {
+		for(ItemProduto it : compra.getItensMovimentacao()) {
+			estoqueManager.entrar(it);
+		}
+		getEntityManager().merge(compra);
+	}
+
+	@Override
+	@Transactional(readOnly = true)
+	public Compra buscarCompraPorIdFull(Long id) {
+		Compra compra = getEntityManager().find(Compra.class, id);
+		Hibernate.initialize(compra.getItensMovimentacao());
+		return compra;
+	}
 }

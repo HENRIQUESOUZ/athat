@@ -4,6 +4,8 @@ import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
@@ -11,6 +13,7 @@ import javax.persistence.TemporalType;
 
 import br.com.athat.core.entity.conta.ContaAPagar;
 import br.com.athat.core.entity.movimentacao.Movimentacao;
+import br.com.athat.core.entity.movimentacao.enuns.SituacaoEntradaType;
 import br.com.athat.core.entity.pessoa.fornecedor.Fornecedor;
 
 @Entity
@@ -32,7 +35,11 @@ public class Compra extends Movimentacao {
 	
 	@OneToOne
 	private ContaAPagar contaAPagar;
+	
+	@Enumerated(EnumType.STRING)
+	private SituacaoEntradaType situacaoEntradaType;
 
+	
 	public String getNotaFiscal() {
 		return notaFiscal;
 	}
@@ -73,5 +80,11 @@ public class Compra extends Movimentacao {
 		this.contaAPagar = contaAPagar;
 	}
 	
-
+	public SituacaoEntradaType getSituacaoEntradaType() {
+		return situacaoEntradaType;
+	}
+	
+	public void setSituacaoEntradaType(SituacaoEntradaType situacaoEntradaType) {
+		this.situacaoEntradaType = situacaoEntradaType;
+	}
 }

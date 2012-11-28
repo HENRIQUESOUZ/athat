@@ -10,7 +10,7 @@ import br.com.athat.core.entity.AbstractEntity;
 import br.com.athat.core.entity.produto.Produto;
 
 @Entity
-public class ItemProduto extends AbstractEntity{
+public class ItemProduto extends AbstractEntity {
 
 	private static final long serialVersionUID = 1L;
 	

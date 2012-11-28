@@ -8,10 +8,10 @@ import org.hibernate.criterion.Restrictions;
 import org.springframework.transaction.annotation.Transactional;
 
 import br.com.athat.core.entity.pessoa.funcionario.Funcionario;
-import br.com.athat.core.manager.AbstractManager;
+import br.com.athat.core.manager.AbstractManagerImpl;
 import br.com.athat.utils.validators.ValidatorUtils;
 
-public class FuncionarioManagerImpl extends AbstractManager implements FuncionarioManager{
+public class FuncionarioManagerImpl extends AbstractManagerImpl implements FuncionarioManager{
 
 	private static final long serialVersionUID = 1L;
 

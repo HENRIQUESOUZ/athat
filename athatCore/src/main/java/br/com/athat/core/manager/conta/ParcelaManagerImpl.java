@@ -1,9 +1,9 @@
 package br.com.athat.core.manager.conta;
 
 import br.com.athat.core.entity.conta.Parcela;
-import br.com.athat.core.manager.AbstractManager;
+import br.com.athat.core.manager.AbstractManagerImpl;
 
-public class ParcelaManagerImpl extends AbstractManager implements ParcelaManager {
+public class ParcelaManagerImpl extends AbstractManagerImpl implements ParcelaManager {
 
 
 	public void gerarParcelas(int numeroParcelas) {
