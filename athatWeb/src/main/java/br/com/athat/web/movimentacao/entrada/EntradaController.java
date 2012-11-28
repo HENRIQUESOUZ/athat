@@ -1,4 +1,4 @@
-package br.com.athat.web.controller.entrada;
+package br.com.athat.web.movimentacao.entrada;
 
 import java.util.ArrayList;
 import java.util.List;
