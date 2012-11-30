@@ -1,10 +1,11 @@
 package br.com.athat.core.manager.movimentacao.venda;
 
-import br.com.athat.core.entity.movimentacao.venda.Venda;
-
 import java.util.List;
 
-public interface VendaManager {
+import br.com.athat.core.entity.movimentacao.venda.Venda;
+import br.com.athat.core.manager.AbstractManager;
+
+public interface VendaManager extends AbstractManager {
     
     Venda salvar(Venda venda);
     

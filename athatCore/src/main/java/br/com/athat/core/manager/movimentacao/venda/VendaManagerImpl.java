@@ -1,20 +1,23 @@
 package br.com.athat.core.manager.movimentacao.venda;
 
-import br.com.athat.core.entity.movimentacao.ItemProduto;
-import br.com.athat.core.entity.movimentacao.compra.Compra;
-import br.com.athat.core.entity.movimentacao.enuns.SituacaoMovimentacaoType;
-import br.com.athat.core.entity.movimentacao.venda.Venda;
-import br.com.athat.core.manager.AbstractManagerImpl;
-import br.com.athat.core.manager.produto.estoque.EstoqueManager;
 import java.util.List;
+
 import org.hibernate.Criteria;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 
+import br.com.athat.core.entity.movimentacao.ItemProduto;
+import br.com.athat.core.entity.movimentacao.enuns.SituacaoMovimentacaoType;
+import br.com.athat.core.entity.movimentacao.venda.Venda;
+import br.com.athat.core.manager.AbstractManagerImpl;
+import br.com.athat.core.manager.produto.estoque.EstoqueManager;
+
 public class VendaManagerImpl extends AbstractManagerImpl implements VendaManager {
     
-    @Autowired
+	private static final long serialVersionUID = 1L;
+
+	@Autowired
     private EstoqueManager estoqueManager;
 
     @Transactional
