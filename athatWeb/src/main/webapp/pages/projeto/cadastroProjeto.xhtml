@@ -1,0 +1,84 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui" 
+                template="/pages/template.xhtml">
+    
+    <ui:define name="titulo">
+        <h3>Cadastro de Projeto</h3>
+    </ui:define>
+    
+     <ui:define name="script">
+        
+      <script type="text/javascript">
+            function handlePopPessoa(xhr, status, args) {
+                if (!args.confirmar) {                    
+                    jQuery('#popPessoa').effect("shake", { times:3 }, 100);
+                } else {
+                    popPessoa.hide();
+                }
+            }
+        </script>
+     
+    </ui:define>  
+
+    <ui:define name="conteudo">
+        
+        <h:form id="cadastroProjeto">
+  
+            <h:panelGrid id="panelCliente" columns="4">
+                <h:outputText value="Cliente: "/>
+                <p:inputText id="Cliente" value="#{projetoController.projeto.cliente.pessoa.nomeRazao}" 
+                	required="true" requiredMessage="Campo Cliente obrigatorio"/>
+                <p:commandButton value="buscar" oncomplete="popPessoa.show()" process="@this">
+                    <f:setPropertyActionListener value="cliente" target="#{popPessoaController.papel}"/>
+                    <f:setPropertyActionListener value="true" target="#{popPessoaController.disableFornecedor}"/>
+                    <f:setPropertyActionListener value="true" target="#{popPessoaController.disableFuncionario}"/>
+                    <f:setPropertyActionListener value="true" target="#{popPessoaController.selectCliente}"/>
+                </p:commandButton>    
+                
+            </h:panelGrid>
+            
+            <h:panelGrid columns="3">
+                
+                <h:outputText value="Nome: "/>
+                <p:inputText id="nome" value="#{projetoController.projeto.nome}" 
+                             required="true" requiredMessage="Campo Nome obrigatório."/>
+                <p:message for="nome" />
+                
+                
+                <h:outputText value="Previsão de Entrega: "/>
+                <p:calendar id="emissaoNF" value="#{projetoController.projeto.previsaoEntrega}"
+                            pattern="dd/MM/yyyy" locale="pt_BR" size="20"/>
+            
+            </h:panelGrid>
+
+            <br />
+            
+            <p:toolbar style="height:46px;">
+            <p:toolbarGroup align="right" >
+                <p:commandButton value="Salvar" action="#{projetoController.salvar}" ajax="false" />    
+                <p:commandButton value="Limpar" action="#{projetoController.limpar}" ajax="false" immediate="true"/>
+                <p:commandButton value="Voltar" action="/pages/principal?faces-redirect=true" ajax="false" immediate="true"/>
+            </p:toolbarGroup>
+        </p:toolbar>    
+            
+           <p:dialog id="popPessoa" widgetVar="popPessoa" header="Consulta pessoa" modal="false" resizable="false" dynamic="true">
+            <ui:include src="/pages/pops/popPessoa.xhtml"/>
+
+            <p:toolbar style="padding: 0px;">
+                <p:toolbarGroup align="right">
+                    <p:commandButton value="Confirmar" actionListener="#{projetoController.validaCliente}" 
+                                     oncomplete="handlePopPessoa(xhr, status, args)" update="panelCliente" process="popPessoa">
+                        <f:attribute name="pessoa" value="#{popPessoaController.pessoa}"/>
+                    </p:commandButton>
+
+                    <p:commandButton value="Voltar" onclick="popPessoa.hide();"/>
+                </p:toolbarGroup>
+            </p:toolbar>
+            <br/>
+        </p:dialog>
+     </h:form>     
+    </ui:define>
+</ui:composition>

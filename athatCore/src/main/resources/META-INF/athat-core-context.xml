@@ -49,5 +49,6 @@
     <bean id="empresaManager"     class="br.com.athat.core.manager.empresa.EmpresaManagerImpl"/>
     <bean id="tabelaPrecoManager" class="br.com.athat.core.manager.produto.tabelaPreco.TabelaPrecoManagerImpl"/>
     <bean id="compraManager"      class="br.com.athat.core.manager.movimentacao.compra.CompraManagerImpl"/>
+    <bean id="projetoManager"      class="br.com.athat.core.manager.movimentacao.projeto.ProjetoManagerImpl"/>
     
 </beans>

@@ -27,6 +27,7 @@
     <class>br.com.athat.core.entity.movimentacao.compra.Compra</class>
     <class>br.com.athat.core.entity.movimentacao.venda.Venda</class>
     <class>br.com.athat.core.entity.movimentacao.ItemProduto</class>
+    <class>br.com.athat.core.entity.movimentacao.projeto.Projeto</class>
     <class>br.com.athat.core.entity.pessoa.cliente.Cliente</class>
      <class>br.com.athat.core.security.AthatRevisionEntity</class>
 
