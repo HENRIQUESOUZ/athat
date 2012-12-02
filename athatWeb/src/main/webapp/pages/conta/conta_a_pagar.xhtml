@@ -1,0 +1,113 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui" 
+                template="/pages/template.xhtml">
+    
+    <ui:define name="titulo">
+        <h3>Cadastro Conta a Pagar</h3>
+    </ui:define>
+    
+    <ui:define name="script">
+        
+      <script type="text/javascript">
+            function handlePopPessoa(xhr, status, args) {
+                if (!args.confirmar) {                    
+                    jQuery('#popPessoa').effect("shake", { times:3 }, 100);
+                } else {
+                    popPessoa.hide();
+                }
+            }
+        </script>
+        
+         <script type="text/javascript">
+            function handlePopProduto(xhr, status, args) {
+                if (!args.confirmar) {                    
+                    jQuery('#popProduto').effect("shake", { times:3 }, 100);
+                } else {
+                    popProduto.hide();
+                }
+            }
+        </script>
+    </ui:define>  
+
+    <ui:define name="conteudo">
+        
+        <h:form id="Cadastro Conta a Pagar" >
+
+            <h:panelGrid id="panelFornecedor" columns="4">
+                <h:outputText value="Fornecedor: "/>
+                <p:inputText id="fornecedor" value="#{contaController.conta.compra.fornecedor.pessoa.nomeRazao}" 
+                	required="true" requiredMessage="Campo Fornecedor obrigatório"/>
+   
+                
+            </h:panelGrid>
+            <h:panelGrid columns="3">
+                <h:outputText value="Código da Compra: "/>
+                <p:inputText id="codigoCompra" value="#{contaController.conta.compra.id}" 
+                	required="true" requiredMessage="Campo Código da Compra obrigatório."/>
+                <p:message for="codigoCompra" />
+            </h:panelGrid>
+            <h:panelGrid columns="2">
+                <h:outputText value="Valor "/>
+                <p:inputText id="valor" value="#{contaController.conta.compra.valor}"
+                	required="true" requiredMessage="Campo Valor obrigatório." />
+                <h:outputText value="Número de Parcelas: "/>
+                <p:inputText id="numeroParcelas" value="#{compraController.compra.previsaoEntrega}"
+                	required="true" requiredMessage="Campo CNúmero de Parcelas obrigatório." />
+            </h:panelGrid>
+            <br />
+            
+            <p:commandButton value="Gerar Parcelas" actionListener="#{contaController.prepararParcelas}" oncomplete="popParcelas.show();"/>
+            
+            <p:dataTable  id="listaDeParcelas" value="#{contaController.conta.parcelas}" var="parcela"
+                          emptyMessage="Não possui produtos adicionados.">
+                <p:column headerText="Número">
+                    <h:outputLabel value="#{parcela.numParc}" />
+                </p:column>
+                <p:column headerText="Valor">
+                    <h:outputLabel value="#{parcela.valor}" />
+                </p:column>
+                <p:column headerText="Data de Vemcomemto">
+                	<h:outputLabel value="#{parcela.dtVenc}" />
+  
+                </p:column>
+                <p:column headerText="Situação">
+                    <h:outputLabel value="#{parcela.sitParc}" />
+ 
+            </p:dataTable>
+
+            <br />
+
+            <p:toolbar style="height:46px;">
+                <p:toolbarGroup align="right" >
+                    <p:commandButton value="Salvar" action="#{contaController.salvar}" ajax="false" />    
+
+                    <p:commandButton value="Limpar" action="#{contaController.limpar}" ajax="false" immediate="true" />
+                    
+                    <p:commandButton value="Voltar" action="/pages/principal?faces-redirect=true" ajax="false" immediate="true" />
+                </p:toolbarGroup>
+            </p:toolbar>  
+            
+
+            
+        <p:dialog id="popParcela" widgetVar="popParcela" header="Consulta produto" modal="false" resizable="false" dynamic="true">
+            <ui:include src="/pages/pops/popParcela.xhtml"/>
+
+            <p:toolbar style="padding: 0px;">
+                <p:toolbarGroup align="right">
+                    <p:commandButton value="Confirmar" actionListener="#{contaController.atualizarParcela}"
+                                     oncomplete="handlePopParcela(xhr, status, args)" update="listaDeParcelas" process="popParcela">
+                        <f:attribute name="parcelas" value="#{popParcelaController.parcelas}"/>
+                    </p:commandButton>
+
+                    <p:commandButton value="Voltar" onclick="popParcela.hide();"/>
+                </p:toolbarGroup>
+            </p:toolbar>
+            <br/>
+        </p:dialog>    
+            
+        </h:form>     
+    </ui:define>
+</ui:composition>
