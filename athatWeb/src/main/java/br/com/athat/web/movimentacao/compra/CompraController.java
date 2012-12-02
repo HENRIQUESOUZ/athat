@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.faces.application.FacesMessage;
-import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
 
 import org.primefaces.context.RequestContext;
@@ -39,28 +38,38 @@ public class CompraController extends AbstractController {
 		init();
 	}
 	
-	public void removerProduto(){
+	public void removerProduto() {
 		compra.getItensMovimentacao().remove(itemProduto);
 		itemProduto = new ItemProduto();
 		calculaValorTotal();
 	}
 	
-	public String salvar(){
+	public String salvar() {
 		try {
-			if(validade()){
+			if(validade()) {
 				compraManager.salvar(compra);
 				getMessageCadastroSucesso();
 			}
-		} catch(Exception e){
+		} catch(Exception e) {
 			getMessageInstabilidade();
+			e.printStackTrace();
 		}
 		
 		return "/pages/movimentacao/compra";
 	}
 	
-	public String finalizar(){
-		compra.setSituacaoMovimentacaoType(SituacaoMovimentacaoType.FECHADA);
-		compraManager.salvar(compra);
+	public String finalizar() {
+		try {
+			if(validade()) {
+				compra.setSituacaoMovimentacaoType(SituacaoMovimentacaoType.FECHADA);
+				compraManager.salvar(compra);
+			setMessage("Compra Finalizada com Sucesso!");
+			init();
+			}	
+		}catch(Exception e) {
+			getMessageInstabilidade();
+			e.printStackTrace();
+		}
 		return "/pages/movimentacao/compra";
 	}
 	
@@ -172,5 +181,4 @@ public class CompraController extends AbstractController {
 	public static long getSerialversionuid() {
 		return serialVersionUID;
 	}
-	
 }

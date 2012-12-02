@@ -24,7 +24,8 @@ public class Estoque extends AbstractEntity{
 	@OneToOne
 	private Produto produto;
 	
-	@OneToMany(fetch = FetchType.LAZY)
+	// TODO : revisar FetchType
+	@OneToMany(fetch = FetchType.EAGER)
 	@Column(nullable = false)
 	private List<ItemEstoque> itemEstoqueList;
 

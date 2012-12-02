@@ -13,10 +13,10 @@ import br.com.athat.core.entity.pessoa.Pessoa;
 import br.com.athat.core.entity.pessoa.cliente.Cliente;
 import br.com.athat.core.entity.pessoa.fornecedor.Fornecedor;
 import br.com.athat.core.entity.pessoa.funcionario.Funcionario;
-import br.com.athat.core.manager.AbstractManager;
+import br.com.athat.core.manager.AbstractManagerImpl;
 import br.com.athat.utils.validators.ValidatorUtils;
 
-public class PessoaManagerImpl extends AbstractManager implements PessoaManager {
+public class PessoaManagerImpl extends AbstractManagerImpl implements PessoaManager {
 
 	private static final long serialVersionUID = 1L;
 

@@ -33,13 +33,13 @@ public abstract class Movimentacao extends AbstractEntity {
 
 	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	protected List<ItemProduto> itensMovimentacao;
-
-	@OneToOne
-	protected Conta conta;
+//
+//	@OneToOne
+//	protected Conta conta;
 	
 	@Enumerated(EnumType.STRING)
 	protected SituacaoMovimentacaoType situacaoMovimentacaoType;
-
+	
 	public BigDecimal getValorTotal() {
 		return valorTotal;
 	}
@@ -73,11 +73,11 @@ public abstract class Movimentacao extends AbstractEntity {
 		this.itensMovimentacao = itensMovimentacao;
 	}
 
-	public Conta getConta() {
-		return conta;
-	}
-
-	public void setConta(Conta conta) {
-		this.conta = conta;
-	}
+//	public Conta getConta() {
+//		return conta;
+//	}
+//
+//	public void setConta(Conta conta) {
+//		this.conta = conta;
+//	}
 }

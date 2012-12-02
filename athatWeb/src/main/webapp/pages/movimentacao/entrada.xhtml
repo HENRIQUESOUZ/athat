@@ -1,0 +1,68 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui" 
+                template="/pages/template.xhtml">
+    
+    <ui:define name="titulo">
+        <h3>Entrada</h3>
+    </ui:define>
+
+    <ui:define name="conteudo">
+        
+        <h:form id="entrada" >
+            <p:panel header="Informações Compra">
+                <h:panelGrid columns="2">
+                    <h:outputLabel value="Cliente: " />
+                    <h:outputLabel value="#{entradaController.compra.fornecedor.pessoa.nomeRazao}" />
+                    
+                    <h:outputLabel value="Nota Fiscal: " />
+                    <h:outputLabel value="#{entradaController.compra.notaFiscal}" />
+                    
+                    <h:outputLabel value="Data Nota Fiscal: " />
+                    <h:outputLabel value="#{entradaController.compra.dataEmissaoNF}" >
+                        <f:convertDateTime  pattern="dd/MM/yyyy" locale="pt_BR" />
+                    </h:outputLabel>   
+                    
+                    <h:outputLabel value="Data Compra: " />
+                    <h:outputLabel value="#{entradaController.compra.dataCadastro}" >
+                            <f:convertDateTime  pattern="dd/MM/yyyy" locale="pt_BR" />
+                    </h:outputLabel>    
+                </h:panelGrid>
+            </p:panel> 
+            
+            <br />
+            
+            <p:dataTable id="itensNaoBaixados" value="#{entradaController.compra.itensMovimentacao}" var="itemProduto">
+                <p:column headerText="Codigo">
+                    <h:outputLabel value="#{itemProduto.produto.id}" />
+                </p:column>
+                <p:column headerText="Nome">
+                    <h:outputLabel value="#{itemProduto.produto.nome}" />
+                </p:column>
+                <p:column headerText="Quantidade">
+                    <h:outputLabel value="#{itemProduto.quantidade}" />
+                </p:column>
+                <p:column headerText="Valor Unt.">
+                   <h:outputLabel value="#{itemProduto.valor}" />  
+                </p:column>
+                <p:column headerText="Valor Total">
+                    <h:outputLabel value="#{itemProduto.valorTotal}" />
+                </p:column>
+                    
+               
+            </p:dataTable>
+            
+            <br />
+
+            <p:toolbar style="height:46px;">
+                <p:toolbarGroup align="right" >
+                    <p:commandButton value="Entrada" action="#{entradaController.entrar}" ajax="false" />    
+                    <p:commandButton value="Voltar" action="/pages/principal?faces-redirect=true" ajax="false" immediate="true" />
+                </p:toolbarGroup>
+            </p:toolbar>  
+                        
+        </h:form>     
+    </ui:define>
+</ui:composition>

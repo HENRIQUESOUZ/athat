@@ -14,7 +14,6 @@ public class AuthenticationController extends AbstractController{
     private static final long serialVersionUID = 1L;
 
     public String exit() {
-
         try {
             ExternalContext context = FacesContext.getCurrentInstance().getExternalContext();
             final ServletRequest request = (ServletRequest) context.getRequest();
@@ -28,7 +27,6 @@ public class AuthenticationController extends AbstractController{
     }
 
     public void access() {
-     
         try {
             ExternalContext context = FacesContext.getCurrentInstance().getExternalContext();
             final ServletRequest request = (ServletRequest) context.getRequest();

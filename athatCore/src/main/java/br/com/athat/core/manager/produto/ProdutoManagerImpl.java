@@ -7,10 +7,10 @@ import org.springframework.transaction.annotation.Transactional;
 
 import br.com.athat.core.entity.produto.Produto;
 import br.com.athat.core.entity.produto.estoque.Estoque;
-import br.com.athat.core.manager.AbstractManager;
+import br.com.athat.core.manager.AbstractManagerImpl;
 import br.com.athat.utils.validators.ValidatorUtils;
 
-public class ProdutoManagerImpl extends AbstractManager implements ProdutoManager{
+public class ProdutoManagerImpl extends AbstractManagerImpl implements ProdutoManager{
 
 	private static final long serialVersionUID = 1L;
 

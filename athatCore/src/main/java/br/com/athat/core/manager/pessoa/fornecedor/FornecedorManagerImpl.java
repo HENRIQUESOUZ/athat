@@ -8,10 +8,10 @@ import org.hibernate.criterion.Restrictions;
 import org.springframework.transaction.annotation.Transactional;
 
 import br.com.athat.core.entity.pessoa.fornecedor.Fornecedor;
-import br.com.athat.core.manager.AbstractManager;
+import br.com.athat.core.manager.AbstractManagerImpl;
 import br.com.athat.utils.validators.ValidatorUtils;
 
-public class FornecedorManagerImpl extends AbstractManager implements FornecedorManager{
+public class FornecedorManagerImpl extends AbstractManagerImpl implements FornecedorManager{
 
 	private static final long serialVersionUID = 1L;
 

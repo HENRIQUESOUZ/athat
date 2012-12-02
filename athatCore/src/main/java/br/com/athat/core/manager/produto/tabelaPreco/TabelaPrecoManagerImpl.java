@@ -8,10 +8,10 @@ import org.hibernate.criterion.Restrictions;
 import org.springframework.transaction.annotation.Transactional;
 
 import br.com.athat.core.entity.produto.tabelaPreco.TabelaPreco;
-import br.com.athat.core.manager.AbstractManager;
+import br.com.athat.core.manager.AbstractManagerImpl;
 import br.com.athat.utils.validators.ValidatorUtils;
 
-public class TabelaPrecoManagerImpl extends AbstractManager implements TabelaPrecoManager{
+public class TabelaPrecoManagerImpl extends AbstractManagerImpl implements TabelaPrecoManager{
 
 	private static final long serialVersionUID = 1L;
 
