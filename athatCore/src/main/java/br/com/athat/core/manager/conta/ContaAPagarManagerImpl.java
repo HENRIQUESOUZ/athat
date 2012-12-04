@@ -5,10 +5,12 @@ import java.util.List;
 import br.com.athat.core.entity.conta.Conta;
 import br.com.athat.core.entity.conta.ContaAPagar;
 import br.com.athat.core.manager.AbstractManager;
+import br.com.athat.core.manager.AbstractManagerImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 
-public class ContaAPagarManagerImpl extends AbstractManager implements ContaAPagarManager {
+
+public class ContaAPagarManagerImpl extends AbstractManagerImpl implements ContaAPagarManager {
 
 
 	private static final long serialVersionUID = 1L;

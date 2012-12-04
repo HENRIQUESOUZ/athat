@@ -1,5 +1,6 @@
 package br.com.athat.core.entity.conta;
 
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.Entity;
@@ -26,6 +27,26 @@ public class Parcela extends AbstractEntity {
 	@Enumerated(EnumType.STRING)
 	private SituacaoContaType situacao;
 
+	private int numParcela;
+	
+	private Date dataPagamento;
+
+	public Date getDataPagamento() {
+		return dataPagamento;
+	}
+
+	public void setDataPagamento(Date dataPagamento) {
+		this.dataPagamento = dataPagamento;
+	}
+
+	public int getNumParcela() {
+		return numParcela;
+	}
+
+	public void setNumParcela(int numParcela) {
+		this.numParcela = numParcela;
+	}
+
 	public Conta getConta() {
 		return conta;
 	}
@@ -49,4 +70,11 @@ public class Parcela extends AbstractEntity {
 	public void setSituacao(SituacaoContaType situacao) {
 		this.situacao = situacao;
 	}
+
+	public void setLancamento(Lancamento lancamento) {
+		this.lancamentos.add(lancamento);
+		
+	}
+
+
 }
