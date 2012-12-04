@@ -10,11 +10,12 @@ import br.com.athat.core.entity.produto.estoque.Estoque;
 import br.com.athat.core.manager.AbstractManagerImpl;
 import br.com.athat.utils.validators.ValidatorUtils;
 
-public class ProdutoManagerImpl extends AbstractManagerImpl implements ProdutoManager{
+public class ProdutoManagerImpl extends AbstractManagerImpl implements ProdutoManager {
 
 	private static final long serialVersionUID = 1L;
 
 	@Transactional
+	@Override
 	public void salvar(Produto produto) {
 		if(produto.getId() == null) {
 			Estoque estoque = new Estoque();
@@ -28,6 +29,7 @@ public class ProdutoManagerImpl extends AbstractManagerImpl implements ProdutoMa
 
 	@SuppressWarnings("unchecked")
 	@Transactional(readOnly = true)
+	@Override
 	public List<Produto> buscar(Produto produto) {
 		Criteria criteria = createSession().createCriteria(Produto.class,"p");
 		
@@ -43,7 +45,27 @@ public class ProdutoManagerImpl extends AbstractManagerImpl implements ProdutoMa
 	}
 
 	@Transactional(readOnly = false)
+	@Override
 	public Produto buscarPorId(Long id) {
 		return getEntityManager().find(Produto.class, id);
+	}
+
+	@Transactional(readOnly = true)
+	@Override
+	public List<Produto> buscarComEstoque(Produto produto) {
+		Criteria criteria = createSession().createCriteria(Produto.class,"p")
+			.createAlias("estoque", "e")
+			.add(Restrictions.gt("e.quantidade", 1));
+		;
+		
+		if(produto.getCategoria() != null && produto.getCategoria().getId() != null){
+			criteria.createAlias("categoria", "c");
+			criteria.add(Restrictions.eq("p.categoria.id", produto.getCategoria().getId()));
+		}	
+			
+		if(ValidatorUtils.isNotEmptyAndNotNull(produto.getDescricao()))
+			criteria.add(Restrictions.like("p.descricao", produto.getDescricao()));
+		
+		return criteria.list();
 	}
 }

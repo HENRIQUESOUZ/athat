@@ -17,7 +17,7 @@ public class Venda extends Movimentacao{
 
 	private static final long serialVersionUID = 1L;
 
-	@ManyToOne
+	@ManyToOne(optional = false)
     private Cliente cliente;
     
     @Temporal(TemporalType.DATE)
@@ -49,6 +49,4 @@ public class Venda extends Movimentacao{
 	public void setContaAReceber(ContaAReceber contaAReceber) {
 		this.contaAReceber = contaAReceber;
 	}
-    
-    
 }

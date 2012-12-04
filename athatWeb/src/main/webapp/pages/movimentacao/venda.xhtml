@@ -34,39 +34,28 @@
 
     <ui:define name="conteudo">
         
-        <h:form id="compra" >
+        <h:form id="venda" >
 
-            <h:panelGrid id="panelFornecedor" columns="4">
-                <h:outputText value="Fornecedor: "/>
-                <p:inputText id="fornecedor" value="#{compraController.compra.fornecedor.pessoa.nomeRazao}" 
-                	required="true" requiredMessage="Campo Fornecedor obrigatorio"/>
+            <h:panelGrid id="panelCliente" columns="4">
+                <h:outputText value="Cliente: "/>
+                <p:inputText id="Cliente" value="#{vendaController.venda.cliente.pessoa.nomeRazao}" 
+                	required="true" requiredMessage="Campo Cliente obrigatorio"/>
                 <p:commandButton value="buscar" oncomplete="popPessoa.show()" process="@this">
-                    <f:setPropertyActionListener value="fornecedor" target="#{popPessoaController.papel}"/>
-                    <f:setPropertyActionListener value="true" target="#{popPessoaController.disableCliente}"/>
+                    <f:setPropertyActionListener value="cliente" target="#{popPessoaController.papel}"/>
+                    <f:setPropertyActionListener value="true" target="#{popPessoaController.disableFornecedor}"/>
                     <f:setPropertyActionListener value="true" target="#{popPessoaController.disableFuncionario}"/>
-                    <f:setPropertyActionListener value="true" target="#{popPessoaController.selectFornecedor}"/>
+                    <f:setPropertyActionListener value="true" target="#{popPessoaController.selectCliente}"/>
                 </p:commandButton>    
-                
             </h:panelGrid>
-            <h:panelGrid columns="3">
-                <h:outputText value="Número Nota Fiscal: "/>
-                <p:inputText id="notaFiscal" value="#{compraController.compra.notaFiscal}" 
-                	required="true" requiredMessage="Campo Nota Fiscal obrigatorio."/>
-                <p:message for="notaFiscal" />
-            </h:panelGrid>
-            <h:panelGrid columns="2">
-                <h:outputText value="Data de emissão NF. "/>
-                <p:calendar id="emissaoNF" value="#{compraController.compra.dataEmissaoNF}"
-                            pattern="dd/MM/yyyy" locale="pt_BR" size="20"/>
-                <h:outputText value="Previsão de Entrega: "/>
-                <p:calendar id="previsaoEntrega" value="#{compraController.compra.previsaoEntrega}"
-                            pattern="dd/MM/yyyy" locale="pt_BR" size="20"/>
-            </h:panelGrid>
+            
             <br />
             
-            <p:commandButton value="Novo Produto" actionListener="#{compraController.prepararProduto}" oncomplete="popProduto.show();"/>
+            <p:commandButton value="Novo Produto" actionListener="#{vendaController.prepararProduto}" 
+                             oncomplete="popProduto.show();" process="@this">
+                 <f:setPropertyActionListener value="true" target="#{popProdutoController.validaEstoque}"/>
+            </p:commandButton>
             
-            <p:dataTable  id="listaDeProdutos" value="#{compraController.compra.itensMovimentacao}" var="item"
+            <p:dataTable  id="listaDeProdutos" value="#{vendaController.venda.itensMovimentacao}" var="item"
                           emptyMessage="Não possui produtos adicionados.">
                 <p:column headerText="Codigo">
                     <h:outputLabel value="#{item.produto.id}" />
@@ -76,19 +65,19 @@
                 </p:column>
                 <p:column headerText="Quantidade">
                     <p:inputText value="#{item.quantidade}" >
-                        <p:ajax listener="#{compraController.calculaValorTotal()}" event="change" update="listaDeProdutos" process="@this" />
+                        <p:ajax listener="#{vendaController.calculaValorTotal}" event="change" update="listaDeProdutos" process="@this" />
                     </p:inputText>    
                 </p:column>
                 <p:column headerText="Valor Unt.">
                     <p:inputText value="#{item.valor}">
-                        <p:ajax listener="#{compraController.calculaValorTotal()}" event="change" update="listaDeProdutos" process="@this" />
+                        <p:ajax listener="#{vendaController.calculaValorTotal}" event="change" update="listaDeProdutos" process="@this" />
                     </p:inputText>   
                 </p:column>
                 <p:column headerText="Valor Total">
                     <h:outputLabel value="#{item.valorTotal}" />
                 </p:column>
                 <p:column headerText="Remover">
-                    <p:commandButton value="Remover" action="#{compraController.removerProduto}" update="listaDeProdutos" 
+                    <p:commandButton value="Remover" action="#{vendaController.removerProduto}" update="listaDeProdutos" 
                                      process="@this"/>
                 </p:column>
                 <p:columnGroup type="footer">
@@ -96,7 +85,7 @@
                       <p:column colspan="4" footerText="Total :" style="text-align:right"/> 
                         <p:column>
                             <f:facet name="footer">
-                                <h:outputLabel value="#{compraController.compra.valorTotal}">
+                                <h:outputLabel value="#{vendaController.venda.valorTotal}">
                                       <f:convertNumber locale="pt_BR" type="currency"/>
                                 </h:outputLabel>
                             </f:facet>   
@@ -110,9 +99,9 @@
 
             <p:toolbar style="height:46px;">
                 <p:toolbarGroup align="right" >
-                    <p:commandButton value="Salvar" action="#{compraController.salvar}" ajax="false" />    
-                    <p:commandButton value="Finalizar" action="#{compraController.finalizar}" ajax="false" disabled="#{compraController.compra.id == null}" />    
-                    <p:commandButton value="Limpar" action="#{compraController.limpar}" ajax="false" immediate="true" />
+                    <p:commandButton value="Salvar" action="#{vendaController.salvar}" ajax="false" />    
+                    <p:commandButton value="Finalizar" action="#{vendaController.finalizar}" ajax="false" disabled="#{vendaController.venda.id == null}" />    
+                    <p:commandButton value="Limpar" action="#{vendaController.limpar}" ajax="false" immediate="true" />
                     <p:commandButton value="Voltar" action="/pages/principal?faces-redirect=true" ajax="false" immediate="true" />
                 </p:toolbarGroup>
             </p:toolbar>  
@@ -122,8 +111,8 @@
 
             <p:toolbar style="padding: 0px;">
                 <p:toolbarGroup align="right">
-                    <p:commandButton value="Confirmar" actionListener="#{compraController.validaFornecedor}" 
-                                     oncomplete="handlePopPessoa(xhr, status, args)" update="panelFornecedor" process="popPessoa">
+                    <p:commandButton value="Confirmar" actionListener="#{vendaController.validaCliente}" 
+                                     oncomplete="handlePopPessoa(xhr, status, args)" update="panelCliente" process="popPessoa">
                         <f:attribute name="pessoa" value="#{popPessoaController.pessoa}"/>
                     </p:commandButton>
 
@@ -138,7 +127,7 @@
 
             <p:toolbar style="padding: 0px;">
                 <p:toolbarGroup align="right">
-                    <p:commandButton value="Confirmar" actionListener="#{compraController.adicionarProduto}"
+                    <p:commandButton value="Confirmar" actionListener="#{vendaController.adicionarProduto}"
                                      oncomplete="handlePopProduto(xhr, status, args)" update="listaDeProdutos" process="popProduto">
                         <f:attribute name="produto" value="#{popProdutoController.produto}"/>
                     </p:commandButton>

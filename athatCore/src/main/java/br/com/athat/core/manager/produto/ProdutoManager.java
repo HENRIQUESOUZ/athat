@@ -9,6 +9,8 @@ public interface ProdutoManager {
 	void salvar(Produto produto);
 	
 	List<Produto> buscar(Produto produto);
+	
+	List<Produto> buscarComEstoque(Produto produto);
 
 	Produto buscarPorId(Long id);
 	

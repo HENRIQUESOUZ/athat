@@ -18,26 +18,35 @@ public class PopProdutoController extends AbstractController {
 	private String nome;
 	private Produto produto;
 	private List<Produto> produtos;
-	
+	private boolean validaEstoque;
+
 	@Autowired
 	private ProdutoManager produtoManager;
-	
+
 	public PopProdutoController() {
 		limpar();
 		produtos = new ArrayList<Produto>();
 	}
-	
-	public void buscarProdutos(){
+
+	public void buscarProdutos() {
+		System.out.println(">>>>>>> " + validaEstoque);
 		Produto p = new Produto();
-		if(id != null){
+		if (id != null) {
 			p.setId(id);
-		} else if(ValidatorUtils.isNotEmptyAndNotNull(nome)){
+		} else if (ValidatorUtils.isNotEmptyAndNotNull(nome)) {
 			p.setNome(nome);
 		}
-		produtos = produtoManager.buscar(p);
+		
+		if(validaEstoque) {
+			System.out.println(">>>>>>> 1");
+			produtos = produtoManager.buscarComEstoque(p);
+		} else {
+			System.out.println(">>>>>>> 2");
+			produtos = produtoManager.buscar(p);
+		}
 	}
-	
-	public void limpar(){
+
+	public void limpar() {
 		id = null;
 		nome = "";
 		produto = new Produto();
@@ -81,5 +90,13 @@ public class PopProdutoController extends AbstractController {
 
 	public void setProdutoManager(ProdutoManager produtoManager) {
 		this.produtoManager = produtoManager;
+	}
+	
+	public boolean isValidaEstoque() {
+		return validaEstoque;
+	}
+	
+	public void setValidaEstoque(boolean validaEstoque) {
+		this.validaEstoque = validaEstoque;
 	}
 }
