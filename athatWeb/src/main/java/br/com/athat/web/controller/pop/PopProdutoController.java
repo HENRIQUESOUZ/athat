@@ -29,7 +29,6 @@ public class PopProdutoController extends AbstractController {
 	}
 
 	public void buscarProdutos() {
-		System.out.println(">>>>>>> " + validaEstoque);
 		Produto p = new Produto();
 		if (id != null) {
 			p.setId(id);
@@ -38,10 +37,8 @@ public class PopProdutoController extends AbstractController {
 		}
 		
 		if(validaEstoque) {
-			System.out.println(">>>>>>> 1");
 			produtos = produtoManager.buscarComEstoque(p);
 		} else {
-			System.out.println(">>>>>>> 2");
 			produtos = produtoManager.buscar(p);
 		}
 	}

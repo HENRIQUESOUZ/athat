@@ -50,7 +50,7 @@
             
             <br />
             
-            <p:commandButton value="Novo Produto" actionListener="#{vendaController.prepararProduto}" 
+            <p:commandButton value="Novo Produto"  
                              oncomplete="popProduto.show();" process="@this">
                  <f:setPropertyActionListener value="true" target="#{popProdutoController.validaEstoque}"/>
             </p:commandButton>

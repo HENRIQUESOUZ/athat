@@ -137,7 +137,7 @@ public class VendaController extends AbstractController {
 		
 		return true;
 	}
-
+	
 	public Venda getVenda() {
 		return venda;
 	}
