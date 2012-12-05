@@ -48,20 +48,6 @@ public class VendaController extends AbstractController {
 		produtos = new ArrayList<Produto>();
 	}
 	
-	public String salvar() {
-		try {
-			if(validade()) {
-				vendaManager.salvar(venda);
-				getMessageCadastroSucesso();
-			}
-		} catch(Exception e) {
-			getMessageInstabilidade();
-			e.printStackTrace();
-		}
-		
-		return "/pages/movimentacao/venda";
-	}
-	
 	public String finalizar() {
 		try {
 			if(validade()) {

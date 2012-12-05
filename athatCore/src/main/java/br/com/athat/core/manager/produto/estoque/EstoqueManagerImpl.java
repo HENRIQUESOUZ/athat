@@ -17,6 +17,7 @@ public class EstoqueManagerImpl extends AbstractManagerImpl implements EstoqueMa
     private ItemEstoqueManager itemEstoqueManager;
 
 	@Transactional
+    @Override
 	public void entrar(ItemProduto itemProduto) {
 		final Estoque estoque = itemProduto.getProduto().getEstoque();
             
@@ -34,9 +35,7 @@ public class EstoqueManagerImpl extends AbstractManagerImpl implements EstoqueMa
 		final Estoque estoque = itemProduto.getProduto().getEstoque();
             
         //TODO validar se tem o produto em estoques
-        if(itemProduto.getQuantidade() <= estoque.getQuantidade()) {
-        	estoque.setQuantidade(estoque.getQuantidade() - itemProduto.getQuantidade());
-        }
+        estoque.setQuantidade(estoque.getQuantidade() - itemProduto.getQuantidade());
             
         if(ValidatorUtils.isNotEmptyAndNotNull(estoque.getItemEstoqueList())){
         	for(ItemEstoque item : estoque.getItemEstoqueList()) {

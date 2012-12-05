@@ -99,7 +99,6 @@
 
             <p:toolbar style="height:46px;">
                 <p:toolbarGroup align="right" >
-                    <p:commandButton value="Salvar" action="#{vendaController.salvar}" ajax="false" />    
                     <p:commandButton value="Finalizar" action="#{vendaController.finalizar}" ajax="false" disabled="#{vendaController.venda.id == null}" />    
                     <p:commandButton value="Limpar" action="#{vendaController.limpar}" ajax="false" immediate="true" />
                     <p:commandButton value="Voltar" action="/pages/principal?faces-redirect=true" ajax="false" immediate="true" />

@@ -20,6 +20,7 @@ public class VendaManagerImpl extends AbstractManagerImpl implements VendaManage
 	@Autowired
     private EstoqueManager estoqueManager;
 
+	@Override
     @Transactional
     public Venda salvar(Venda venda) {
     	 if (venda.getId() == null) {
@@ -36,6 +37,7 @@ public class VendaManagerImpl extends AbstractManagerImpl implements VendaManage
         return venda;
     }
 
+	@Override
     @SuppressWarnings("unchecked")
     @Transactional
     public List<Venda> buscarTodas(Venda venda) {
