@@ -20,24 +20,25 @@ public class VendaManagerImpl extends AbstractManagerImpl implements VendaManage
 	@Autowired
     private EstoqueManager estoqueManager;
 
+	@Override
     @Transactional
     public Venda salvar(Venda venda) {
-        
+    	 if (venda.getId() == null) {
+             venda.setSituacaoMovimentacaoType(SituacaoMovimentacaoType.ABERTA);
+             getEntityManager().persist(venda);
+         } else {
+             getEntityManager().merge(venda);
+         }
+         
         for(ItemProduto itemProduto : venda.getItensMovimentacao()){
-            estoqueManager.entrar(itemProduto);           
+            estoqueManager.sair(itemProduto);           
         }
-        
-        if (venda != null) {
-            venda.setSituacaoMovimentacaoType(SituacaoMovimentacaoType.ABERTA);
-            getEntityManager().persist(venda);
-        } else {
-            getEntityManager().merge(venda);
-        }
-        
+
         return venda;
-        
     }
 
+	@Override
+    @SuppressWarnings("unchecked")
     @Transactional
     public List<Venda> buscarTodas(Venda venda) {
         Criteria criteria = createSession().createCriteria(Venda.class);
