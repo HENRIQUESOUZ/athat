@@ -1,14 +1,20 @@
 package br.com.athat.core.manager.movimentacao.projeto;
 
+import java.util.List;
+
+import org.hibernate.Criteria;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.transaction.annotation.Transactional;
 
+import br.com.athat.core.entity.movimentacao.projeto.Orcamento;
 import br.com.athat.core.entity.movimentacao.projeto.Projeto;
 import br.com.athat.core.manager.AbstractManagerImpl;
+import br.com.athat.core.vo.projeto.ProjetoVO;
 
 public class ProjetoManagerImpl extends AbstractManagerImpl implements ProjetoManager {
 
 	private static final long serialVersionUID = 1L;
-
+	
 	@Transactional
 	@Override
 	public void salvar(Projeto projeto) {
@@ -18,4 +24,31 @@ public class ProjetoManagerImpl extends AbstractManagerImpl implements ProjetoMa
 			getEntityManager().merge(projeto);
 		}
 	}
+
+	@Override
+	@SuppressWarnings("unchecked")
+    @Transactional(readOnly = true)
+	public List<Projeto> buscar(ProjetoVO projeto) {
+		Criteria criteria = createSession().createCriteria(Projeto.class)
+			.add(Restrictions.between("dataCadastro", projeto.getDataInicio(), projeto.getDataFim()))
+		;
+		if(projeto.getId() != null) {
+			criteria.add(Restrictions.eq("projeto.id", projeto.getId()));
+		}
+		
+		return criteria.list();
+	}
+
+	@Override
+	@SuppressWarnings("unchecked")
+    @Transactional(readOnly = true)
+	public List<Orcamento> buscarLevantamentos(Long idProjeto) {
+		Criteria criteria = createSession().createCriteria(Orcamento.class)
+			.createAlias("projeto", "p")
+			.add(Restrictions.eq("projeto.id", idProjeto))
+		;
+	        	
+		 return criteria.list();
+	}
+
 }

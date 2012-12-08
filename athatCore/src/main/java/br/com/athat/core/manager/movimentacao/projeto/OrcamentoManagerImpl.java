@@ -6,18 +6,17 @@ import org.hibernate.Criteria;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.transaction.annotation.Transactional;
 
-import br.com.athat.core.entity.movimentacao.compra.Compra;
-import br.com.athat.core.entity.movimentacao.projeto.Levantamento;
+import br.com.athat.core.entity.movimentacao.projeto.Orcamento;
 import br.com.athat.core.manager.AbstractManagerImpl;
-import br.com.athat.core.vo.projeto.LevantamentoVO;
+import br.com.athat.core.vo.projeto.OrcamentoVO;
 
-public class LevantamentoManagerImpl extends AbstractManagerImpl implements LevantamentoManager {
+public class OrcamentoManagerImpl extends AbstractManagerImpl implements OrcamentoManager {
 
 	private static final long serialVersionUID = 1L;
 
 	@Override
 	@Transactional
-	public void salvar(Levantamento levantamento) {
+	public void salvar(Orcamento levantamento) {
 		if(levantamento.getId() == null) {
 			getEntityManager().persist(levantamento);
 		} else {
@@ -28,14 +27,18 @@ public class LevantamentoManagerImpl extends AbstractManagerImpl implements Leva
 	@Override
 	@SuppressWarnings("unchecked")
     @Transactional(readOnly = true)
-	public List<Levantamento> buscar(LevantamentoVO levantamento) {
-		Criteria criteria = createSession().createCriteria(Compra.class)
-				.add(Restrictions.between("dataCadastro", levantamento.getDataInicio(), levantamento.getDataFim()))
-	        	
+	public List<Orcamento> buscar(OrcamentoVO levantamento) {
+		Criteria criteria = createSession().createCriteria(Orcamento.class)
+			.add(Restrictions.between("dataCadastro", levantamento.getDataInicio(), levantamento.getDataFim()))
+	    ;	
 //        if (compra.getSituacaoMovimentacaoType() != null) {
 //            criteria.add(Restrictions.eq("situacaoMovimentacaoType", compra.getSituacaoMovimentacaoType()));
 //        }
-	     ;
-		 return criteria.list();
+			
+		if(levantamento.getId() != null) {
+			criteria.add(Restrictions.eq("id", levantamento.getId()));
+		}
+	   
+		return criteria.list();
 	}
 }

@@ -20,7 +20,7 @@ import br.com.athat.core.entity.movimentacao.Movimentacao;
 
 
 @Entity
-@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
+//@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 public abstract class Conta extends AbstractEntity {
 	
 	private static final long serialVersionUID = 1L;

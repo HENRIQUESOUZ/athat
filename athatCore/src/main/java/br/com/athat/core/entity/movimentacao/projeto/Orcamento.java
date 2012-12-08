@@ -13,10 +13,11 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import br.com.athat.core.entity.AbstractEntity;
 import br.com.athat.core.entity.movimentacao.ItemProduto;
+import br.com.athat.core.entity.movimentacao.enuns.OrcamentoType;
 import br.com.athat.core.entity.movimentacao.enuns.SituacaoMovimentacaoType;
 
 @Entity
-public class Levantamento extends AbstractEntity {
+public class Orcamento extends AbstractEntity {
 
 	private static final long serialVersionUID = 1L;
 	
@@ -35,6 +36,9 @@ public class Levantamento extends AbstractEntity {
 	
 	@Enumerated(EnumType.STRING)
 	private SituacaoMovimentacaoType situacaoMovimentacaoType;
+	
+	@Enumerated(EnumType.STRING)
+	private OrcamentoType orcamentoType;
 
 	public Date getDataFinalizacao() {
 		return dataFinalizacao;
@@ -80,9 +84,16 @@ public class Levantamento extends AbstractEntity {
 		return situacaoMovimentacaoType;
 	}
 
-	public void setSituacaoMovimentacaoType(
-			SituacaoMovimentacaoType situacaoMovimentacaoType) {
+	public void setSituacaoMovimentacaoType(SituacaoMovimentacaoType situacaoMovimentacaoType) {
 		this.situacaoMovimentacaoType = situacaoMovimentacaoType;
+	}
+
+	public OrcamentoType getOrcamentoType() {
+		return orcamentoType;
+	}
+
+	public void setOrcamentoType(OrcamentoType orcamentoType) {
+		this.orcamentoType = orcamentoType;
 	}
 
 }

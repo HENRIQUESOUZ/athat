@@ -1,0 +1,25 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui" 
+                template="/pages/template.xhtml">
+    
+    <ui:define name="titulo">
+        <h3>Projeto</h3>
+    </ui:define>
+
+    <ui:define name="conteudo">
+        
+        <h:form id="projeto">
+  
+            <p:toolbar style="height:46px;">
+                <p:toolbarGroup align="right" >
+                    <p:commandButton value="Levantamentos" action="/pages/projeto/listagemLevantamento" ajax="false" immediate="true" />    
+                    <p:commandButton value="Orçamentos" action="/pages/projeto/listagemOrcamento" ajax="false" immediate="true" />       
+                    <p:commandButton value="Voltar" action="/pages/principal?faces-redirect=true" ajax="false" immediate="true" />
+                </p:toolbarGroup>
+            </p:toolbar>  
+        </h:form>     
+    </ui:define>
+</ui:composition>

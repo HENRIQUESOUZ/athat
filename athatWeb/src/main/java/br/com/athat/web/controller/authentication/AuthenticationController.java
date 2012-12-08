@@ -9,7 +9,7 @@ import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import org.springframework.security.core.context.SecurityContextHolder;
 
-public class AuthenticationController extends AbstractController{
+public class AuthenticationController extends AbstractController {
 
     private static final long serialVersionUID = 1L;
 
@@ -21,7 +21,7 @@ public class AuthenticationController extends AbstractController{
             request.getRequestDispatcher("/j_spring_security_logout").forward(request, response);
             FacesContext.getCurrentInstance().responseComplete();
         } catch (Exception e) {
-            
+            e.printStackTrace();
         }
         return Navigation.login.name();
     }
@@ -34,8 +34,8 @@ public class AuthenticationController extends AbstractController{
             request.getRequestDispatcher("/j_spring_security_check").forward(request, response);
             FacesContext.getCurrentInstance().responseComplete();
         } catch (Exception e) {
-           
-           // setMessage("Não foi possível fazer o login." + e.getMessage());
+           e.printStackTrace();
+           setMessage("Não foi possível fazer o login." + e.getMessage());
         }
     }
 

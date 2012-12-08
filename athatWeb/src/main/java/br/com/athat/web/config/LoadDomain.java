@@ -20,11 +20,13 @@ public class LoadDomain implements Filter {
 
     private UsuarioManager usuarioManager;
 
+    @Override
     public void init(FilterConfig filterConfig) throws ServletException {
         ApplicationContext context = WebApplicationContextUtils.getWebApplicationContext(filterConfig.getServletContext());
         usuarioManager = (UsuarioManager) context.getBean("usuarioManager");
     }
 
+    @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
         final String login = request.getParameter("f");
 
