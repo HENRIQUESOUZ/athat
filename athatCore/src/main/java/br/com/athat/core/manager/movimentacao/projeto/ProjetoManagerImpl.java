@@ -6,10 +6,10 @@ import org.hibernate.Criteria;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.transaction.annotation.Transactional;
 
-import br.com.athat.core.entity.movimentacao.projeto.Orcamento;
 import br.com.athat.core.entity.movimentacao.projeto.Projeto;
 import br.com.athat.core.manager.AbstractManagerImpl;
 import br.com.athat.core.vo.projeto.ProjetoVO;
+import br.com.athat.utils.validators.DateUtils;
 
 public class ProjetoManagerImpl extends AbstractManagerImpl implements ProjetoManager {
 
@@ -30,25 +30,12 @@ public class ProjetoManagerImpl extends AbstractManagerImpl implements ProjetoMa
     @Transactional(readOnly = true)
 	public List<Projeto> buscar(ProjetoVO projeto) {
 		Criteria criteria = createSession().createCriteria(Projeto.class)
-			.add(Restrictions.between("dataCadastro", projeto.getDataInicio(), projeto.getDataFim()))
+			.add(Restrictions.between("dataCadastro", 
+				DateUtils.zerarHoras(projeto.getDataInicio()), DateUtils.horasFinal(projeto.getDataFim())))
 		;
-		if(projeto.getId() != null) {
-			criteria.add(Restrictions.eq("projeto.id", projeto.getId()));
-		}
-		
+//		if(projeto.getId() != null) {
+//			criteria.add(Restrictions.eq("id", projeto.getId()));
+//		}
 		return criteria.list();
 	}
-
-	@Override
-	@SuppressWarnings("unchecked")
-    @Transactional(readOnly = true)
-	public List<Orcamento> buscarLevantamentos(Long idProjeto) {
-		Criteria criteria = createSession().createCriteria(Orcamento.class)
-			.createAlias("projeto", "p")
-			.add(Restrictions.eq("projeto.id", idProjeto))
-		;
-	        	
-		 return criteria.list();
-	}
-
 }

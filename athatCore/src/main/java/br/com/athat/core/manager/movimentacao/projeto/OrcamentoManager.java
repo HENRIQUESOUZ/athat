@@ -12,4 +12,6 @@ public interface OrcamentoManager extends AbstractManager {
 	
 	List<Orcamento> buscar(OrcamentoVO levantamento);
 	
+	List<Orcamento> buscarOrcApresentacaoProjeto(Long idProjeto);
+	
 }

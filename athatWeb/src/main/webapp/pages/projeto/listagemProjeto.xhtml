@@ -20,7 +20,7 @@
                 </h:panelGrid>
                 
                 <h:panelGrid columns="4">
-                    <h:outputText value="Data Emissão NF:  "/>
+                    <h:outputText value="Data:  "/>
                     <p:calendar  value="#{projetoController.projetoVO.dataInicio}"
                                 pattern="dd/MM/yyyy" locale="pt_BR" size="20"/>
                     <h:outputText value=" até "/>
@@ -53,8 +53,8 @@
                 
                  <p:column headerText="Opções">
                      <p:commandButton alt="Visualizar" action="/pages/projeto/projeto?faces-redirect=true"
-                                      immediate="true" ajax="false" icon="ui-icon-pencil">
-                        <f:setPropertyActionListener value="#{projeto}" target="#{projetoController.projeto}" />
+                        immediate="true" ajax="false" icon="ui-icon-pencil" 
+                        actionListener="#{projetoController.carregarOrcamentos(projeto)}">
                      </p:commandButton>
                 </p:column>
             </p:dataTable>    

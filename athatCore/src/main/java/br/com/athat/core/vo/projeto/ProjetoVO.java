@@ -16,6 +16,7 @@ public class ProjetoVO implements Serializable{
 	private SituacaoMovimentacaoType situacaoMovimentacaoType;
 	
 	public ProjetoVO() {
+		id = null;
 		dataInicio = DateUtils.obterDataMenosDias(new Date(), 30);
 		dataFim = DateUtils.obterDataMaisDias(new Date(), 30);
 	}
@@ -48,8 +49,7 @@ public class ProjetoVO implements Serializable{
 		return situacaoMovimentacaoType;
 	}
 
-	public void setSituacaoMovimentacaoType(
-			SituacaoMovimentacaoType situacaoMovimentacaoType) {
+	public void setSituacaoMovimentacaoType(SituacaoMovimentacaoType situacaoMovimentacaoType) {
 		this.situacaoMovimentacaoType = situacaoMovimentacaoType;
 	}
 }
