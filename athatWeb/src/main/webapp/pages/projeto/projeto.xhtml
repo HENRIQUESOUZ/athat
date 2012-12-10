@@ -13,9 +13,9 @@
         
         <h:form id="projeto">
             
-            <h:panelGrid id="panelProjeto" columns="2" >
+            <h:panelGrid id="panelProjeto" columns="2"  style="width: 100%">
                 <p:panel header="Projeto">
-                    <h:panelGrid id="panelInfProjeto" columns="2">
+                    <h:panelGrid id="panelInfProjeto" columns="2" style="width: 50%">
                         <h:outputLabel value="Nome :" />
                         <h:outputLabel value="#{projetoController.projeto.nome}" />
 
@@ -26,7 +26,7 @@
                     </h:panelGrid>
                 </p:panel>
                 <p:panel header="Cliente">
-                    <h:panelGrid id="panelInfCliente" columns="2">
+                    <h:panelGrid id="panelInfCliente" columns="2" style="width: 50%">
                         <h:outputLabel value="Cliente :" />
                         <h:outputLabel value="#{projetoController.projeto.cliente.pessoa.nomeRazao}" />
 
@@ -38,32 +38,32 @@
             
             <br />
             
-            <p:dataTable id="projetoDatable" value="#{projetoController.orcamentos}" var="orcamento" 
+            <p:dataTable id="projetoDatable" value="#{projetoController.levantamentos}" var="levantamento" 
                          emptyMessage="Não existe Orçamentos.">
                 <p:column headerText="Código" >
-                    <p:outputLabel value="#{orcamento.id}" />
+                    <p:outputLabel value="#{levantamento.id}" />
                 </p:column>
                  <p:column headerText="Levantamento/Orçamento" >
-                    <p:outputLabel value="#{orcamento.orcamentoType}" />
+                    <p:outputLabel value="#{levantamento.orcamentoType}" />
                 </p:column>
                 <p:column headerText="Data Cadastro" >
-                    <p:outputLabel value="#{orcamento.dataCadastro}" />
+                    <p:outputLabel value="#{levantamento.dataCadastro}" />
                 </p:column>
                 <p:column headerText="Data Encerramento" >
-                    <p:outputLabel value="#{orcamento.dataFinalizacao}" />
+                    <p:outputLabel value="#{levantamento.dataFinalizacao}" />
                 </p:column>
                  <p:column headerText="Valor" >
-                    <p:outputLabel value="#{orcamento.valorTotal}" />
+                    <p:outputLabel value="#{levantamento.valorTotal}" />
                 </p:column>
                 <p:column headerText="Situação" >
-                    <p:outputLabel value="#{orcamento.situacaoMovimentacaoType}" />
+                    <p:outputLabel value="#{levantamento.situacaoMovimentacaoType}" />
                 </p:column>      
             </p:dataTable>
   
             <p:toolbar style="height:46px;">
                 <p:toolbarGroup align="right" >
-                    <p:commandButton value="Novo Levantamento" action="/pages/projeto/listagemLevantamento" ajax="false" immediate="true" />    
-                    <p:commandButton value="Novo Orçamento" action="/pages/projeto/listagemOrcamento" ajax="false" immediate="true" />       
+                    <p:commandButton value="Novo Levantamento" action="/pages/projeto/levantamento" ajax="false" immediate="true" />    
+                    <p:commandButton value="Novo Orçamento" action="/pages/projeto/orcamento" ajax="false" immediate="true" />       
                     <p:commandButton value="Voltar" action="/pages/principal?faces-redirect=true" ajax="false" immediate="true" />
                 </p:toolbarGroup>
             </p:toolbar>  

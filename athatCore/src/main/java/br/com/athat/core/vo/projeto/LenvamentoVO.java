@@ -6,7 +6,7 @@ import java.util.Date;
 import br.com.athat.core.entity.movimentacao.enuns.SituacaoMovimentacaoType;
 import br.com.athat.utils.validators.DateUtils;
 
-public class OrcamentoVO implements Serializable{
+public class LenvamentoVO implements Serializable{
 
 	private static final long serialVersionUID = 1L;
 
@@ -15,7 +15,7 @@ public class OrcamentoVO implements Serializable{
 	private Date dataFim;
 	private SituacaoMovimentacaoType situacaoMovimentacaoType;
 	
-	public OrcamentoVO() {
+	public LenvamentoVO() {
 		dataInicio = DateUtils.obterDataMenosDias(new Date(), 30);
 		dataFim = DateUtils.obterDataMaisDias(new Date(), 30);
 	}

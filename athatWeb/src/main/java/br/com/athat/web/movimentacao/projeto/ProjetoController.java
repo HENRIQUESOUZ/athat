@@ -8,10 +8,10 @@ import javax.faces.event.ActionEvent;
 import org.primefaces.context.RequestContext;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import br.com.athat.core.entity.movimentacao.projeto.Orcamento;
+import br.com.athat.core.entity.movimentacao.projeto.Levantamento;
 import br.com.athat.core.entity.movimentacao.projeto.Projeto;
 import br.com.athat.core.entity.pessoa.cliente.Cliente;
-import br.com.athat.core.manager.movimentacao.projeto.OrcamentoManager;
+import br.com.athat.core.manager.movimentacao.projeto.LevantamentoManager;
 import br.com.athat.core.manager.movimentacao.projeto.ProjetoManager;
 import br.com.athat.core.vo.projeto.ProjetoVO;
 import br.com.athat.web.utils.AbstractController;
@@ -23,13 +23,13 @@ public class ProjetoController extends AbstractController {
 	private Projeto projeto;
 	private ProjetoVO projetoVO;
 	private List<Projeto> projetos;
-	private List<Orcamento> orcamentos;
+	private List<Levantamento> levantamentos;
 	
 	@Autowired
 	private ProjetoManager projetoManager;
 	
 	@Autowired
-	private OrcamentoManager orcamentoManager;
+	private LevantamentoManager levantamentoManager;
 	
 	public ProjetoController() {
 		init();
@@ -70,14 +70,14 @@ public class ProjetoController extends AbstractController {
 	
 	public void carregarOrcamentos(Projeto projeto) {
 		this.projeto = projeto;
-		orcamentos = orcamentoManager.buscarOrcApresentacaoProjeto(projeto.getId());
+		levantamentos = levantamentoManager.buscarOrcApresentacaoProjeto(projeto.getId());
     }
 	
 	private void init() {
 		projeto = new Projeto();
 		projetoVO = new ProjetoVO();
 		projetos = new ArrayList<Projeto>();
-		orcamentos = new ArrayList<Orcamento>();
+		levantamentos = new ArrayList<Levantamento>();
 	}
 	
 	public Projeto getProjeto() {
@@ -88,12 +88,12 @@ public class ProjetoController extends AbstractController {
 		this.projeto = projeto;
 	}
 
-	public List<Orcamento> getOrcamentos() {
-		return orcamentos;
+	public List<Levantamento> getLevantamentos() {
+		return levantamentos;
 	}
 
-	public void setOrcamentos(List<Orcamento> orcamentos) {
-		this.orcamentos = orcamentos;
+	public void setLevantamentos(List<Levantamento> levantamentos) {
+		this.levantamentos = levantamentos;
 	}
 
 	public List<Projeto> getProjetos() {

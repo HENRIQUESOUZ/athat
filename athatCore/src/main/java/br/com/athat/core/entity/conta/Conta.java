@@ -3,17 +3,11 @@ package br.com.athat.core.entity.conta;
 import java.math.BigDecimal;
 import java.util.List;
 
-import javax.persistence.DiscriminatorColumn;
-import javax.persistence.DiscriminatorType;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
-import javax.persistence.Inheritance;
-import javax.persistence.InheritanceType;
-import javax.persistence.MappedSuperclass;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 
 import br.com.athat.core.entity.AbstractEntity;
 import br.com.athat.core.entity.movimentacao.Movimentacao;

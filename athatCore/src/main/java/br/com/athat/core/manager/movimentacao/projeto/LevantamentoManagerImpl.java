@@ -8,29 +8,40 @@ import org.hibernate.criterion.Restrictions;
 import org.springframework.transaction.annotation.Transactional;
 
 import br.com.athat.core.entity.movimentacao.enuns.SituacaoMovimentacaoType;
+import br.com.athat.core.entity.movimentacao.projeto.Levantamento;
 import br.com.athat.core.entity.movimentacao.projeto.Orcamento;
 import br.com.athat.core.manager.AbstractManagerImpl;
-import br.com.athat.core.vo.projeto.OrcamentoVO;
+import br.com.athat.core.vo.projeto.LenvamentoVO;
 
-public class OrcamentoManagerImpl extends AbstractManagerImpl implements OrcamentoManager {
+public class LevantamentoManagerImpl extends AbstractManagerImpl implements LevantamentoManager {
 
 	private static final long serialVersionUID = 1L;
 
 	@Override
 	@Transactional
-	public void salvar(Orcamento levantamento) {
+	public void salvar(Orcamento orcamento) {
+		if(orcamento.getId() == null) {
+			getEntityManager().persist(orcamento);
+		} else {
+			getEntityManager().merge(orcamento);
+		}
+	}
+	
+	@Override
+	public void salvar(Levantamento levantamento) {
 		if(levantamento.getId() == null) {
 			getEntityManager().persist(levantamento);
 		} else {
 			getEntityManager().merge(levantamento);
 		}
+		
 	}
 
 	@Override
 	@SuppressWarnings("unchecked")
     @Transactional(readOnly = true)
-	public List<Orcamento> buscar(OrcamentoVO levantamento) {
-		Criteria criteria = createSession().createCriteria(Orcamento.class)
+	public List<Levantamento> buscar(LenvamentoVO levantamento) {
+		Criteria criteria = createSession().createCriteria(Levantamento.class)
 			.add(Restrictions.between("dataCadastro", levantamento.getDataInicio(), levantamento.getDataFim()))
 	    ;	
 //        if (compra.getSituacaoMovimentacaoType() != null) {
@@ -47,17 +58,19 @@ public class OrcamentoManagerImpl extends AbstractManagerImpl implements Orcamen
 	@Override
 	@SuppressWarnings("unchecked")
 	@Transactional(readOnly = true)	
-	public List<Orcamento> buscarOrcApresentacaoProjeto(Long idProjeto) {
-		Criteria criteria = createSession().createCriteria(Orcamento.class, "o")
+	public List<Levantamento> buscarOrcApresentacaoProjeto(Long idProjeto) {
+		Criteria criteria = createSession().createCriteria(Levantamento.class, "o")
 			.createAlias("projeto", "p")
 			.add(Restrictions.eq("projeto.id", idProjeto))
 			.add(Restrictions.ne("o.situacaoMovimentacaoType", SituacaoMovimentacaoType.CANCELADA))
 		;
 		
-		for(Orcamento o : (List<Orcamento>) criteria.list()) {
-			Hibernate.initialize(o.getItensMovimentacao());
+		for(Levantamento l : (List<Levantamento>) criteria.list()) {
+			Hibernate.initialize(l.getItensMovimentacao());
 		}
 		return criteria.list();
 	}
+
+
 	
 }
