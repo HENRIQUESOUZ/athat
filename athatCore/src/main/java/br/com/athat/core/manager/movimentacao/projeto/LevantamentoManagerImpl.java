@@ -28,6 +28,7 @@ public class LevantamentoManagerImpl extends AbstractManagerImpl implements Leva
 	}
 	
 	@Override
+	@Transactional
 	public void salvar(Levantamento levantamento) {
 		if(levantamento.getId() == null) {
 			getEntityManager().persist(levantamento);
@@ -59,18 +60,15 @@ public class LevantamentoManagerImpl extends AbstractManagerImpl implements Leva
 	@SuppressWarnings("unchecked")
 	@Transactional(readOnly = true)	
 	public List<Levantamento> buscarOrcApresentacaoProjeto(Long idProjeto) {
-		Criteria criteria = createSession().createCriteria(Levantamento.class, "o")
+		Criteria criteria = createSession().createCriteria(Levantamento.class, "l")
 			.createAlias("projeto", "p")
-			.add(Restrictions.eq("projeto.id", idProjeto))
-			.add(Restrictions.ne("o.situacaoMovimentacaoType", SituacaoMovimentacaoType.CANCELADA))
+			.add(Restrictions.eq("p.id", idProjeto))
+			.add(Restrictions.ne("l.situacaoMovimentacaoType", SituacaoMovimentacaoType.CANCELADA))
 		;
-		
+
 		for(Levantamento l : (List<Levantamento>) criteria.list()) {
 			Hibernate.initialize(l.getItensMovimentacao());
 		}
 		return criteria.list();
 	}
-
-
-	
 }

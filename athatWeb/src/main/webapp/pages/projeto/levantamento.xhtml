@@ -37,8 +37,8 @@
             
             <h:panelGrid id="panelFuncionario" columns="4">
                 <h:outputText value="Funcionário: "/>
-                <p:inputText id="funcionario" value="#{lenvantamentoController.compra.fornecedor.pessoa.nomeRazao}" 
-                	required="true" requiredMessage="Campo Fornecedor obrigatorio"/>
+                <p:inputText id="funcionario" value="#{levantamentoController.levantamento.funcionario.pessoa.nomeRazao}" 
+                	required="true" requiredMessage="Campo Funcionario obrigatorio"/>
                 <p:commandButton value="buscar" oncomplete="popPessoa.show()" process="@this">
                     <f:setPropertyActionListener value="funcionario" target="#{popPessoaController.papel}"/>
                     <f:setPropertyActionListener value="true" target="#{popPessoaController.disableCliente}"/>
@@ -46,6 +46,14 @@
                     <f:setPropertyActionListener value="true" target="#{popPessoaController.selectFuncionario}"/>
                 </p:commandButton>    
             </h:panelGrid>
+            
+             <h:panelGrid columns="2">
+               <h:outputLabel value="Data: " />
+               <p:calendar  value="#{levantamentoController.levantamento.dataCadastro}"
+                                pattern="dd/MM/yyyy" locale="pt_BR" size="20"/>
+           </h:panelGrid>  
+            
+            <br />
             
             <p:commandButton value="Novo Produto" actionListener="#{levantamentoController.prepararProduto}" oncomplete="popProduto.show();"/>
             
@@ -58,35 +66,48 @@
                     <h:outputLabel value="#{item.produto.nome}" />
                 </p:column>
                 <p:column headerText="Quantidade">
-                    <p:inputText value="#{item.quantidade}" >
-                        <p:ajax listener="#{levantamentoController.calculaValorTotal()}" event="change" update="listaDeProdutos" process="@this" />
-                    </p:inputText>    
-                </p:column>
-                <p:column headerText="Valor Unt.">
-                    <p:inputText value="#{item.valor}">
-                        <p:ajax listener="#{levantamentoController.calculaValorTotal()}" event="change" update="listaDeProdutos" process="@this" />
-                    </p:inputText>   
-                </p:column>
-                <p:column headerText="Valor Total">
-                    <h:outputLabel value="#{item.valorTotal}" />
+                    <p:inputText value="#{item.quantidade}" />   
                 </p:column>
                 <p:column headerText="Remover">
                     <p:commandButton value="Remover" action="#{levantamentoController.removerProduto}" update="listaDeProdutos" 
                                      process="@this"/>
                 </p:column>
-
             </p:dataTable>
-
+            
+            <br />
+            
+           <h:panelGrid columns="1">
+               <h:outputLabel value="Observação: " />
+               <p:inputTextarea value="#{levantamentoController.levantamento.observacao}" maxlength="2000" cols="100" />
+           </h:panelGrid>   
+            
             <br />
 
             <p:toolbar style="height:46px;">
                 <p:toolbarGroup align="right" >
-                    <p:commandButton value="Salvar" action="#{levantamentoController.salvar}" ajax="false" />    
-                    <p:commandButton value="Finalizar" action="#{levantamentoController.finalizar}" ajax="false" disabled="#{levantamentoController.levantamento.id == null}" />    
+                    <p:commandButton value="Salvar" action="#{levantamentoController.salvar}" ajax="false" 
+                                     actionListener="#{projetoController.carregarOrcamentos(levantamentoController.levantamento.projeto)}" />    
+                    <p:commandButton value="Finalizar" action="#{levantamentoController.finalizar}" ajax="false" disabled="#{levantamentoController.levantamento.id == null}"
+                                     actionListener="#{projetoController.carregarOrcamentos(levantamentoController.levantamento.projeto)}" />    
                     <p:commandButton value="Limpar" action="#{levantamentoController.limpar}" ajax="false" immediate="true" />
                     <p:commandButton value="Voltar" action="/pages/principal?faces-redirect=true" ajax="false" immediate="true" />
                 </p:toolbarGroup>
             </p:toolbar>  
+            
+          <p:dialog id="popPessoa" widgetVar="popPessoa" header="Consulta pessoa" modal="false" resizable="false" dynamic="true">
+            <ui:include src="/pages/pops/popPessoa.xhtml"/>
+
+            <p:toolbar style="padding: 0px;">
+                <p:toolbarGroup align="right">
+                    <p:commandButton value="Confirmar" actionListener="#{levantamentoController.validaFuncionario}" 
+                                     oncomplete="handlePopPessoa(xhr, status, args)" update="panelFuncionario" process="popPessoa">
+                        <f:attribute name="pessoa" value="#{popPessoaController.pessoa}"/>
+                    </p:commandButton>
+
+                    <p:commandButton value="Voltar" onclick="popPessoa.hide();"/>
+                </p:toolbarGroup>
+            </p:toolbar>
+          </p:dialog>
             
           <p:dialog id="popProduto" widgetVar="popProduto" header="Consulta produto" modal="false" resizable="false" dynamic="true">
             <ui:include src="/pages/pops/popProduto.xhtml"/>
@@ -101,7 +122,6 @@
                     <p:commandButton value="Voltar" onclick="popProduto.hide();"/>
                 </p:toolbarGroup>
             </p:toolbar>
-            <br/>
         </p:dialog>    
      </h:form>     
     </ui:define>
