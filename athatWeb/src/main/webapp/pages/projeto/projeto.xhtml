@@ -38,31 +38,32 @@
             
             <br />
             
-            <p:dataTable id="projetoDatable" value="#{projetoController.levantamentos}" var="levantamento" 
+<!--         Commentado por que esta com problema quando há levantamentos    
+            <p:dataTable id="projetoDatable" value="{projetoController.levantamentos}" var="levantamento" 
                          emptyMessage="Não existe Orçamentos.">
                 <p:column headerText="Código" >
-                    <p:outputLabel value="#{levantamento.id}" />
+                    <p:outputLabel value="{levantamento.id}" />
                 </p:column>
                  <p:column headerText="Levantamento/Orçamento" >
-                    <p:outputLabel value="#{levantamento.orcamentoType.descricao}" />
+                    <p:outputLabel value="{levantamento.orcamentoType.descricao}" />
                 </p:column>
                 <p:column headerText="Data Cadastro" >
-                    <p:outputLabel value="#{levantamento.dataCadastro}">
+                    <p:outputLabel value="{levantamento.dataCadastro}">
                         <f:convertDateTime pattern="dd/MM/yyyy" locale="pt_BR"  />
                     </p:outputLabel>   
                 </p:column>
                 <p:column headerText="Data Encerramento" >
-                    <p:outputLabel value="#{levantamento.dataFinalizacao}" rendered="#{levantamento.dataFinalizacao != null}">
+                    <p:outputLabel value="{levantamento.dataFinalizacao}" rendered="{levantamento.dataFinalizacao != null}">
                         <f:convertDateTime pattern="dd/MM/yyyy" locale="pt_BR"  />
                     </p:outputLabel>
                 </p:column>
                  <p:column headerText="Valor" >
-                    <p:outputLabel value="#{levantamento.valorTotal}" />
+                    <p:outputLabel value="{levantamento.valorTotal}" />
                 </p:column>
                 <p:column headerText="Situação" >
-                    <p:outputLabel value="#{levantamento.situacaoMovimentacaoType.descricao}" />
+                    <p:outputLabel value="{levantamento.situacaoMovimentacaoType.descricao}" />
                 </p:column>      
-            </p:dataTable>
+            </p:dataTable>-->
   
             <p:toolbar style="height:46px;">
                 <p:toolbarGroup align="right" >
