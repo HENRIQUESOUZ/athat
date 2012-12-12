@@ -80,6 +80,10 @@ public class ProjetoController extends AbstractController {
 		levantamentos = new ArrayList<Levantamento>();
 	}
 	
+//	private void calcularValorTotal() {
+//		
+//	}
+	
 	public Projeto getProjeto() {
 		return projeto;
 	}

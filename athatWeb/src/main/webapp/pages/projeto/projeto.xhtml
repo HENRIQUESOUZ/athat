@@ -37,34 +37,32 @@
             </h:panelGrid>
             
             <br />
-            
-<!--         Commentado por que esta com problema quando há levantamentos    
-            <p:dataTable id="projetoDatable" value="{projetoController.levantamentos}" var="levantamento" 
-                         emptyMessage="Não existe Orçamentos.">
-                <p:column headerText="Código" >
-                    <p:outputLabel value="{levantamento.id}" />
+            <p:dataTable id="orcamentoDataTable" value="#{projetoController.levantamentos}" var="lev" 
+                         emptyMessage="Não existe Compras para realizar entrada .">
+                <p:column headerText="Código">
+                    <h:outputText value="#{lev.id}" />
                 </p:column>
-                 <p:column headerText="Levantamento/Orçamento" >
-                    <p:outputLabel value="{levantamento.orcamentoType.descricao}" />
+                <p:column headerText="Levantamento/Orçamento">
+                    <h:outputText value="#{lev.orcamentoType.descricao}" />
                 </p:column>
-                <p:column headerText="Data Cadastro" >
-                    <p:outputLabel value="{levantamento.dataCadastro}">
-                        <f:convertDateTime pattern="dd/MM/yyyy" locale="pt_BR"  />
-                    </p:outputLabel>   
+                <p:column headerText="Data Cadastro">
+                    <h:outputText value="#{lev.dataCadastro}" > 
+                         <f:convertDateTime pattern="dd/MM/yyyy" locale="pt_BR"  /> 
+                    </h:outputText>    
                 </p:column>
-                <p:column headerText="Data Encerramento" >
-                    <p:outputLabel value="{levantamento.dataFinalizacao}" rendered="{levantamento.dataFinalizacao != null}">
-                        <f:convertDateTime pattern="dd/MM/yyyy" locale="pt_BR"  />
-                    </p:outputLabel>
+                <p:column headerText="Data Finalização">
+                    <h:outputText value="#{lev.dataFinalizacao}" />
                 </p:column>
-                 <p:column headerText="Valor" >
-                    <p:outputLabel value="{levantamento.valorTotal}" />
+                <p:column headerText="Valor Total">
+                    <h:outputText value="#{lev.valorTotal}" />
                 </p:column>
-                <p:column headerText="Situação" >
-                    <p:outputLabel value="{levantamento.situacaoMovimentacaoType.descricao}" />
-                </p:column>      
-            </p:dataTable>-->
+                <p:column headerText="Situação">
+                    <h:outputText value="#{lev.situacaoMovimentacaoType.descricao}" />
+                </p:column>
+            </p:dataTable>
   
+            <br /> 
+            
             <p:toolbar style="height:46px;">
                 <p:toolbarGroup align="right" >
                     <p:commandButton value="Novo Levantamento" action="/pages/projeto/levantamento" ajax="false" immediate="true" >
