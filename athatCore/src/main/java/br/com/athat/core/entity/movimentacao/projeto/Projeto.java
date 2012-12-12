@@ -21,7 +21,7 @@ public class Projeto extends AbstractEntity {
 	
 	@ManyToOne(optional = false)
 	private Cliente cliente;
-
+	
 	public String getNome() {
 		return nome;
 	}

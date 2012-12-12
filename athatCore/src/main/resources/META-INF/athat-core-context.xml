@@ -51,5 +51,9 @@
     <bean id="compraManager"      class="br.com.athat.core.manager.movimentacao.compra.CompraManagerImpl"/>
     <bean id="projetoManager"     class="br.com.athat.core.manager.movimentacao.projeto.ProjetoManagerImpl"/>
     <bean id="vendaManager"       class="br.com.athat.core.manager.movimentacao.venda.VendaManagerImpl"/>
+    <bean id="levantamentoManager"   class="br.com.athat.core.manager.movimentacao.projeto.LevantamentoManagerImpl"/>
+    <bean id="pedidoCompraManager"  class="br.com.athat.core.manager.pedido.PedidoCompraManagerImpl"/>
+    <bean id="itemProdutoManager"  class="br.com.athat.core.manager.movimentacao.ItemProdutoManagerImpl"/>
+    
     
 </beans>

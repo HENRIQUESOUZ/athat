@@ -8,7 +8,6 @@ import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 
 import br.com.athat.core.entity.AbstractEntity;
 import br.com.athat.core.entity.movimentacao.Movimentacao;

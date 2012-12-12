@@ -1,0 +1,119 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui" 
+                template="/pages/template.xhtml">
+    
+    <ui:define name="titulo">
+        <h3>Projeto</h3>
+    </ui:define>
+
+    <ui:define name="conteudo">
+        
+        <h:form id="projeto">
+            
+            <h:panelGrid id="panelProjeto" columns="2"  style="width: 100%">
+                <p:panel header="Projeto">
+                    <h:panelGrid id="panelInfProjeto" columns="2" style="width: 50%">
+                        <h:outputLabel value="Nome :" />
+                        <h:outputLabel value="#{projetoController.projeto.nome}" />
+
+                        <h:outputLabel value="Previsão entrega :" />
+                        <h:outputLabel value="#{projetoController.projeto.previsaoEntrega}" >
+                             <f:convertDateTime pattern="dd/MM/yyyy" locale="pt_BR"  />
+                        </h:outputLabel>    
+                    </h:panelGrid>
+                </p:panel>
+                <p:panel header="Cliente">
+                    <h:panelGrid id="panelInfCliente" columns="2" style="width: 50%">
+                        <h:outputLabel value="Cliente :" />
+                        <h:outputLabel value="#{projetoController.projeto.cliente.pessoa.nomeRazao}" />
+
+                        <h:outputLabel value="CPF / CNPJ: " />
+                        <h:outputLabel value="#{projetoController.projeto.cliente.pessoa.cpfCnpj}" />
+                    </h:panelGrid>
+                </p:panel>
+            </h:panelGrid>
+            
+            <br />
+            <p:dataTable id="orcamentoDataTable" value="#{projetoController.levantamentos}" var="lev" 
+                         emptyMessage="Não existe Compras para realizar entrada .">
+                <p:column headerText="Código">
+                    <h:outputText value="#{lev.id}" />
+                </p:column>
+                <p:column headerText="Levantamento/Orçamento">
+                    <h:outputText value="#{lev.orcamentoType.descricao}" />
+                </p:column>
+                <p:column headerText="Data Cadastro">
+                    <h:outputText value="#{lev.dataCadastro}" > 
+                         <f:convertDateTime pattern="dd/MM/yyyy" locale="pt_BR"  /> 
+                    </h:outputText>    
+                </p:column>
+                <p:column headerText="Data Finalização">
+                    <h:outputText value="#{lev.dataFinalizacao}" />
+                </p:column>
+                <p:column headerText="Valor Total">
+                    <h:outputText value="#{lev.valorTotal}" />
+                </p:column>
+                <p:column headerText="Situação">
+                    <h:outputText value="#{lev.situacaoMovimentacaoType.descricao}" />
+                </p:column>
+               <p:column headerText="Opções">
+                   <p:commandButton value="Gerar Orçamento" ajax="false" immediate="true" action="/pages/projeto/orcamento?faces-redirect=true" 
+                                    rendered="#{lev.situacaoMovimentacaoType == 'FECHADA'}">
+                       <f:setPropertyActionListener value="#{projetoController.transformerLevToOrcamento(lev)}" target="#{orcamentoController.orcamento}" />
+                   </p:commandButton>    
+                </p:column>
+                <p:columnGroup type="footer">
+                    <p:row>
+                      <p:column colspan="4" footerText="Valor Recebido:" style="text-align:right"/> 
+                        <p:column>
+                            <f:facet name="footer">
+                                <h:outputLabel value="#{projetoController.valorRecebido}">
+                                      <f:convertNumber locale="pt_BR" type="currency"/>
+                                </h:outputLabel>
+                            </f:facet>   
+                        </p:column>    
+                        <p:column colspan="2" footerText="" />
+                    </p:row>      
+                    <p:row>
+                      <p:column colspan="4" footerText="Valor Pendente :" style="text-align:right"/> 
+                        <p:column>
+                            <f:facet name="footer">
+                                <h:outputLabel value="#{projetoController.valorPendente}">
+                                      <f:convertNumber locale="pt_BR" type="currency"/>
+                                </h:outputLabel>
+                            </f:facet>   
+                        </p:column>    
+                        <p:column colspan="2" footerText="" />
+                    </p:row>            <p:row>
+                      <p:column colspan="4" footerText="Total :" style="text-align:right"/> 
+                        <p:column>
+                            <f:facet name="footer">
+                                <h:outputLabel value="#{projetoController.valorTotal}">
+                                      <f:convertNumber locale="pt_BR" type="currency"/>
+                                </h:outputLabel>
+                            </f:facet>   
+                        </p:column>    
+                        <p:column colspan="2" footerText="" />
+                    </p:row>            
+                </p:columnGroup>
+            </p:dataTable>
+  
+            <br /> 
+            
+            <p:toolbar style="height:46px;">
+                <p:toolbarGroup align="right" >
+                    <p:commandButton value="Novo Levantamento" action="/pages/projeto/levantamento?faces-redirect=true" ajax="false" immediate="true" >
+                        <f:setPropertyActionListener value="#{projetoController.projeto}" target="#{levantamentoController.levantamento.projeto}" />
+                    </p:commandButton>
+                    <p:commandButton value="Novo Orçamento" action="/pages/projeto/orcamento?faces-redirect=true" ajax="false" immediate="true" >
+                         <f:setPropertyActionListener value="#{projetoController.projeto}" target="#{orcamentoController.orcamento.projeto}" />
+                    </p:commandButton>    
+                    <p:commandButton value="Voltar" action="/pages/principal?faces-redirect=true" ajax="false" immediate="true" />
+                </p:toolbarGroup>
+            </p:toolbar>  
+        </h:form>     
+    </ui:define>
+</ui:composition>

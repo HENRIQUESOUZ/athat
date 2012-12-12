@@ -1,0 +1,128 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui" 
+                template="/pages/template.xhtml">
+    
+    <ui:define name="titulo">
+        <h3>Orçamento</h3>
+    </ui:define>
+    
+      <ui:define name="script">
+          <script type="text/javascript">
+            function handlePopPessoa(xhr, status, args) {
+                if (!args.confirmar) {                    
+                    jQuery('#popPessoa').effect("shake", { times:3 }, 100);
+                } else {
+                    popPessoa.hide();
+                }
+            }
+        </script>
+          
+         <script type="text/javascript">
+            function handlePopProduto(xhr, status, args) {
+                if (!args.confirmar) {                    
+                    jQuery('#popProduto').effect("shake", { times:3 }, 100);
+                } else {
+                    popProduto.hide();
+                }
+            }
+        </script>
+    </ui:define>  
+    
+    <ui:define name="conteudo">
+        
+        <h:form id="orcamento">
+            
+            <h:panelGrid id="panelFuncionario" columns="4">
+                <h:outputText value="Funcionário: "/>
+                <p:inputText id="funcionario" value="#{orcamentoController.orcamento.funcionario.pessoa.nomeRazao}" 
+                	required="true" requiredMessage="Campo Funcionario obrigatorio"/>
+                <p:commandButton value="buscar" oncomplete="popPessoa.show()" process="@this">
+                    <f:setPropertyActionListener value="funcionario" target="#{popPessoaController.papel}"/>
+                    <f:setPropertyActionListener value="true" target="#{popPessoaController.disableCliente}"/>
+                    <f:setPropertyActionListener value="true" target="#{popPessoaController.disableFornecedor}"/>
+                    <f:setPropertyActionListener value="true" target="#{popPessoaController.selectFuncionario}"/>
+                </p:commandButton>    
+            </h:panelGrid>
+            
+             <h:panelGrid columns="2">
+               <h:outputLabel value="Data: " />
+               <p:calendar  value="#{orcamentoController.orcamento.dataCadastro}"
+                                pattern="dd/MM/yyyy" locale="pt_BR" size="20"/>
+           </h:panelGrid>  
+            
+            <br />
+            
+            <p:commandButton value="Novo Produto" actionListener="#{orcamentoController.prepararProduto}" oncomplete="popProduto.show();"/>
+            
+            <p:dataTable  id="listaDeProdutos" value="#{orcamentoController.orcamento.itensMovimentacao}" var="item"
+                          emptyMessage="Não possui produtos adicionados.">
+                <p:column headerText="Codigo">
+                    <h:outputLabel value="#{item.produto.id}" />
+                </p:column>
+                <p:column headerText="Nome">
+                    <h:outputLabel value="#{item.produto.nome}" />
+                </p:column>
+                <p:column headerText="Quantidade">
+                    <p:inputText value="#{item.quantidade}" />   
+                </p:column>
+                <p:column headerText="Remover">
+                    <p:commandButton value="Remover" action="#{orcamentoController.removerProduto}" update="listaDeProdutos" 
+                                     process="@this"/>
+                </p:column>
+            </p:dataTable>
+            
+            <br />
+            
+           <h:panelGrid columns="1">
+               <h:outputLabel value="Observação: " />
+               <p:inputTextarea value="#{orcamentoController.orcamento.observacao}" maxlength="2000" cols="100" />
+           </h:panelGrid>   
+            
+            <br />
+
+            <p:toolbar style="height:46px;">
+                <p:toolbarGroup align="right" >
+                    <p:commandButton value="Salvar" action="#{orcamentoController.salvar}" ajax="false" 
+                                     actionListener="#{projetoController.carregarOrcamentos(orcamentoController.orcamento.projeto)}" />    
+                    <p:commandButton value="Finalizar" action="#{orcamentoController.finalizar}" ajax="false" disabled="#{orcamentoController.orcamento.id == null}"
+                                     actionListener="#{projetoController.carregarOrcamentos(orcamentoController.orcamento.projeto)}" />    
+                    <p:commandButton value="Limpar" action="#{orcamentoController.limpar}" ajax="false" immediate="true" />
+                    <p:commandButton value="Voltar" action="/pages/principal?faces-redirect=true" ajax="false" immediate="true" />
+                </p:toolbarGroup>
+            </p:toolbar>  
+            
+          <p:dialog id="popPessoa" widgetVar="popPessoa" header="Consulta pessoa" modal="false" resizable="false" dynamic="true">
+            <ui:include src="/pages/pops/popPessoa.xhtml"/>
+
+            <p:toolbar style="padding: 0px;">
+                <p:toolbarGroup align="right">
+                    <p:commandButton value="Confirmar" actionListener="#{orcamentoController.validaFuncionario}" 
+                                     oncomplete="handlePopPessoa(xhr, status, args)" update="panelFuncionario" process="popPessoa">
+                        <f:attribute name="pessoa" value="#{popPessoaController.pessoa}"/>
+                    </p:commandButton>
+
+                    <p:commandButton value="Voltar" onclick="popPessoa.hide();"/>
+                </p:toolbarGroup>
+            </p:toolbar>
+          </p:dialog>
+            
+          <p:dialog id="popProduto" widgetVar="popProduto" header="Consulta produto" modal="false" resizable="false" dynamic="true">
+            <ui:include src="/pages/pops/popProduto.xhtml"/>
+
+            <p:toolbar style="padding: 0px;">
+                <p:toolbarGroup align="right">
+                    <p:commandButton value="Confirmar" actionListener="#{orcamentoController.adicionarProduto}"
+                                     oncomplete="handlePopProduto(xhr, status, args)" update="listaDeProdutos" process="popProduto">
+                        <f:attribute name="produto" value="#{popProdutoController.produto}"/>
+                    </p:commandButton>
+
+                    <p:commandButton value="Voltar" onclick="popProduto.hide();"/>
+                </p:toolbarGroup>
+            </p:toolbar>
+        </p:dialog>    
+     </h:form>     
+    </ui:define>
+</ui:composition>

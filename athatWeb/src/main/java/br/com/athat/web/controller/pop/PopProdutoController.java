@@ -47,6 +47,7 @@ public class PopProdutoController extends AbstractController {
 		id = null;
 		nome = "";
 		produto = new Produto();
+		validaEstoque = false;
 	}
 
 	public Long getId() {

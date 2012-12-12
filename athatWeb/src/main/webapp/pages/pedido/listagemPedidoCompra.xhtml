@@ -1,0 +1,64 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui" 
+                template="/pages/template.xhtml">
+    
+    <ui:define name="titulo">
+        <h3>Listagem de Pedidos de Compra</h3>
+    </ui:define>
+
+    <ui:define name="conteudo">
+        
+        <h:form id="listagemPedidoCompra">
+            
+            <p:panel header="Consulta">
+                <h:panelGrid columns="2">
+                    <h:outputText value="Código: "/>
+                    <p:inputText value="#{pedidoCompraController.pedidoCompraVO.id}"/>
+                </h:panelGrid>
+                
+                <h:panelGrid columns="4">
+                    <h:outputText value="Data:  "/>
+                    <p:calendar  value="#{pedidoCompraController.pedidoCompraVO.dataInicio}"
+                                pattern="dd/MM/yyyy" locale="pt_BR" size="20"/>
+                    <h:outputText value=" até "/>
+                    <p:calendar  value="#{pedidoCompraController.pedidoCompraVO.dataFim}"
+                                pattern="dd/MM/yyyy" locale="pt_BR" size="20"/>
+                </h:panelGrid>
+                
+                <br />
+                
+                <p:commandButton value="Buscar" action="#{pedidoCompraController.buscar}" update="pedidoCompraDatable"/>
+            </p:panel>
+            
+            <br />
+            
+            <p:dataTable id="pedidoCompraDatable" value="#{pedidoCompraController.pedidosCompra}" var="pedidoCompra" 
+                         emptyMessage="Não existe Pedidos.">
+                <p:column headerText="Código">
+                    <h:outputText value="#{pedidoCompra.id}" />
+                </p:column>
+                
+                 <p:column headerText="Data Compra">
+                    <h:outputText value="#{pedidoCompra.dataCadastro}" >
+                         <f:convertDateTime pattern="dd/MM/yyyy" locale="pt_BR"  />
+                    </h:outputText>    
+                </p:column>
+                
+                 <p:column headerText="Situação">
+                    <h:outputText value="#{pedidoCompra.situacaoMovimentacaoType.descricao}" />
+                </p:column> 
+            </p:dataTable>    
+            
+            <br />
+            
+            <p:toolbar style="height:46px;">
+                <p:toolbarGroup align="right" >  
+                    <p:commandButton value="Voltar" action="/pages/principal?faces-redirect=true" ajax="false" immediate="true"/>
+                </p:toolbarGroup>
+             </p:toolbar>            
+     </h:form>     
+    </ui:define>
+</ui:composition>

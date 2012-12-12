@@ -26,8 +26,8 @@
                             <p:submenu label="Pessoa">
                                 <p:menuitem value="Cliente" action="/pages/cadastro/cadastroCliente?faces-redirect=true" immediate="true" ajax="false" />
                                 <p:menuitem value="Cidade" action="/pages/cadastro/cadastroCidade?faces-redirect=true" immediate="true" ajax="false" />
-                                <p:menuitem value="Funcionario" action="cadastroFuncionario?faces-redirect=true" immediate="true" ajax="false" />
-                                <p:menuitem value="Fornecedor" action="cadastroFornecedor?faces-redirect=true" immediate="true" ajax="false" />
+                                <p:menuitem value="Funcionario" action="/pages/cadastro/cadastroFuncionario?faces-redirect=true" immediate="true" ajax="false" />
+                                <p:menuitem value="Fornecedor" action="/pages/cadastro/cadastroFornecedor?faces-redirect=true" immediate="true" ajax="false" />
                             </p:submenu>
                             <p:submenu label="Usuário">
                                 <p:menuitem value="Usuario" action="cadastroUsuario?faces-redirect=true" immediate="true" ajax="false" />
@@ -81,6 +81,14 @@
                         <p:column>
                             <p:submenu label="Projeto">
                                 <p:menuitem value="Cadastro" action="/pages/projeto/cadastroProjeto?faces-redirect=true" immediate="true" ajax="false" />
+                                <p:menuitem value="Listagem" action="/pages/projeto/listagemProjeto?faces-redirect=true" immediate="true" ajax="false" />
+                            </p:submenu> 
+                        </p:column>   
+                    </p:submenu>
+                    <p:submenu label="Pedidos">
+                        <p:column>
+                            <p:submenu label="Pedido de Compra">                  
+                                <p:menuitem value="Listagem" action="/pages/pedido/listagemPedidoCompra?faces-redirect=true" immediate="true" ajax="false" />
                             </p:submenu> 
                         </p:column>   
                     </p:submenu>

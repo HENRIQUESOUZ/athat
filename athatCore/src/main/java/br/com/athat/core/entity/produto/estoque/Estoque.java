@@ -17,9 +17,9 @@ public class Estoque extends AbstractEntity{
 	private static final long serialVersionUID = 1L;
 
 	@Column(nullable = false)
-	private Integer quantidade;
+	private Integer quantidade = 0;
 	
-	private Integer quantidadeDesmembrada;
+	private Integer quantidadeDesmembrada = 0;
 	
 	@OneToOne
 	private Produto produto;
