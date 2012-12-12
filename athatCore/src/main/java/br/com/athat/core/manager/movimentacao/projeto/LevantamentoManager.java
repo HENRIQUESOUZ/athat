@@ -17,4 +17,8 @@ public interface LevantamentoManager extends AbstractManager {
 	
 	List<Levantamento> buscarOrcApresentacaoProjeto(Long idProjeto);
 	
+	Levantamento buscarLevantamentoPorIdFull(Long id);
+	
+	Orcamento buscarOrcamentoPorIdFull(Long id);
+	
 }

@@ -59,16 +59,56 @@
                 <p:column headerText="Situação">
                     <h:outputText value="#{lev.situacaoMovimentacaoType.descricao}" />
                 </p:column>
+               <p:column headerText="Opções">
+                   <p:commandButton value="Gerar Orçamento" ajax="false" immediate="true" action="/pages/projeto/orcamento?faces-redirect=true" 
+                                    rendered="#{lev.situacaoMovimentacaoType == 'FECHADA'}">
+                       <f:setPropertyActionListener value="#{projetoController.transformerLevToOrcamento(lev)}" target="#{orcamentoController.orcamento}" />
+                   </p:commandButton>    
+                </p:column>
+                <p:columnGroup type="footer">
+                    <p:row>
+                      <p:column colspan="4" footerText="Valor Recebido:" style="text-align:right"/> 
+                        <p:column>
+                            <f:facet name="footer">
+                                <h:outputLabel value="#{projetoController.valorRecebido}">
+                                      <f:convertNumber locale="pt_BR" type="currency"/>
+                                </h:outputLabel>
+                            </f:facet>   
+                        </p:column>    
+                        <p:column colspan="2" footerText="" />
+                    </p:row>      
+                    <p:row>
+                      <p:column colspan="4" footerText="Valor Pendente :" style="text-align:right"/> 
+                        <p:column>
+                            <f:facet name="footer">
+                                <h:outputLabel value="#{projetoController.valorPendente}">
+                                      <f:convertNumber locale="pt_BR" type="currency"/>
+                                </h:outputLabel>
+                            </f:facet>   
+                        </p:column>    
+                        <p:column colspan="2" footerText="" />
+                    </p:row>            <p:row>
+                      <p:column colspan="4" footerText="Total :" style="text-align:right"/> 
+                        <p:column>
+                            <f:facet name="footer">
+                                <h:outputLabel value="#{projetoController.valorTotal}">
+                                      <f:convertNumber locale="pt_BR" type="currency"/>
+                                </h:outputLabel>
+                            </f:facet>   
+                        </p:column>    
+                        <p:column colspan="2" footerText="" />
+                    </p:row>            
+                </p:columnGroup>
             </p:dataTable>
   
             <br /> 
             
             <p:toolbar style="height:46px;">
                 <p:toolbarGroup align="right" >
-                    <p:commandButton value="Novo Levantamento" action="/pages/projeto/levantamento" ajax="false" immediate="true" >
+                    <p:commandButton value="Novo Levantamento" action="/pages/projeto/levantamento?faces-redirect=true" ajax="false" immediate="true" >
                         <f:setPropertyActionListener value="#{projetoController.projeto}" target="#{levantamentoController.levantamento.projeto}" />
                     </p:commandButton>
-                    <p:commandButton value="Novo Orçamento" action="/pages/projeto/orcamento" ajax="false" immediate="true" >
+                    <p:commandButton value="Novo Orçamento" action="/pages/projeto/orcamento?faces-redirect=true" ajax="false" immediate="true" >
                          <f:setPropertyActionListener value="#{projetoController.projeto}" target="#{orcamentoController.orcamento.projeto}" />
                     </p:commandButton>    
                     <p:commandButton value="Voltar" action="/pages/principal?faces-redirect=true" ajax="false" immediate="true" />

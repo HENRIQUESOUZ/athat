@@ -30,8 +30,9 @@
     <class>br.com.athat.core.entity.movimentacao.ItemProduto</class>
     <class>br.com.athat.core.entity.movimentacao.projeto.Projeto</class>
     <class>br.com.athat.core.entity.pessoa.cliente.Cliente</class>
-    <class>br.com.athat.core.entity.movimentacao.projeto.Levantamento</class>'
+    <class>br.com.athat.core.entity.movimentacao.projeto.Levantamento</class>
     <class>br.com.athat.core.entity.pedido.PedidoCompra</class>
+    <class>br.com.athat.core.entity.movimentacao.projeto.Orcamento</class>
     
    
     <exclude-unlisted-classes>true</exclude-unlisted-classes>
