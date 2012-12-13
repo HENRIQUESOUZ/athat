@@ -45,6 +45,7 @@ public class LevantamentoController extends AbstractController {
 	public String salvar() {
 		try {
 			if(validade()) {
+				levantamento.setSituacaoMovimentacaoType(SituacaoMovimentacaoType.ABERTA);
 				levantamentoManager.salvar(levantamento);
 				getMessageCadastroSucesso();
 			}

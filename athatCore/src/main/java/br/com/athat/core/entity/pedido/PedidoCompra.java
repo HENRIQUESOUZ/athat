@@ -1,5 +1,6 @@
 package br.com.athat.core.entity.pedido;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -8,6 +9,7 @@ import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -15,6 +17,8 @@ import javax.persistence.TemporalType;
 import br.com.athat.core.entity.AbstractEntity;
 import br.com.athat.core.entity.movimentacao.ItemProduto;
 import br.com.athat.core.entity.movimentacao.enuns.SituacaoMovimentacaoType;
+import br.com.athat.core.entity.movimentacao.projeto.Orcamento;
+import br.com.athat.core.entity.movimentacao.projeto.Projeto;
 
 @Entity
 public class PedidoCompra extends AbstractEntity {
@@ -22,14 +26,28 @@ public class PedidoCompra extends AbstractEntity {
 	private static final long serialVersionUID = 1L;
 	
 	@Temporal(TemporalType.DATE)
-	protected Date dataEncerramento;
+	private Date dataEncerramento;
+	
+	@ManyToOne
+	private Projeto projeto;
 
 	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	protected List<ItemProduto> itensMovimentacao;
+	private List<ItemProduto> itensMovimentacao;
 	
 	@Enumerated(EnumType.STRING)
-	protected SituacaoMovimentacaoType situacaoMovimentacaoType;
+	private SituacaoMovimentacaoType situacaoMovimentacaoType;
+	
+	public PedidoCompra() {}
 
+	public PedidoCompra(Orcamento orcamento) {
+		projeto = orcamento.getProjeto();
+		itensMovimentacao = new ArrayList<ItemProduto>();
+		for(ItemProduto it : orcamento.getItensMovimentacao()) {
+			itensMovimentacao.add(new ItemProduto(it));
+		}
+		situacaoMovimentacaoType = SituacaoMovimentacaoType.ABERTA;
+	}
+	
 	public Date getDataEncerramento() {
 		return dataEncerramento;
 	}

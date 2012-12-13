@@ -11,9 +11,14 @@ import org.springframework.transaction.annotation.Transactional;
 import br.com.athat.core.entity.movimentacao.enuns.SituacaoMovimentacaoType;
 import br.com.athat.core.entity.movimentacao.projeto.Levantamento;
 import br.com.athat.core.entity.movimentacao.projeto.Orcamento;
+import br.com.athat.core.entity.movimentacao.venda.Venda;
+import br.com.athat.core.entity.pedido.PedidoCompra;
 import br.com.athat.core.manager.AbstractManagerImpl;
 import br.com.athat.core.manager.movimentacao.ItemProdutoManager;
+import br.com.athat.core.manager.movimentacao.venda.VendaManager;
+import br.com.athat.core.manager.pedido.PedidoCompraManager;
 import br.com.athat.core.vo.projeto.LenvamentoVO;
+import br.com.athat.core.vo.projeto.OrcamentoVO;
 
 public class LevantamentoManagerImpl extends AbstractManagerImpl implements LevantamentoManager {
 
@@ -21,7 +26,13 @@ public class LevantamentoManagerImpl extends AbstractManagerImpl implements Leva
 	
 	@Autowired
 	private ItemProdutoManager itemProdutoManager;
-
+	
+	@Autowired
+	private PedidoCompraManager pedidoCompraManager;
+	
+	@Autowired
+	private VendaManager vendaManager;
+	
 	@Override
 	@Transactional
 	public void salvar(Orcamento orcamento) {
@@ -61,6 +72,24 @@ public class LevantamentoManagerImpl extends AbstractManagerImpl implements Leva
 	   
 		return criteria.list();
 	}
+	
+	@Override
+	@SuppressWarnings("unchecked")
+    @Transactional(readOnly = true)
+	public List<Orcamento> buscar(OrcamentoVO orcamento) {
+		Criteria criteria = createSession().createCriteria(Orcamento.class)
+				.add(Restrictions.between("dataCadastro", orcamento.getDataInicio(), orcamento.getDataFim()))
+		    ;	
+//	        if (compra.getSituacaoMovimentacaoType() != null) {
+//	            criteria.add(Restrictions.eq("situacaoMovimentacaoType", compra.getSituacaoMovimentacaoType()));
+//	        }
+				
+			if(orcamento.getId() != null) {
+				criteria.add(Restrictions.eq("id", orcamento.getId()));
+			}
+		   
+			return criteria.list();
+	}
 
 	@Override
 	@SuppressWarnings("unchecked")
@@ -93,10 +122,29 @@ public class LevantamentoManagerImpl extends AbstractManagerImpl implements Leva
 	@Transactional(readOnly = true)	
 	public Orcamento buscarOrcamentoPorIdFull(Long id) {
 		Criteria criteria = createSession().createCriteria(Orcamento.class)
-				.add(Restrictions.eq("id", id));
-			Orcamento orcamento = (Orcamento) criteria.uniqueResult();
-			Hibernate.initialize(orcamento.getItensMovimentacao());
+			.add(Restrictions.eq("id", id));
+		Orcamento orcamento = (Orcamento) criteria.uniqueResult();
+		Hibernate.initialize(orcamento.getItensMovimentacao());
 			
-			return orcamento;
+		return orcamento;
 	}
-}
+
+	@Override
+	@Transactional
+	public void finalizarOrcamento(Orcamento orcamento) {
+		getEntityManager().persist(orcamento);
+		
+		pedidoCompraManager.salvar(gerarPedidoCompra(orcamento));
+	}
+	
+	private PedidoCompra gerarPedidoCompra(Orcamento orcamento) {
+		return new PedidoCompra(orcamento);
+	}
+
+	@Override
+	@Transactional
+	public void confirmarChegadaPedidoVenda(Orcamento pedido) {
+		vendaManager.salvar(new Venda(pedido));
+	}
+
+ }
