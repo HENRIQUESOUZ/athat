@@ -38,7 +38,9 @@
             
             <br />
             <p:dataTable id="orcamentoDataTable" value="#{projetoController.levantamentos}" var="lev" 
-                         emptyMessage="Não existe Compras para realizar entrada .">
+                         emptyMessage="Não existe Compras para realizar entrada ." rows="10"  
+                 paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"  
+                 rowsPerPageTemplate="5,10,15"  >
                 <p:column headerText="Código">
                     <h:outputText value="#{lev.id}" />
                 </p:column>
@@ -63,7 +65,11 @@
                    <p:commandButton value="Gerar Orçamento" ajax="false" immediate="true" action="/pages/projeto/orcamento?faces-redirect=true" 
                                     rendered="#{lev.situacaoMovimentacaoType == 'FECHADA'}">
                        <f:setPropertyActionListener value="#{projetoController.transformerLevToOrcamento(lev)}" target="#{orcamentoController.orcamento}" />
-                   </p:commandButton>    
+                   </p:commandButton>   
+                   <p:commandButton value="Levantamento" ajax="false" immediate="true" action="/pages/projeto/levantamento?faces-redirect=true" 
+                                    rendered="#{lev.situacaoMovimentacaoType == 'ABERTA'}">
+                       <f:setPropertyActionListener value="#{lev}" target="#{levantamentoController.levantamento}" />
+                   </p:commandButton>
                 </p:column>
                 <p:columnGroup type="footer">
                     <p:row>
