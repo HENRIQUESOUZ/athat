@@ -16,6 +16,7 @@ public class OrcamentoVO implements Serializable{
 	private SituacaoMovimentacaoType situacaoMovimentacaoType;
 	
 	public OrcamentoVO() {
+		id = null;
 		dataInicio = DateUtils.obterDataMenosDias(new Date(), 30);
 		dataFim = DateUtils.obterDataMaisDias(new Date(), 30);
 	}

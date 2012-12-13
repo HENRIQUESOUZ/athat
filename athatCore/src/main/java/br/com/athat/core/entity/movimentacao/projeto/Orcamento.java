@@ -7,6 +7,7 @@ import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.Transient;
 
 import org.hibernate.annotations.DiscriminatorOptions;
 
@@ -31,17 +32,21 @@ public class Orcamento extends Levantamento {
 	@Column(length = 2000, name = "observacaoOrcamento")
 	private String observacao;
 	
+	@Transient
+	private Levantamento levantamento;
+	
 	public Orcamento() {
 		this.orcamentoType = OrcamentoType.ORCAMENTO;
 	}
 	
 	public Orcamento(Levantamento levantamento) {
-		dataFinalizacao = levantamento.getDataFinalizacao();
-		valorTotal = levantamento.getValorTotal();
-		projeto = levantamento.getProjeto();
-		itensMovimentacao = levantamento.getItensMovimentacao();
-		situacaoMovimentacaoType = SituacaoMovimentacaoType.ABERTA;
-		orcamentoType = OrcamentoType.ORCAMENTO;
+		this.dataFinalizacao = levantamento.getDataFinalizacao();
+		this.valorTotal = levantamento.getValorTotal();
+		this.projeto = levantamento.getProjeto();
+		this.itensMovimentacao = levantamento.getItensMovimentacao();
+		this.situacaoMovimentacaoType = SituacaoMovimentacaoType.ABERTA;
+		this.orcamentoType = OrcamentoType.ORCAMENTO;
+		this.levantamento = levantamento;
 	}
 
 	public Funcionario getFuncionario() {
