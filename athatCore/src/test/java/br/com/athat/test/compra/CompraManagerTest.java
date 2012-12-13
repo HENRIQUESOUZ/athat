@@ -1,24 +1,20 @@
 package br.com.athat.test.compra;
 
+import java.math.BigDecimal;
+
+import org.junit.Before;
+import org.junit.Ignore;
+import org.junit.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+
 import br.com.athat.core.AbstractTest;
-import br.com.athat.core.Populate;
 import br.com.athat.core.PopulateBD;
 import br.com.athat.core.entity.movimentacao.ItemProduto;
-import br.com.athat.core.entity.movimentacao.compra.Compra;
 import br.com.athat.core.entity.pessoa.endereco.Cidade;
 import br.com.athat.core.entity.pessoa.fornecedor.Fornecedor;
 import br.com.athat.core.entity.produto.Produto;
 import br.com.athat.core.entity.produto.categoria.Categoria;
-import br.com.athat.core.entity.produto.estoque.Estoque;
 import br.com.athat.core.manager.movimentacao.compra.CompraManager;
-
-import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.List;
-import org.junit.Before;
-import org.junit.Test;
-import org.springframework.beans.factory.annotation.Autowired;
-import junit.framework.Assert;
 
 public class CompraManagerTest extends AbstractTest{
     
@@ -43,6 +39,7 @@ public class CompraManagerTest extends AbstractTest{
     }
     
     @Test
+    @Ignore
     public void test(){
     	
     }

@@ -23,19 +23,19 @@ public abstract class Conta extends AbstractEntity {
 	@OneToMany(fetch = FetchType.LAZY)
 	protected List<Parcela> parcelas;
 	
-	@OneToOne
-	protected Movimentacao movimentacao;
+//	@OneToOne
+//	protected Movimentacao movimentacao;
 	
 	@Enumerated(EnumType.STRING)
 	protected SituacaoContaType situacao;
 	
 	@Enumerated(EnumType.STRING)
 	protected ContaType tipoConta;
-	
+  	
 	public BigDecimal getValorTotal() {
 		return valorTotal;
 	}
-
+        
 	public void setValorTotal(BigDecimal valorTotal) {
 		this.valorTotal = valorTotal;
 	}

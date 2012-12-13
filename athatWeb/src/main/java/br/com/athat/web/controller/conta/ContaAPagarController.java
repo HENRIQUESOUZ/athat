@@ -17,135 +17,167 @@ import br.com.athat.core.manager.conta.ContaAPagarManager;
 import br.com.athat.core.manager.conta.ContaAPagarManagerImpl;
 import br.com.athat.core.manager.movimentacao.compra.CompraManager;
 import br.com.athat.web.utils.AbstractController;
+import javax.faces.application.FacesMessage;
 
 public class ContaAPagarController extends AbstractController {
 
-	private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
+    private ContaAPagar contaAPagar;
+    private Compra compra;
+    private List<Parcela> parcelas;
+    private Integer numParcelas;
+    private Calendar dataInicial;
+    @Autowired
+    private CompraManager compraManager;
+    private ContaAPagarManager contaAPagarManager;
 
-	private ContaAPagar contaAPagar;
-	private Compra compra;
-	private List<Parcela> parcelas;
-	private Integer numParcelas;
-	private Calendar dataInicial;
-	@Autowired
-	private CompraManager compraManager;
-	private ContaAPagarManager contaAPagarManager;
+    private ContaAPagarController() {
+        init();
+    }
 
-	private ContaAPagarController() {
-		init();
-	}
+    private void init() {
+//        if (compra == null) {
+//            compra = new Compra();
+//            compra.setValorTotal(BigDecimal.ZERO);
+//        }
+//        contaAPagarManager = new ContaAPagarManagerImpl();
+        contaAPagar = new ContaAPagar();
+        contaAPagar.setMovimentacao(compra);
+        contaAPagar.setSituacao(SituacaoContaType.ABERTA);
+        contaAPagar.setValorTotal(BigDecimal.ZERO);
+        parcelas = new ArrayList<Parcela>();
+        contaAPagar.setParcelas(parcelas);
 
-	private void init() {
-		contaAPagarManager = new ContaAPagarManagerImpl();
-		contaAPagar = new ContaAPagar();
-		contaAPagar.setMovimentacao(compra);
-		contaAPagar.setSituacao(SituacaoContaType.ABERTA);
-		contaAPagar.setValorTotal(compra.getValorTotal());
-		parcelas = new ArrayList<Parcela>();
-		contaAPagar.setParcelas(parcelas);
 
-	}
-	public void gerarParcelas(){
-		BigDecimal valorParcela;
-		if(validateParcelas()){
-			valorParcela = contaAPagar.getValorTotal().divide(BigDecimal.valueOf(numParcelas),2);
-			for(int i=0;i<numParcelas;i++){
-				Parcela parcela = new Parcela();
-				Lancamento lancamento = new Lancamento();
-				Calendar dtPgto=dataInicial;
-				dtPgto.add(Calendar.MONTH, i);
-				lancamento.setTipoMovimento(MovimentoType.DEBITO);
-				lancamento.setValor(valorParcela);
-				lancamento.setParcela(parcela);
-				
-				parcela.setLancamento(lancamento);
-				parcela.setSituacao(SituacaoContaType.ABERTA);
-				parcela.setConta(contaAPagar);
-				parcela.setNumParcela (i+1);
-				parcela.setDataPagamento(dtPgto.getTime());
-				parcelas.add(i,parcela);
-				
-			}
-		}
-		contaAPagar.setParcelas(parcelas);
-	}
+    }
 
-	private boolean validateParcelas() {
-		if(compra != null )
-			if(numParcelas != null && numParcelas != 0)
-				if (dataInicial !=null) 
-					return true;
-		return false;
-		
-	}
+    public String limpar() {
+        init();
+        return "/pages/conta/ContaAPagar";
+    }
 
-	public String salvar() {
-		try {
-			if (validateParcelas() && parcelas.size()>0) {
-				contaAPagarManager.salvar(contaAPagar);
-				getMessageCadastroSucesso();
-			}
-		} catch (Exception e) {
-			getMessageInstabilidade();
-			e.printStackTrace();
-		}
+    public String gerarParcelas() {
+        BigDecimal valorParcela;
+        if (validateParcelas()) {
+            valorParcela = contaAPagar.getValorTotal().divide(BigDecimal.valueOf(numParcelas), 2);
+            for (int i = 0; i < numParcelas; i++) {
+                Parcela parcela = new Parcela();
+                Lancamento lancamento = new Lancamento();
+                Calendar dtPgto = dataInicial;
+                dtPgto.add(Calendar.MONTH, i);
+                lancamento.setTipoMovimento(MovimentoType.DEBITO);
+                lancamento.setValor(valorParcela);
+                lancamento.setParcela(parcela);
 
-		return "/pages/conta/conta_a_pagar";
-	}
+                parcela.setLancamento(lancamento);
+                parcela.setSituacao(SituacaoContaType.ABERTA);
+                parcela.setConta(contaAPagar);
+                parcela.setNumParcela(i + 1);
+                parcela.setDataPagamento(dtPgto.getTime());
+                parcelas.add(i, parcela);
 
-	public ContaAPagar getContaAPagar() {
-		return contaAPagar;
-	}
+            }
+        }
+        contaAPagar.setParcelas(parcelas);
+        return "/pages/conta/contaAPagar";
+    }
 
-	public void setContaAPagar(ContaAPagar contaAPagar) {
-		this.contaAPagar = contaAPagar;
-	}
+    private boolean validateParcelas() {
+        boolean validate = true;
+        if (compra == null) {
+            setMessage(FacesMessage.SEVERITY_INFO, null, "Problemas com a Movimentação em questão");
+            validate = false;
+        }
 
-	public Compra getCompra() {
-		return compra;
-	}
+        if (numParcelas == null || numParcelas == 0) {
+            setMessage(FacesMessage.SEVERITY_INFO, null, "Campo Numero de Parcela Obrigatório");
+            validate = false;
+        }
+        
+        if (dataInicial == null) {
+            setMessage(FacesMessage.SEVERITY_INFO, null, "Campo Data Inicial Obrigatório");
+            validate = false;
+        }
+        return validate;
 
-	public void setCompra(Compra compra) {
-		this.compra = compra;
-	}
+    }
 
-	public List<Parcela> getParcelas() {
-		return parcelas;
-	}
+    public String salvar() {
+        try {
+            if (validateSalvar()) {
+                contaAPagarManager.salvar(contaAPagar);
+                getMessageCadastroSucesso();
+            } 
+        } catch (Exception e) {
+            getMessageInstabilidade();
+            e.printStackTrace();
+        }
 
-	public void setParcelas(List<Parcela> parcelas) {
-		this.parcelas = parcelas;
-	}
+        return "/pages/conta/contaAPagar";
+    }
+    private boolean validateSalvar(){
+        boolean validate = validateParcelas();
+        if(parcelas.size() > 0){
+            setMessage(FacesMessage.SEVERITY_INFO, null, "Dados Imcompletos");
+            validate = false;
+        }
+        return validate;
+             
+    }
+    
+    public ContaAPagar getContaAPagar() {
+        return contaAPagar;
+    }
 
-	public Integer getNumParcelas() {
-		return numParcelas;
-	}
+    public void setContaAPagar(ContaAPagar contaAPagar) {
+        this.contaAPagar = contaAPagar;
+    }
 
-	public void setNumParcelas(Integer numParcelas) {
-		this.numParcelas = numParcelas;
-	}
+    public Compra getCompra() {
+        return compra;
+    }
 
-	public Calendar getDataInicial() {
-		return dataInicial;
-	}
+    public void setCompra(Compra compra) {
+        this.compra = compra;
+    }
 
-	public void setDataInicial(Calendar dataInicial) {
-		this.dataInicial = dataInicial;
-	}
+    public List<Parcela> getParcelas() {
+        return parcelas;
+    }
 
-	public CompraManager getCompraManager() {
-		return compraManager;
-	}
+    public void setParcelas(List<Parcela> parcelas) {
+        this.parcelas = parcelas;
+    }
 
-	public void setCompraManager(CompraManager compraManager) {
-		this.compraManager = compraManager;
-	}
+    public Integer getNumParcelas() {
+        return numParcelas;
+    }
 
-	public ContaAPagarManager getContaAPagarManager() {
-		return contaAPagarManager;
-	}
+    public void setNumParcelas(Integer numParcelas) {
+        this.numParcelas = numParcelas;
+    }
 
-	public void setContaAPagarManager(ContaAPagarManager contaAPagarManager) {
-		this.contaAPagarManager = contaAPagarManager;
-	}
+    public Calendar getDataInicial() {
+        return dataInicial;
+    }
+
+    public void setDataInicial(Calendar dataInicial) {
+        this.dataInicial = dataInicial;
+    }
+
+    public CompraManager getCompraManager() {
+        return compraManager;
+    }
+
+    public void setCompraManager(CompraManager compraManager) {
+        this.compraManager = compraManager;
+    }
+
+    public ContaAPagarManager getContaAPagarManager() {
+        return contaAPagarManager;
+    }
+
+    public void setContaAPagarManager(ContaAPagarManager contaAPagarManager) {
+        this.contaAPagarManager = contaAPagarManager;
+    }
 }

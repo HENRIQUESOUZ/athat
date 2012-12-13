@@ -111,7 +111,10 @@
             <p:toolbar style="height:46px;">
                 <p:toolbarGroup align="right" >
                     <p:commandButton value="Salvar" action="#{compraController.salvar}" ajax="false" />    
-                    <p:commandButton value="Finalizar" action="#{compraController.finalizar}" ajax="false" disabled="#{compraController.compra.id == null}" />    
+                         
+                    <p:commandButton value="Finalizar" action="#{compraController.finalizar}" ajax="false" disabled="#{compraController.compra.id == null}" >    
+                        <f:setPropertyActionListener value="#{compra}" target="#{contaAPagarController.compra}" />
+                    </p:commandButton>
                     <p:commandButton value="Limpar" action="#{compraController.limpar}" ajax="false" immediate="true" />
                     <p:commandButton value="Voltar" action="/pages/principal?faces-redirect=true" ajax="false" immediate="true" />
                 </p:toolbarGroup>

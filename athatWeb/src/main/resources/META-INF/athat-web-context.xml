@@ -35,5 +35,6 @@
     <bean id="levantamentoController"  class="br.com.athat.web.movimentacao.projeto.LevantamentoController" scope="session"/>
     <bean id="orcamentoController"  class="br.com.athat.web.movimentacao.projeto.OrcamentoController" scope="session"/> 
     <bean id="pedidoCompraController"  class="br.com.athat.web.pedido.PedidoCompraController" scope="session"/>
+    <bean id="contaAPagarController" class="br.com.athat.web.controller.conta.ContaAPagarController" scope="view"/>
                            
 </beans>

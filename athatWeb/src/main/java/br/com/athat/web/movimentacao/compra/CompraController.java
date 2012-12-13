@@ -57,7 +57,7 @@ public class CompraController extends AbstractController {
 		
 		return "/pages/movimentacao/compra";
 	}
-	
+
 	public String finalizar() {
 		try {
 			if(validade()) {
@@ -70,7 +70,7 @@ public class CompraController extends AbstractController {
 			getMessageInstabilidade();
 			e.printStackTrace();
 		}
-		return "/pages/movimentacao/compra";
+		return "/pages/movimentacao/contaAPagar";
 	}
 	
 	public void validaFornecedor(ActionEvent event) {
