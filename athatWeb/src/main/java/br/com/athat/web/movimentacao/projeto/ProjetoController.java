@@ -96,6 +96,9 @@ public class ProjetoController extends AbstractController {
 	}
 	
 	private void calcularValorTotal(List<Levantamento> levantamentos) {
+		valorTotal = BigDecimal.ZERO;
+		valorPendente = BigDecimal.ZERO;
+		valorPendente = BigDecimal.ZERO;
 		for(Levantamento l : levantamentos) {
 			valorTotal = valorTotal.add(l.getValorTotal());
 			if(l.getSituacaoMovimentacaoType().equals(SituacaoMovimentacaoType.ABERTA)) {
