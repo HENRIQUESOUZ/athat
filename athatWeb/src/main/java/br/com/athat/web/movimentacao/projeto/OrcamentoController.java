@@ -2,6 +2,7 @@ package br.com.athat.web.movimentacao.projeto;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.faces.application.FacesMessage;
@@ -62,6 +63,7 @@ public class OrcamentoController extends AbstractController {
 		try {
 			if(validade()) {
 				orcamento.setSituacaoMovimentacaoType(SituacaoMovimentacaoType.FECHADA);
+				orcamento.setDataFinalizacao(new Date());
 				levantamentoManager.finalizarOrcamento(orcamento);
 			setMessage("Orçamento Finalizada com Sucesso!");
 			init();

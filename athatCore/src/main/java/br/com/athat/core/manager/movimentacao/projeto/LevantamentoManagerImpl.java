@@ -66,7 +66,7 @@ public class LevantamentoManagerImpl extends AbstractManagerImpl implements Leva
 //            criteria.add(Restrictions.eq("situacaoMovimentacaoType", compra.getSituacaoMovimentacaoType()));
 //        }
 			
-		if(levantamento.getId() != null) {
+		if(levantamento.getId() != null && levantamento.getId() != 0) {
 			criteria.add(Restrictions.eq("id", levantamento.getId()));
 		}
 	   
@@ -86,6 +86,13 @@ public class LevantamentoManagerImpl extends AbstractManagerImpl implements Leva
 				
 			if(orcamento.getId() != null && orcamento.getId() != 0) {
 				criteria.add(Restrictions.eq("id", orcamento.getId()));
+			}
+			
+			if(orcamento.isValidaSaidaNula()) {
+				criteria.add(Restrictions.isNull("dataSaida"));
+			}
+			for(Orcamento o : (List<Orcamento>) criteria.list()) {
+				Hibernate.initialize(o.getItensMovimentacao());
 			}
 		   
 			return criteria.list();

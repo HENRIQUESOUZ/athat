@@ -32,6 +32,8 @@ public class Orcamento extends Levantamento {
 	@Column(length = 2000, name = "observacaoOrcamento")
 	private String observacao;
 	
+	private Date dataSaida;
+	
 	@Transient
 	private Levantamento levantamento;
 	
@@ -71,5 +73,13 @@ public class Orcamento extends Levantamento {
 
 	public void setDataFinalizacao(Date dataFinalizacao) {
 		this.dataFinalizacao = dataFinalizacao;
+	}
+	
+	public Date getDataSaida() {
+		return dataSaida;
+	}
+	
+	public void setDataSaida(Date dataSaida) {
+		this.dataSaida = dataSaida;
 	}
 }

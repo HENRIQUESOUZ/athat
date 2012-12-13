@@ -1,6 +1,7 @@
 package br.com.athat.web.movimentacao.projeto;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.faces.application.FacesMessage;
@@ -61,6 +62,7 @@ public class LevantamentoController extends AbstractController {
 		try {
 			if(validade()) {
 				levantamento.setSituacaoMovimentacaoType(SituacaoMovimentacaoType.FECHADA);
+				levantamento.setDataFinalizacao(new Date());
 				levantamentoManager.salvar(levantamento);
 			setMessage("Levantamento Finalizada com Sucesso!");
 			init();

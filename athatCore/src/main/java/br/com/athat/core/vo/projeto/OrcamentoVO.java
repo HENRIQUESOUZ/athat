@@ -13,6 +13,7 @@ public class OrcamentoVO implements Serializable{
 	private Long id;
 	private Date dataInicio;
 	private Date dataFim;
+	private boolean validaSaidaNula;
 	private SituacaoMovimentacaoType situacaoMovimentacaoType;
 	
 	public OrcamentoVO() {
@@ -52,5 +53,13 @@ public class OrcamentoVO implements Serializable{
 	public void setSituacaoMovimentacaoType(
 			SituacaoMovimentacaoType situacaoMovimentacaoType) {
 		this.situacaoMovimentacaoType = situacaoMovimentacaoType;
+	}
+
+	public boolean isValidaSaidaNula() {
+		return validaSaidaNula;
+	}
+
+	public void setValidaSaidaNula(boolean validaSaidaNula) {
+		this.validaSaidaNula = validaSaidaNula;
 	}
 }

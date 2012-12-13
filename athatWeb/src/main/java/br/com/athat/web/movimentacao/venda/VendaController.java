@@ -2,6 +2,7 @@ package br.com.athat.web.movimentacao.venda;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.faces.application.FacesMessage;
@@ -52,6 +53,7 @@ public class VendaController extends AbstractController {
 		try {
 			if(validade()) {
 				venda.setSituacaoMovimentacaoType(SituacaoMovimentacaoType.FECHADA);
+				venda.setDataEncerramento(new Date());
 				vendaManager.salvar(venda);
 			setMessage("Venda Finalizada com Sucesso!");
 			init();

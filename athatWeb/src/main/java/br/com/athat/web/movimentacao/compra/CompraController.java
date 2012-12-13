@@ -2,6 +2,7 @@ package br.com.athat.web.movimentacao.compra;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.faces.application.FacesMessage;
@@ -62,6 +63,7 @@ public class CompraController extends AbstractController {
 		try {
 			if(validade()) {
 				compra.setSituacaoMovimentacaoType(SituacaoMovimentacaoType.FECHADA);
+				compra.setDataEncerramento(new Date());
 				compraManager.salvar(compra);
 			setMessage("Compra Finalizada com Sucesso!");
 			init();
