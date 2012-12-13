@@ -132,7 +132,7 @@ public class LevantamentoManagerImpl extends AbstractManagerImpl implements Leva
 	@Override
 	@Transactional
 	public void finalizarOrcamento(Orcamento orcamento) {
-		getEntityManager().persist(orcamento);
+		salvar(orcamento);
 		
 		pedidoCompraManager.salvar(gerarPedidoCompra(orcamento));
 	}

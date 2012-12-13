@@ -83,12 +83,25 @@
                     </p:inputText>  
                 </p:column>
                  <p:column headerText="Valor Total">
-                    <p:inputText value="#{item.valorTotal}" />   
+                      <h:outputLabel value="#{item.valorTotal}" /> 
                 </p:column>
                 <p:column headerText="Remover">
                     <p:commandButton value="Remover" action="#{orcamentoController.removerProduto}" update="listaDeProdutos" 
                                      process="@this"/>
                 </p:column>
+                 <p:columnGroup type="footer">
+                    <p:row>
+                      <p:column colspan="4" footerText="Total :" style="text-align:right"/> 
+                        <p:column>
+                            <f:facet name="footer">
+                                <h:outputLabel value="#{orcamentoController.orcamento.valorTotal}">
+                                      <f:convertNumber locale="pt_BR" type="currency"/>
+                                </h:outputLabel>
+                            </f:facet>   
+                        </p:column>    
+                      <p:column colspan="2" footerText="" />
+                    </p:row>               
+                </p:columnGroup> 
             </p:dataTable>
             
             <br />
