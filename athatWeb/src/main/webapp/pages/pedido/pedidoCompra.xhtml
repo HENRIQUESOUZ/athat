@@ -8,10 +8,21 @@
     <ui:define name="titulo">
         <h3>Pedido de Compra</h3>
     </ui:define>
+    
+     <ui:define name="script">
+        
+      <script type="text/javascript">
+            function handlePopPessoa(xhr, status, args) {
+                if (!args.confirmar) {                    
+                    jQuery('#popPessoa').effect("shake", { times:3 }, 100);
+                } else {
+                    popPessoa.hide();
+                }
+            }
+        </script>
+    </ui:define>  
 
     <ui:define name="conteudo">
-        
-
         <h:form id="pedidoCompra">
 
             <h:panelGrid id="panelPedido" columns="2">
@@ -59,7 +70,11 @@
              <p:dataTable id="comprasDatable" value="#{pedidoCompraController.compras}" var="compra" 
                          emptyMessage="Não existe Compras.">
                 <p:column headerText="Código">
-                    <h:outputText value="#{compra.id}" />
+                    <h:outputText value="#{compra.notaFiscal}" />
+                </p:column>
+                 
+                <p:column headerText="Fornecedor">
+                    <h:outputText value="#{compra.fornecedor.pessoa.nomeRazao}" />
                 </p:column>
                  
                   <p:column headerText="Valor Total">
@@ -73,14 +88,14 @@
             <p:toolbar style="height:46px;">
                 <p:toolbarGroup align="right" >
                 <p:column headerText="Opções">
-                    <p:commandButton value="Efetuar Compra"/>
+                    <p:commandButton value="Efetuar Compra " action="#{pedidoCompraController.gerarComprar}" ajax="false" immediate="true" />
                 </p:column>
-                    <p:commandButton value="Voltar"/>
+                    <p:commandButton value="Voltar" action="/pages/pedido/pedidoCompra?faces-redirect=true" ajax="false" immediate="true"/>
                 </p:toolbarGroup>
              </p:toolbar>    
             
             <p:dialog id="popCompra" widgetVar="popCompra" header="Compra" modal="false" resizable="false" dynamic="true">
-                 <h:panelGrid columns="3">
+            <h:panelGrid id="panelFornecedor" columns="3">
                 <h:outputText value="Fornecedor: "/>
                 <p:inputText id="fornecedor" value="#{pedidoCompraController.compra.fornecedor.pessoa.nomeRazao}" 
                 	required="true" requiredMessage="Campo Fornecedor obrigatorio"/>
@@ -141,13 +156,30 @@
             <p:toolbar style="height:46px;">
                 <p:toolbarGroup align="right" >
                 <p:column headerText="Opções">
-                    <p:commandButton value="Adicionar Compra" action="#{pedidoCompraController.adicionarCompra}"  oncomplete="popProduto.close();"/>
+                    <p:commandButton value="Adicionar Compra" action="#{pedidoCompraController.adicionarCompra}" oncomplete="popCompra.close();" update="comprasDatable"/>
                 </p:column>
                     <p:commandButton value="Voltar" onclick="popCompra.close();"/>
                 </p:toolbarGroup>
              </p:toolbar>    
             
-            </p:dialog>        
+            </p:dialog>    
+                  
+                  
+           <p:dialog id="popPessoa" widgetVar="popPessoa" header="Consulta pessoa" modal="false" resizable="false" dynamic="true">
+            <ui:include src="/pages/pops/popPessoa.xhtml"/>
+
+            <p:toolbar style="padding: 0px;">
+                <p:toolbarGroup align="right">
+                    <p:commandButton value="Confirmar" actionListener="#{pedidoCompraController.validaFornecedor}" 
+                                     oncomplete="handlePopPessoa(xhr, status, args)" update="panelFornecedor" process="popPessoa">
+                        <f:attribute name="pessoa" value="#{popPessoaController.pessoa}"/>
+                    </p:commandButton>
+
+                    <p:commandButton value="Voltar" onclick="popPessoa.hide();"/>
+                </p:toolbarGroup>
+            </p:toolbar>
+            <br/>
+        </p:dialog>
        
      </h:form>     
     </ui:define>

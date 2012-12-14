@@ -4,6 +4,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import javax.faces.event.ActionEvent;
+
+import org.primefaces.context.RequestContext;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import br.com.athat.core.entity.movimentacao.ItemProduto;
@@ -58,7 +61,7 @@ public class PedidoCompraController extends AbstractController {
 		compras.remove(compra);
 	}
 	
-	public void gerarComprar() {
+	public String gerarComprar() {
 		try {
 			compraManager.salvar(compras, pedidoCompra);
 			setMessage("Compras geradas com sucesso!");
@@ -67,7 +70,20 @@ public class PedidoCompraController extends AbstractController {
 			e.printStackTrace();
 			getMessageInstabilidade();
 		}
+		return "/pages/pedido/listagemPedidoCompra?faces-redirect=true";
 	}
+	
+	public void validaFornecedor(ActionEvent event) {
+        RequestContext context = RequestContext.getCurrentInstance();
+        Fornecedor fornecedor = (Fornecedor) event.getComponent().getAttributes().get("pessoa");
+    	if (fornecedor == null) {
+    		context.addCallbackParam("confirmar", false);
+    		setMessage("Fornecedor não selecionado.");
+    	} else {
+    		context.addCallbackParam("confirmar", true);                
+    		compra.setFornecedor(fornecedor);
+    	}
+    }
 	
 	private void prepararItensProduto() {
 		compra.setItensMovimentacao(new ArrayList<ItemProduto>());
@@ -82,6 +98,7 @@ public class PedidoCompraController extends AbstractController {
 		pedidoCompra = new PedidoCompra();
 		pedidosCompra  = new ArrayList<PedidoCompra>();
 		pedidoCompraVO = new PedidoCompraVO();
+		compras = new ArrayList<Compra>();
 	}
 
 	public PedidoCompra getPedidoCompra() {
