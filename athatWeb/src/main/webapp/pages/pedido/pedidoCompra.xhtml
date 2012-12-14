@@ -1,0 +1,154 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui" 
+                template="/pages/template.xhtml">
+    
+    <ui:define name="titulo">
+        <h3>Pedido de Compra</h3>
+    </ui:define>
+
+    <ui:define name="conteudo">
+        
+
+        <h:form id="pedidoCompra">
+
+            <h:panelGrid id="panelPedido" columns="2">
+                <h:outputLabel value="Cliente: "/>
+                <h:outputLabel value="#{pedidoCompraController.pedidoCompra.projeto.cliente.pessoa.nomeRazao}" />
+
+                <h:outputLabel value="Data Cadastro: " />
+                <h:outputLabel  value="#{pedidoCompraController.pedidoCompra.dataCadastro}" >
+                    <f:convertDateTime pattern="dd/MM/yyyy" locale="pt_BR" />
+                </h:outputLabel>    
+
+                <h:outputLabel value="Situação: "/>
+                <h:outputLabel value="#{pedidoCompraController.pedidoCompra.projeto.cliente.pessoa.nomeRazao}" />
+            </h:panelGrid> 
+                    
+            <br />
+
+           <p:dataTable  id="listaDeProdutos" value="#{pedidoCompraController.pedidoCompra.itensMovimentacao}" var="item"
+                emptyMessage="Não possui produtos adicionados." rowKey="#{item.id}"  
+                 selection="#{pedidoCompraController.selectedItens}" selectionMode="multiple">
+                <p:column headerText="Codigo">
+                    <h:outputLabel value="#{item.produto.id}" />
+                </p:column>
+                <p:column headerText="Nome">
+                    <h:outputLabel value="#{item.produto.nome}" />
+                </p:column>
+                <p:column headerText="Quantidade">
+                    <h:outputLabel value="#{item.quantidade}" />  
+                </p:column>
+                <p:column headerText="Valor">
+                    <h:outputLabel value="#{item.valor}" />
+                </p:column>
+                <p:column headerText="Desconto">
+                    <h:outputLabel value="#{item.desconto}" /> 
+                </p:column>
+                 <f:facet name="footer"> 
+                        <p:commandButton value="AdicionarCompra" oncomplete="popCompra.show();" update=":pedidoCompra:popCompra" 
+                                         actionListener="#{pedidoCompraController.preprararCompra}" >
+                        </p:commandButton>      
+                 </f:facet>
+            </p:dataTable>
+                
+            <br />
+            
+             <p:dataTable id="comprasDatable" value="#{pedidoCompraController.compras}" var="compra" 
+                         emptyMessage="Não existe Compras.">
+                <p:column headerText="Código">
+                    <h:outputText value="#{compra.id}" />
+                </p:column>
+                 
+                  <p:column headerText="Valor Total">
+                    <h:outputText value="#{compra.valorTotal}" />
+                </p:column>
+                
+            </p:dataTable>    
+            
+                  <br />
+   
+            <p:toolbar style="height:46px;">
+                <p:toolbarGroup align="right" >
+                <p:column headerText="Opções">
+                    <p:commandButton value="Efetuar Compra"/>
+                </p:column>
+                    <p:commandButton value="Voltar"/>
+                </p:toolbarGroup>
+             </p:toolbar>    
+            
+            <p:dialog id="popCompra" widgetVar="popCompra" header="Compra" modal="false" resizable="false" dynamic="true">
+                 <h:panelGrid columns="3">
+                <h:outputText value="Fornecedor: "/>
+                <p:inputText id="fornecedor" value="#{pedidoCompraController.compra.fornecedor.pessoa.nomeRazao}" 
+                	required="true" requiredMessage="Campo Fornecedor obrigatorio"/>
+                <p:commandButton value="buscar" oncomplete="popPessoa.show()" process="@this">
+                    <f:setPropertyActionListener value="fornecedor" target="#{popPessoaController.papel}"/>
+                    <f:setPropertyActionListener value="true" target="#{popPessoaController.disableCliente}"/>
+                    <f:setPropertyActionListener value="true" target="#{popPessoaController.disableFuncionario}"/>
+                    <f:setPropertyActionListener value="true" target="#{popPessoaController.selectFornecedor}"/>
+                </p:commandButton>    
+                
+            </h:panelGrid>
+            <h:panelGrid columns="3">
+                <h:outputText value="Número Nota Fiscal: "/>
+                <p:inputText id="notaFiscal" value="#{pedidoCompraController.compra.notaFiscal}" 
+                	required="true" requiredMessage="Campo Nota Fiscal obrigatorio."/>
+                <p:message for="notaFiscal" />
+            </h:panelGrid>
+            <h:panelGrid columns="2">
+                <h:outputText value="Data de emissão NF. "/>
+                <p:calendar id="emissaoNF" value="#{pedidoCompraController.compra.dataEmissaoNF}"
+                            pattern="dd/MM/yyyy" locale="pt_BR" size="20"/>
+                <h:outputText value="Previsão de Entrega: "/>
+                <p:calendar id="previsaoEntrega" value="#{pedidoCompraController.compra.previsaoEntrega}"
+                            pattern="dd/MM/yyyy" locale="pt_BR" size="20"/>
+            </h:panelGrid>
+                    
+                <br />
+
+                <p:dataTable  id="listaDeProdutosCompra" value="#{pedidoCompraController.compra.itensMovimentacao}" var="item"
+                              emptyMessage="Não possui produtos adicionados.">
+                    <p:column headerText="Codigo">
+                        <h:outputLabel value="#{item.produto.id}" />
+                    </p:column>
+                    
+                    <p:column headerText="Nome">
+                        <h:outputLabel value="#{item.produto.nome}" />
+                    </p:column>
+                    
+                    <p:column headerText="Quantidade">
+                        <h:outputLabel value="#{item.quantidade}" />  
+                    </p:column>
+                    <p:column headerText="Valor">
+                        <h:outputLabel value="#{item.valor}" />
+                    </p:column>
+                    
+                    <p:column headerText="Desconto">
+                        <h:outputLabel value="#{item.desconto}" /> 
+                    </p:column>
+                    
+                    <p:column headerText="Valor Total">
+                        <h:outputLabel value="#{item.valorTotal}" />
+                    </p:column>
+                    
+                </p:dataTable>
+
+                <br />
+            
+            <p:toolbar style="height:46px;">
+                <p:toolbarGroup align="right" >
+                <p:column headerText="Opções">
+                    <p:commandButton value="Adicionar Compra" action="#{pedidoCompraController.adicionarCompra}"  oncomplete="popProduto.close();"/>
+                </p:column>
+                    <p:commandButton value="Voltar" onclick="popCompra.close();"/>
+                </p:toolbarGroup>
+             </p:toolbar>    
+            
+            </p:dialog>        
+       
+     </h:form>     
+    </ui:define>
+</ui:composition>

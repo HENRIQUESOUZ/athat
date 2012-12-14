@@ -107,7 +107,8 @@
             <p:toolbar style="height:46px;">
                 <p:toolbarGroup align="right" >
                 <p:column headerText="Opções">
-                    <p:commandButton value="Efetuar Compra"  oncomplete="popProduto.close();"/>
+                    <p:commandButton value="Efetuar Compra"  action="/pages/pedido/pedidoCompra?faces-redirect=true" ajax="false" immediate="true" />
+                       
                 </p:column>
                     <p:commandButton value="Voltar" onclick="popProduto.close();"/>
                 </p:toolbarGroup>
