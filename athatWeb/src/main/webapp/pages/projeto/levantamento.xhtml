@@ -90,7 +90,7 @@
                     <p:commandButton value="Finalizar" action="#{levantamentoController.finalizar}" ajax="false" disabled="#{levantamentoController.levantamento.id == null}"
                                      actionListener="#{projetoController.carregarOrcamentos(levantamentoController.levantamento.projeto)}" />    
                     <p:commandButton value="Limpar" action="#{levantamentoController.limpar}" ajax="false" immediate="true" />
-                    <p:commandButton value="Voltar" action="/pages/principal?faces-redirect=true" ajax="false" immediate="true" />
+                    <p:commandButton value="Voltar" action="/pages/projeto/projeto?faces-redirect=true" ajax="false" immediate="true" />
                 </p:toolbarGroup>
             </p:toolbar>  
             

@@ -120,7 +120,7 @@
                     <p:commandButton value="Finalizar" action="#{orcamentoController.finalizar}" ajax="false" disabled="#{orcamentoController.orcamento.id == null}"
                                      actionListener="#{projetoController.carregarOrcamentos(orcamentoController.orcamento.projeto)}" />    
                     <p:commandButton value="Limpar" action="#{orcamentoController.limpar}" ajax="false" immediate="true" />
-                    <p:commandButton value="Voltar" action="/pages/principal?faces-redirect=true" ajax="false" immediate="true" />
+                    <p:commandButton value="Voltar" action="/pages/projeto/projeto?faces-redirect=true" ajax="false" immediate="true" />
                 </p:toolbarGroup>
             </p:toolbar>  
             

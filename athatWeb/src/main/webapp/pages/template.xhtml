@@ -40,7 +40,7 @@
                                 <p:menuitem value="Listagem Cliente" action="/pages/cadastro/listagemCliente?faces-redirect=true" immediate="true" ajax="false" />
                                 <p:menuitem value="Listagem Cidade" action="/pages/cadastro/listagemCidade?faces-redirect=true" immediate="true" ajax="false" />
                                 <p:menuitem value="Listagem Funcionário" action="/pages/cadastro/listagemFuncionario?faces-redirect=true" immediate="true" ajax="false" />
-                                <p:menuitem value="Listagem Fornecedor" action="/pages/cadastro/listagemFornecedor?faces-redirect=true" immediate="true" ajax="false" />       
+                                <p:menuitem value="Listagem Fornecedor" action="/pages/cadastro/listagemFonecedor?faces-redirect=true" immediate="true" ajax="false" />       
                                 <p:menuitem value="Listagem Empresa" action="/pages/cadastro/listagemEmpresa?faces-redirect=true" immediate="true" ajax="false" />
                             </p:submenu>
                         </p:column>
@@ -79,7 +79,7 @@
                     <p:submenu label="Projeto">
                         <p:column>
                             <p:submenu label="Projeto">
-                                <p:menuitem value="Cadastro" action="/pages/projeto/cadastroProjeto?faces-redirect=true" immediate="true" ajax="false" />
+                                <p:menuitem value="Cadastro" action="#{projetoController.limpar}" immediate="true" ajax="false" />
                                 <p:menuitem value="Listagem" action="/pages/projeto/listagemProjeto?faces-redirect=true" immediate="true" ajax="false" />
                             </p:submenu> 
                         </p:column>   
