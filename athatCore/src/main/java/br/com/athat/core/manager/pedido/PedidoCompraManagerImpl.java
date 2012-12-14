@@ -3,6 +3,7 @@ package br.com.athat.core.manager.pedido;
 import java.util.List;
 
 import org.hibernate.Criteria;
+import org.hibernate.Hibernate;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -36,6 +37,10 @@ public class PedidoCompraManagerImpl extends AbstractManagerImpl implements Pedi
 //			if(projeto.getId() != null) {
 //				criteria.add(Restrictions.eq("id", projeto.getId()));
 //			}
+		for(PedidoCompra p : (List<PedidoCompra>) criteria.list()) {
+			Hibernate.initialize(p.getItensMovimentacao());
+		}
+		
 			return criteria.list();
 		}	
 }
