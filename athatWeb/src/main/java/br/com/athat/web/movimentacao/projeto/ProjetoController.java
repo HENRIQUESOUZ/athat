@@ -77,8 +77,10 @@ public class ProjetoController extends AbstractController {
 	
 	public void carregarOrcamentos(Projeto projeto) {
 		this.projeto = projeto;
-		levantamentos = levantamentoManager.buscarOrcApresentacaoProjeto(projeto.getId());
-		calcularValorTotal(levantamentos);
+		if(this.projeto != null && this.projeto.getId() != null) {
+			levantamentos = levantamentoManager.buscarOrcApresentacaoProjeto(this.projeto.getId());
+			calcularValorTotal(levantamentos);
+		}
     }
 	
 	public Orcamento transformerLevToOrcamento(Levantamento levantamento) {
@@ -98,7 +100,7 @@ public class ProjetoController extends AbstractController {
 	private void calcularValorTotal(List<Levantamento> levantamentos) {
 		valorTotal = BigDecimal.ZERO;
 		valorPendente = BigDecimal.ZERO;
-		valorPendente = BigDecimal.ZERO;
+		valorRecebido = BigDecimal.ZERO;
 		for(Levantamento l : levantamentos) {
 			if(l.getSituacaoMovimentacaoType().equals(SituacaoMovimentacaoType.ABERTA)) {
 				valorPendente = valorPendente.add(l.getValorTotal());

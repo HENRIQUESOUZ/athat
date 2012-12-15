@@ -14,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import br.com.athat.core.entity.movimentacao.ItemProduto;
 import br.com.athat.core.entity.movimentacao.enuns.SituacaoMovimentacaoType;
 import br.com.athat.core.entity.movimentacao.projeto.Orcamento;
+import br.com.athat.core.entity.movimentacao.projeto.Projeto;
 import br.com.athat.core.entity.pessoa.Pessoa;
 import br.com.athat.core.entity.pessoa.funcionario.Funcionario;
 import br.com.athat.core.entity.produto.Produto;
@@ -27,11 +28,13 @@ public class OrcamentoController extends AbstractController {
 	private Orcamento orcamento;
 	private ItemProduto itemProduto;
 	private List<Produto> produtos;
+	private Projeto projeto;
 	
 	@Autowired
 	private LevantamentoManager levantamentoManager;
 	
 	public OrcamentoController() {
+            projeto = new Projeto();
 		init();
 	}
 
@@ -49,6 +52,7 @@ public class OrcamentoController extends AbstractController {
 			if(validade()) {
 				orcamento.setSituacaoMovimentacaoType(SituacaoMovimentacaoType.ABERTA);
 				levantamentoManager.salvar(orcamento);
+				projeto = orcamento.getProjeto();
 				getMessageCadastroSucesso();
 			}
 		} catch(Exception e) {
@@ -65,6 +69,7 @@ public class OrcamentoController extends AbstractController {
 				orcamento.setSituacaoMovimentacaoType(SituacaoMovimentacaoType.FECHADA);
 				orcamento.setDataFinalizacao(new Date());
 				levantamentoManager.finalizarOrcamento(orcamento);
+				projeto = orcamento.getProjeto();
 			setMessage("Orçamento Finalizada com Sucesso!");
 			init();
 			}	
@@ -159,5 +164,13 @@ public class OrcamentoController extends AbstractController {
 
 	public void setProdutos(List<Produto> produtos) {
 		this.produtos = produtos;
+	}
+
+	public Projeto getProjeto() {
+		return projeto;
+	}
+
+	public void setProjeto(Projeto projeto) {
+		this.projeto = projeto;
 	}
 }

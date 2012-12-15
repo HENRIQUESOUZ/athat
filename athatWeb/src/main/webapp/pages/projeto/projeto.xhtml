@@ -37,6 +37,7 @@
             </h:panelGrid>
             
             <br />
+            <p:commandButton icon="ui-icon-refresh" action="#{projetoController.carregarOrcamentos(projetoController.projeto)}" update="orcamentoDataTable" />
             <p:dataTable id="orcamentoDataTable" value="#{projetoController.levantamentos}" var="lev" 
                          emptyMessage="Não existe Compras para realizar entrada ." rows="10"  
                  paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"  
@@ -53,7 +54,9 @@
                     </h:outputText>    
                 </p:column>
                 <p:column headerText="Data Finalização">
-                    <h:outputText value="#{lev.dataFinalizacao}" />
+                    <h:outputText value="#{lev.dataFinalizacao}">
+                         <f:convertDateTime pattern="dd/MM/yyyy" locale="pt_BR"  /> 
+                    </h:outputText>    
                 </p:column>
                 <p:column headerText="Valor Total">
                     <h:outputText value="#{lev.valorTotal}" />
