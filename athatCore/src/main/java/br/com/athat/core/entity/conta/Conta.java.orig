@@ -11,11 +11,13 @@ import javax.persistence.OneToMany;
 
 import br.com.athat.core.entity.AbstractEntity;
 import br.com.athat.core.entity.movimentacao.Movimentacao;
-import org.hibernate.annotations.Cascade;
-import org.hibernate.annotations.CascadeType;
 
 
 @Entity
+<<<<<<< HEAD
+=======
+//@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
+>>>>>>> 7ca9e912200665c7b188fb632464b28567c707b1
 public abstract class Conta extends AbstractEntity {
 	
 	private static final long serialVersionUID = 1L;
@@ -23,22 +25,21 @@ public abstract class Conta extends AbstractEntity {
 	protected BigDecimal valorTotal = BigDecimal.ZERO;
 	
 	@OneToMany(fetch = FetchType.LAZY)
-        @Cascade(CascadeType.PERSIST)
 	protected List<Parcela> parcelas;
 	
-//	@OneToOne
-//	protected Movimentacao movimentacao;
+	@OneToOne
+	protected Movimentacao movimentacao;
 	
 	@Enumerated(EnumType.STRING)
 	protected SituacaoContaType situacao;
 	
 	@Enumerated(EnumType.STRING)
 	protected ContaType tipoConta;
-  	
+	
 	public BigDecimal getValorTotal() {
 		return valorTotal;
 	}
-        
+
 	public void setValorTotal(BigDecimal valorTotal) {
 		this.valorTotal = valorTotal;
 	}

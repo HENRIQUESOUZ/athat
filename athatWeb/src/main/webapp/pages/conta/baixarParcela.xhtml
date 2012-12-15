@@ -1,0 +1,91 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui" 
+                template="/pages/template.xhtml">
+
+    <ui:define name="titulo">
+        <h3>Cadastro Conta a Pagar</h3>
+    </ui:define>
+
+    <ui:define name="script">
+
+    </ui:define>  
+
+    <ui:define name="conteudo">
+
+        <h:form id="contaAPagar" >
+
+            <h:panelGrid id="panelFornecedor" columns="3">
+
+                <h:outputText value="Código da Movimentação: "/>
+                <p:inputText id="codigoCompra" value="#{baixarParcelaController.conta.movimentacao.id}" 
+                             required="true" requiredMessage="Campo Código da Compra obrigatório."
+                             disabled="#{baixarParcelaController.conta.id != null}"/>
+                <p:message for="codigoCompra" />
+                
+                 <h:outputText value="Tipo da Movimentação: "/>
+                <p:inputText id="tipoCompra" value="#{baixarParcelaController.conta.tipoConta}" 
+                             required="true" requiredMessage="Campo Código da Compra obrigatório."
+                             disabled="#{baixarParcelaController.conta.id != null}"/>
+                <p:message for="tipoCompra" />
+                
+
+                <h:outputText value="Valor:"/>
+                <p:inputText id="valor" value="#{baixarParcelaController.conta.movimentacao.valorTotal}"
+                             required="true" requiredMessage="Campo Valor obrigatório." 
+                             disabled="#{baixarParcelaController.conta.id != null}"/>
+                <p:message for="valor" />
+
+
+            </h:panelGrid>
+            <br />
+
+            <p:dataTable  id="listaDeParcelas" value="#{baixarParcelaController.conta.parcelas}" var="parcela"
+                          emptyMessage="Não possui parcelas">
+                <p:column headerText="Número">
+                    <h:outputLabel value="#{parcela.numParcela}" />
+                </p:column>
+                <p:column headerText="Valor">
+                    <h:outputLabel value="#{parcela.valorParcela}" />
+                </p:column>
+                <p:column headerText="Data de pagameto">
+                    <h:outputLabel value="#{parcela.dataPagamento}" >
+                        <f:convertDateTime pattern="dd/MM/yyyy" locale="pt_BR"  />
+                    </h:outputLabel>
+
+                </p:column>
+                <p:column headerText="Situação">
+                    <h:outputLabel value="#{parcela.situacao}" />
+                </p:column>
+                <p:column headerText="Quitar Parcela">
+                    <p:commandButton value="Dar Baixa" action="#{baixarParcelaController.quitar}"  update="listaDeParcelas"
+                                     rendered="#{parcela.situacao == 'Aberta'}">
+                        <f:setPropertyActionListener value="parcela" target="#{baixarParcelaController.parcelaABaixar}" />
+                    </p:commandButton>
+                    <p:commandButton value="Retroceder Baixa" action="#{baixarParcelaController.desquitar}"  update="listaDeParcelas"
+                                     rendered="#{parcela.situacao == 'Quitada'}">
+                        <f:setPropertyActionListener value="parcela" target="#{baixarParcelaController.parcelaABaixar}" />
+                    </p:commandButton>
+                </p:column>
+            </p:dataTable>
+
+            <br />
+
+            <p:toolbar style="height:46px;">
+                <p:toolbarGroup align="right" >
+                    <p:commandButton value="Salvar" action="#{baixarParcelaController.salvar}"  ajax="false" immediate="true"/>    
+
+                    <p:commandButton value="Limpar" action="#{baixarParcelaController.limpar}" ajax="false" immediate="true" />
+
+                    <p:commandButton value="Voltar" action="/pages/principal?faces-redirect=true" ajax="false" immediate="true" />
+                </p:toolbarGroup>
+            </p:toolbar>  
+
+
+
+
+        </h:form>     
+    </ui:define>
+</ui:composition>

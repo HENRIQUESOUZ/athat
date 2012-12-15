@@ -17,8 +17,9 @@ import javax.persistence.TemporalType;
 
 import br.com.athat.core.entity.AbstractEntity;
 import br.com.athat.core.entity.movimentacao.enuns.SituacaoMovimentacaoType;
+import javax.persistence.MappedSuperclass;
+@MappedSuperclass
 
-@Entity
 
 public abstract class Movimentacao extends AbstractEntity {
 

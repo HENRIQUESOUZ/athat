@@ -11,7 +11,7 @@ public interface ContaAReceberManager {
 
 	
 	public void salvar(ContaAReceber conta);
-	public List<Conta> buscarTodos(ContaAReceber conta);
+	public List<Conta> buscarContaAberta();
 
 	
 	

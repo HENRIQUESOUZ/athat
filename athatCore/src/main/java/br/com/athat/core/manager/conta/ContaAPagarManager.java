@@ -12,7 +12,7 @@ public interface ContaAPagarManager {
 
 	
 	public void salvar(ContaAPagar contaAPagar);
-	public List<Conta> buscarTodos(ContaAPagar conta);
+	public List<Conta> buscarContaAberta();
 
 	
 	

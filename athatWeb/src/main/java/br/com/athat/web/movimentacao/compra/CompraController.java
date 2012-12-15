@@ -22,163 +22,160 @@ import br.com.athat.web.utils.AbstractController;
 
 public class CompraController extends AbstractController {
 
-	private static final long serialVersionUID = 1L;
-	
-	private Compra compra;
-	private ItemProduto itemProduto;
-	private List<Produto> produtos;
-	
-	@Autowired
-	private CompraManager compraManager;
-	
-	@Autowired
-	private ProdutoManager produtoManager;
-	
-	public CompraController() {
-		init();
-	}
-	
-	public void removerProduto() {
-		compra.getItensMovimentacao().remove(itemProduto);
-		itemProduto = new ItemProduto();
-		calculaValorTotal();
-	}
-	
-	public String salvar() {
-		try {
-			if(validade()) {
-				compraManager.salvar(compra);
-				getMessageCadastroSucesso();
-			}
-		} catch(Exception e) {
-			getMessageInstabilidade();
-			e.printStackTrace();
-		}
-		
-		return "/pages/movimentacao/compra";
-	}
+    private static final long serialVersionUID = 1L;
+    private Compra compra;
+    private ItemProduto itemProduto;
+    private List<Produto> produtos;
+    @Autowired
+    private CompraManager compraManager;
+    @Autowired
+    private ProdutoManager produtoManager;
 
-	public String finalizar() {
-		try {
-			if(validade()) {
-				compra.setSituacaoMovimentacaoType(SituacaoMovimentacaoType.FECHADA);
-				compraManager.salvar(compra);
-			setMessage("Compra Finalizada com Sucesso!");
-			init();
-			}	
-		}catch(Exception e) {
-			getMessageInstabilidade();
-			e.printStackTrace();
-		}
-		return "/pages/movimentacao/contaAPagar";
-	}
-	
-	public void validaFornecedor(ActionEvent event) {
+    public CompraController() {
+        init();
+    }
+
+    public void removerProduto() {
+        compra.getItensMovimentacao().remove(itemProduto);
+        itemProduto = new ItemProduto();
+        calculaValorTotal();
+    }
+
+    public String salvar() {
+        try {
+            if (validade()) {
+                compraManager.salvar(compra);
+                getMessageCadastroSucesso();
+            }
+        } catch (Exception e) {
+            getMessageInstabilidade();
+            e.printStackTrace();
+        }
+
+        return "/pages/movimentacao/compra";
+    }
+
+    public String finalizar() {
+        try {
+            if (validade()) {
+                compraManager.salvar(compra);
+                setMessage("Compra Finalizada com Sucesso!");
+                init();
+                return "/pages/conta/contaAPagar";
+            }
+        } catch (Exception e) {
+            getMessageInstabilidade();
+            e.printStackTrace();
+        }
+        return "/pages/movimentacao/compra  ";
+    }
+
+    public void validaFornecedor(ActionEvent event) {
         RequestContext context = RequestContext.getCurrentInstance();
         Fornecedor fornecedor = (Fornecedor) event.getComponent().getAttributes().get("pessoa");
-    	if (fornecedor == null) {
-    		context.addCallbackParam("confirmar", false);
-    		setMessage("Fornecedor não selecionado.");
-    	} else {
-    		context.addCallbackParam("confirmar", true);                
-    		compra.setFornecedor(fornecedor);
-    	}
+        if (fornecedor == null) {
+            context.addCallbackParam("confirmar", false);
+            setMessage("Fornecedor não selecionado.");
+        } else {
+            context.addCallbackParam("confirmar", true);
+            compra.setFornecedor(fornecedor);
+        }
     }
-	
-	public void adicionarProduto(ActionEvent event) {
+
+    public void adicionarProduto(ActionEvent event) {
         RequestContext context = RequestContext.getCurrentInstance();
         Produto produto = (Produto) event.getComponent().getAttributes().get("produto");
-    	if (produto == null) {
-    		context.addCallbackParam("confirmar", false);
-    		setMessage("Produto não selecionada.");
-    	} else {
-    		context.addCallbackParam("confirmar", true);                
-    		itemProduto.setProduto(produto);
-    		compra.getItensMovimentacao().add(itemProduto);
-    		itemProduto = new ItemProduto();
-    	}
+        if (produto == null) {
+            context.addCallbackParam("confirmar", false);
+            setMessage("Produto não selecionada.");
+        } else {
+            context.addCallbackParam("confirmar", true);
+            itemProduto.setProduto(produto);
+            compra.getItensMovimentacao().add(itemProduto);
+            itemProduto = new ItemProduto();
+        }
     }
-	
-	public String limpar(){
-		init();
-		return "/pages/movimentacao/compra";
-	}
-	
-	public void calculaValorTotal() {
-		BigDecimal valor = BigDecimal.ZERO;
-		for(ItemProduto it : compra.getItensMovimentacao()){
-			valor = valor.add(it.getValorTotal());
-		}
-		compra.setValorTotal(valor);
-	}
-	
-	private void init(){
-		compra = new Compra();
-		compra.setFornecedor(new Fornecedor());
-		compra.getFornecedor().setPessoa(new Pessoa());
-		compra.setItensMovimentacao(new ArrayList<ItemProduto>());
-		compra.setValorTotal(BigDecimal.ZERO);
-		produtos = new ArrayList<Produto>();
-		itemProduto = new ItemProduto();
-	}
-	
-	private boolean validade() {
-		if(compra.getValorTotal().compareTo(BigDecimal.ZERO) <= 0) {
-			setMessage(FacesMessage.SEVERITY_INFO, null, "Compra com valor total zero.");
-			return false;
-		}
-		
-		for(ItemProduto it : compra.getItensMovimentacao()) {
-			if(it.getValorTotal().compareTo(BigDecimal.ZERO) <= 0) {
-				setMessage(FacesMessage.SEVERITY_INFO, null, "Produto(s) com valor total zero.");
-				return false;
-			}
-		}
-		
-		return true;
-	}
 
-	public Compra getCompra() {
-		return compra;
-	}
+    public String limpar() {
+        init();
+        return "/pages/movimentacao/compra";
+    }
 
-	public void setCompra(Compra compra) {
-		this.compra = compra;
-	}
+    public void calculaValorTotal() {
+        BigDecimal valor = BigDecimal.ZERO;
+        for (ItemProduto it : compra.getItensMovimentacao()) {
+            valor = valor.add(it.getValorTotal());
+        }
+        compra.setValorTotal(valor);
+    }
 
-	public ItemProduto getItemProduto() {
-		return itemProduto;
-	}
+    private void init() {
+        compra = new Compra();
+        compra.setFornecedor(new Fornecedor());
+        compra.getFornecedor().setPessoa(new Pessoa());
+        compra.setItensMovimentacao(new ArrayList<ItemProduto>());
+        compra.setValorTotal(BigDecimal.ZERO);
+        produtos = new ArrayList<Produto>();
+        itemProduto = new ItemProduto();
+    }
 
-	public void setItemProduto(ItemProduto itemProduto) {
-		this.itemProduto = itemProduto;
-	}
+    private boolean validade() {
+        if (compra.getValorTotal().compareTo(BigDecimal.ZERO) <= 0) {
+            setMessage(FacesMessage.SEVERITY_INFO, null, "Compra com valor total zero.");
+            return false;
+        }
 
-	public List<Produto> getProdutos() {
-		return produtos;
-	}
+        for (ItemProduto it : compra.getItensMovimentacao()) {
+            if (it.getValorTotal().compareTo(BigDecimal.ZERO) <= 0) {
+                setMessage(FacesMessage.SEVERITY_INFO, null, "Produto(s) com valor total zero.");
+                return false;
+            }
+        }
 
-	public void setProdutos(List<Produto> produtos) {
-		this.produtos = produtos;
-	}
+        return true;
+    }
 
-	public CompraManager getCompraManager() {
-		return compraManager;
-	}
+    public Compra getCompra() {
+        return compra;
+    }
 
-	public void setCompraManager(CompraManager compraManager) {
-		this.compraManager = compraManager;
-	}
+    public void setCompra(Compra compra) {
+        this.compra = compra;
+    }
 
-	public ProdutoManager getProdutoManager() {
-		return produtoManager;
-	}
+    public ItemProduto getItemProduto() {
+        return itemProduto;
+    }
 
-	public void setProdutoManager(ProdutoManager produtoManager) {
-		this.produtoManager = produtoManager;
-	}
+    public void setItemProduto(ItemProduto itemProduto) {
+        this.itemProduto = itemProduto;
+    }
 
-	public static long getSerialversionuid() {
-		return serialVersionUID;
-	}
+    public List<Produto> getProdutos() {
+        return produtos;
+    }
+
+    public void setProdutos(List<Produto> produtos) {
+        this.produtos = produtos;
+    }
+
+    public CompraManager getCompraManager() {
+        return compraManager;
+    }
+
+    public void setCompraManager(CompraManager compraManager) {
+        this.compraManager = compraManager;
+    }
+
+    public ProdutoManager getProdutoManager() {
+        return produtoManager;
+    }
+
+    public void setProdutoManager(ProdutoManager produtoManager) {
+        this.produtoManager = produtoManager;
+    }
+
+    public static long getSerialversionuid() {
+        return serialVersionUID;
+    }
 }

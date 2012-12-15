@@ -56,6 +56,8 @@
             <br />
             
             <p:commandButton value="Novo Produto" actionListener="#{orcamentoController.prepararProduto}" oncomplete="popProduto.show();"/>
+             
+            <br />
             
             <p:dataTable  id="listaDeProdutos" value="#{orcamentoController.orcamento.itensMovimentacao}" var="item"
                           emptyMessage="Não possui produtos adicionados.">
@@ -66,12 +68,40 @@
                     <h:outputLabel value="#{item.produto.nome}" />
                 </p:column>
                 <p:column headerText="Quantidade">
-                    <p:inputText value="#{item.quantidade}" />   
+                    <p:inputText value="#{item.quantidade}">
+                         <p:ajax listener="#{orcamentoController.calculaValorTotal}" event="change" update="listaDeProdutos" process="@this" />
+                    </p:inputText>    
+                </p:column>
+                 <p:column headerText="Valor">
+                    <p:inputText value="#{item.valor}" >
+                        <p:ajax listener="#{orcamentoController.calculaValorTotal}" event="change" update="listaDeProdutos" process="@this" />
+                    </p:inputText>  
+                </p:column>
+                <p:column headerText="Desconto">
+                    <p:inputText value="#{item.desconto}" >
+                        <p:ajax listener="#{orcamentoController.calculaValorTotal}" event="change" update="listaDeProdutos" process="@this" />
+                    </p:inputText>  
+                </p:column>
+                 <p:column headerText="Valor Total">
+                      <h:outputLabel value="#{item.valorTotal}" /> 
                 </p:column>
                 <p:column headerText="Remover">
                     <p:commandButton value="Remover" action="#{orcamentoController.removerProduto}" update="listaDeProdutos" 
                                      process="@this"/>
                 </p:column>
+                 <p:columnGroup type="footer">
+                    <p:row>
+                      <p:column colspan="4" footerText="Total :" style="text-align:right"/> 
+                        <p:column>
+                            <f:facet name="footer">
+                                <h:outputLabel value="#{orcamentoController.orcamento.valorTotal}">
+                                      <f:convertNumber locale="pt_BR" type="currency"/>
+                                </h:outputLabel>
+                            </f:facet>   
+                        </p:column>    
+                      <p:column colspan="2" footerText="" />
+                    </p:row>               
+                </p:columnGroup> 
             </p:dataTable>
             
             <br />

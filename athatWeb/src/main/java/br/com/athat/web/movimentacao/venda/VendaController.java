@@ -22,145 +22,141 @@ import br.com.athat.web.utils.AbstractController;
 
 public class VendaController extends AbstractController {
 
-	private static final long serialVersionUID = 1L;
-	
-	private Venda venda;
-	private ItemProduto itemProduto;
-	private List<Produto> produtos;
-	
-	@Autowired
-	private VendaManager vendaManager;
-	
-	@Autowired
-	private ProdutoManager produtoManager;
-	
-	public VendaController() {
-		init();
-	}
-	
-	private void init() {
-		venda = new Venda();
-		venda.setCliente(new Cliente());
-		venda.getCliente().setPessoa(new Pessoa());
-		venda.setItensMovimentacao(new ArrayList<ItemProduto>());
-		venda.setValorTotal(BigDecimal.ZERO);
-		itemProduto = new ItemProduto();
-		produtos = new ArrayList<Produto>();
-	}
-	
-	public String finalizar() {
-		try {
-			if(validade()) {
-				venda.setSituacaoMovimentacaoType(SituacaoMovimentacaoType.FECHADA);
-				vendaManager.salvar(venda);
-			setMessage("Venda Finalizada com Sucesso!");
-			init();
-			}	
-		}catch(Exception e) {
-			getMessageInstabilidade();
-			e.printStackTrace();
-		}
-		return "/pages/movimentacao/venda";
-	}
-	
-	public void validaCliente(ActionEvent event) {
+    private static final long serialVersionUID = 1L;
+    private Venda venda;
+    private ItemProduto itemProduto;
+    private List<Produto> produtos;
+    @Autowired
+    private VendaManager vendaManager;
+    @Autowired
+    private ProdutoManager produtoManager;
+
+    public VendaController() {
+        init();
+    }
+
+    private void init() {
+        venda = new Venda();
+        venda.setCliente(new Cliente());
+        venda.getCliente().setPessoa(new Pessoa());
+        venda.setItensMovimentacao(new ArrayList<ItemProduto>());
+        venda.setValorTotal(BigDecimal.ZERO);
+        itemProduto = new ItemProduto();
+        produtos = new ArrayList<Produto>();
+    }
+
+    public String finalizar() {
+        try {
+            if (validade()) {
+                
+                setMessage("Venda Finalizada com Sucesso!");
+                init();
+            }
+        } catch (Exception e) {
+            getMessageInstabilidade();
+            e.printStackTrace();
+        }
+        return "/pages/conta/contaAReceber";
+    }
+
+    public void validaCliente(ActionEvent event) {
         RequestContext context = RequestContext.getCurrentInstance();
         Cliente cliente = (Cliente) event.getComponent().getAttributes().get("pessoa");
-    	if (cliente == null) {
-    		context.addCallbackParam("confirmar", false);
-    		setMessage("Cliente não selecionado.");
-    	} else {
-    		context.addCallbackParam("confirmar", true);                
-    		venda.setCliente(cliente);
-    	}
+        if (cliente == null) {
+            context.addCallbackParam("confirmar", false);
+            setMessage("Cliente não selecionado.");
+        } else {
+            context.addCallbackParam("confirmar", true);
+            venda.setCliente(cliente);
+        }
     }
-	
-	public void adicionarProduto(ActionEvent event) {
+
+    public void adicionarProduto(ActionEvent event) {
         RequestContext context = RequestContext.getCurrentInstance();
         Produto produto = (Produto) event.getComponent().getAttributes().get("produto");
-    	if (produto == null) {
-    		context.addCallbackParam("confirmar", false);
-    		setMessage("Produto não selecionada.");
-    	} else {
-    		context.addCallbackParam("confirmar", true);                
-    		itemProduto.setProduto(produto);
-    		venda.getItensMovimentacao().add(itemProduto);
-    		itemProduto = new ItemProduto();
-    	}
+        if (produto == null) {
+            context.addCallbackParam("confirmar", false);
+            setMessage("Produto não selecionada.");
+        } else {
+            context.addCallbackParam("confirmar", true);
+            itemProduto.setProduto(produto);
+            venda.getItensMovimentacao().add(itemProduto);
+            itemProduto = new ItemProduto();
+        }
     }
-	
-	public void removerProduto() {
-		venda.getItensMovimentacao().remove(itemProduto);
-		itemProduto = new ItemProduto();
-		calculaValorTotal();
-	}
-	
-	public String limpar(){
-		init();
-		return "/pages/movimentacao/venda";
-	}
-	
-	public void calculaValorTotal() {
-		BigDecimal valor = BigDecimal.ZERO;
-		for(ItemProduto it : venda.getItensMovimentacao()){
-			valor = valor.add(it.getValorTotal());
-		}
-		venda.setValorTotal(valor);
-	}
-	
-	private boolean validade() {
-		if(venda.getValorTotal().compareTo(BigDecimal.ZERO) <= 0) {
-			setMessage(FacesMessage.SEVERITY_INFO, null, "Venda com valor total zero.");
-			return false;
-		}
-		
-		for(ItemProduto it : venda.getItensMovimentacao()) {
-			if(it.getValorTotal().compareTo(BigDecimal.ZERO) <= 0) {
-				setMessage(FacesMessage.SEVERITY_INFO, null, "Produto(s) com valor total zero.");
-				return false;
-			}
-		}
-		
-		return true;
-	}
-	
-	public Venda getVenda() {
-		return venda;
-	}
 
-	public void setVenda(Venda venda) {
-		this.venda = venda;
-	}
+    public void removerProduto() {
+        venda.getItensMovimentacao().remove(itemProduto);
+        itemProduto = new ItemProduto();
+        calculaValorTotal();
+    }
 
-	public ItemProduto getItemProduto() {
-		return itemProduto;
-	}
+    public String limpar() {
+        init();
+        return "/pages/movimentacao/venda";
+    }
 
-	public void setItemProduto(ItemProduto itemProduto) {
-		this.itemProduto = itemProduto;
-	}
+    public void calculaValorTotal() {
+        BigDecimal valor = BigDecimal.ZERO;
+        for (ItemProduto it : venda.getItensMovimentacao()) {
+            valor = valor.add(it.getValorTotal());
+        }
+        venda.setValorTotal(valor);
+    }
 
-	public List<Produto> getProdutos() {
-		return produtos;
-	}
+    private boolean validade() {
+        if (venda.getValorTotal().compareTo(BigDecimal.ZERO) <= 0) {
+            setMessage(FacesMessage.SEVERITY_INFO, null, "Venda com valor total zero.");
+            return false;
+        }
 
-	public void setProdutos(List<Produto> produtos) {
-		this.produtos = produtos;
-	}
+        for (ItemProduto it : venda.getItensMovimentacao()) {
+            if (it.getValorTotal().compareTo(BigDecimal.ZERO) <= 0) {
+                setMessage(FacesMessage.SEVERITY_INFO, null, "Produto(s) com valor total zero.");
+                return false;
+            }
+        }
 
-	public VendaManager getVendaManager() {
-		return vendaManager;
-	}
+        return true;
+    }
 
-	public void setVendaManager(VendaManager vendaManager) {
-		this.vendaManager = vendaManager;
-	}
+    public Venda getVenda() {
+        return venda;
+    }
 
-	public ProdutoManager getProdutoManager() {
-		return produtoManager;
-	}
+    public void setVenda(Venda venda) {
+        this.venda = venda;
+    }
 
-	public void setProdutoManager(ProdutoManager produtoManager) {
-		this.produtoManager = produtoManager;
-	}
+    public ItemProduto getItemProduto() {
+        return itemProduto;
+    }
+
+    public void setItemProduto(ItemProduto itemProduto) {
+        this.itemProduto = itemProduto;
+    }
+
+    public List<Produto> getProdutos() {
+        return produtos;
+    }
+
+    public void setProdutos(List<Produto> produtos) {
+        this.produtos = produtos;
+    }
+
+    public VendaManager getVendaManager() {
+        return vendaManager;
+    }
+
+    public void setVendaManager(VendaManager vendaManager) {
+        this.vendaManager = vendaManager;
+    }
+
+    public ProdutoManager getProdutoManager() {
+        return produtoManager;
+    }
+
+    public void setProdutoManager(ProdutoManager produtoManager) {
+        this.produtoManager = produtoManager;
+    }
 }

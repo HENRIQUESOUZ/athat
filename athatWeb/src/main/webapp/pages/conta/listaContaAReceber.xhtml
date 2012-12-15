@@ -1,0 +1,63 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui" 
+                template="/pages/template.xhtml">
+
+    <ui:define name="titulo">
+        <h3>Lista Conta a Receber</h3>
+    </ui:define>
+
+    <ui:define name="script">
+
+    </ui:define>  
+
+    <ui:define name="conteudo">
+
+        <h:form id="contaAReceber" >
+
+            <p:dataTable  id="listaDeContas" value="#{listaContasController.contasAReceber}" var="conta"
+                          emptyMessage="Não possui conta Pendentes">
+                <p:column headerText="Código">
+                    <h:outputLabel value="#{conta.id}" />
+                </p:column>
+                <p:column headerText="Valor">
+                    <h:outputLabel value="#{conta.valorTotal}" >
+                        <f:convertNumber locale="pt_BR" type="currency"/>
+                    </h:outputLabel>/>
+                </p:column>
+                <p:column headerText="Data de Cadastro">
+                    <h:outputLabel value="#{conta.dataCadastro}" >
+                        <f:convertDateTime pattern="dd/MM/yyyy" locale="pt_BR"  />
+                    </h:outputLabel>
+
+                </p:column>
+                <p:column headerText="Situação">
+                    <h:outputLabel value="#{conta.situacao}" />
+                </p:column>
+                <p:column headerText="compra">
+                    <h:outputLabel value="#{conta.movimentacao.id}" />
+                </p:column>
+                <p:column headerText="Verificar">
+                   <p:commandButton alt="Visualizar" action="/pages/conta/baixarParcela?faces-redirect=true"
+                                      immediate="true" ajax="false" icon="ui-icon-pencil">
+                        <f:setPropertyActionListener value="#{conta}" target="#{baixarParcelaController.conta}" />
+                    </p:commandButton>
+                </p:column>
+            </p:dataTable>
+
+            <br />
+
+            <p:toolbar style="height:46px;">
+                <p:toolbarGroup align="right" >
+                    <p:commandButton value="Voltar" action="/pages/principal?faces-redirect=true" ajax="false" immediate="true" />
+                </p:toolbarGroup>
+            </p:toolbar>  
+
+
+
+
+        </h:form>     
+    </ui:define>
+</ui:composition>

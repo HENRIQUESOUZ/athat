@@ -44,19 +44,18 @@
    
                 <p:message for="fornecedor" />
                  <h:outputText value="Código da Compra: "/>
-                <p:inputText id="codigoCompra" value="#{contaAPagarController.contaAPagar.movimentacao.id}" 
+                <p:inputText id="codigoCompra" value="#{contaAPagarController.compra.id}" 
                 	required="true" requiredMessage="Campo Código da Compra obrigatório."
                         disabled="#{contaAPagarController.compra.id != null}"/>
                 <p:message for="codigoCompra" />
                 
                 <h:outputText value="Valor:"/>
-                <p:inputText id="valor" value="#{contaAPagarController.contaAPagar.movimentacao.valorTotal}"
+                <p:inputText id="valor" value="#{contaAPagarController.compra.valorTotal}"
                 	required="true" requiredMessage="Campo Valor obrigatório." 
                         disabled="#{contaAPagarController.compra.id != null}"/>
                 <p:message for="valor" />
                 <h:outputText value="Número de Parcelas: "/>
-                <p:inputText id="numeroParcelas" value="#{contaAPagarController.numParcelas}"
-                	required="true" requiredMessage="Campo Número de Parcelas obrigatório." />
+                <p:spinner id="numeroParcelas" value="#{contaAPagarController.numParcelas}"  min="1"/>
                 <p:message for="numeroParcelas" />
                 <h:outputText value="Data Inicial: "/>
                 <p:calendar id="dataInicial" value="#{contaAPagarController.dataInicial}"
@@ -66,19 +65,22 @@
             </h:panelGrid>
             <br />
             
-            <p:commandButton value="Gerar Parcelas" actionListener="#{contaAPagarController.gerarParcelas}"  update="listaDeParcelas" 
-                                     process="@this"/>
+            <p:commandButton value="Gerar Parcelas" action="#{contaAPagarController.gerarParcelas}"  update="listaDeParcelas" />
             
             <p:dataTable  id="listaDeParcelas" value="#{contaAPagarController.contaAPagar.parcelas}" var="parcela"
                           emptyMessage="Não possui parcelas">
                 <p:column headerText="Número">
-                    <h:outputLabel value="#{parcela.numParcela}" />s
+                    <h:outputLabel value="#{parcela.numParcela}" />
                 </p:column>
                 <p:column headerText="Valor">
-                    <h:outputLabel value="#{parcela.valor}" />
+                    <h:outputLabel value="#{parcela.valorParcela}" >
+                        <f:convertNumber locale="pt_BR" type="currency"/>
+                    </h:outputLabel>/>
                 </p:column>
                 <p:column headerText="Data de pagameto">
-                	<h:outputLabel value="#{parcela.dataPagamento}" />
+                	<h:outputLabel value="#{parcela.dataPagamento}" >
+                            <f:convertDateTime pattern="dd/MM/yyyy" locale="pt_BR"  />
+                        </h:outputLabel>
   
                 </p:column>
                 <p:column headerText="Situação">
@@ -101,22 +103,7 @@
             
 
             
-<!--        <p:dialog id="popParcela" widgetVar="popParcela" header="Consulta produto" modal="false" resizable="false" dynamic="true">
-            <ui:include src="/pages/pops/popParcela.xhtml"/>
 
-            <p:toolbar style="padding: 0px;">
-                <p:toolbarGroup align="right">
-                    <p:commandButton value="Confirmar" actionListener="{contaAPagarController.atualizarParcela}"
-                                     oncomplete="handlePopParcela(xhr, status, args)" update="listaDeParcelas" process="popParcela">
-                        <f:attribute name="parcelas" value="{popParcelaController.parcelas}"/>
-                    </p:commandButton>
-
-                    <p:commandButton value="Voltar" onclick="popParcela.hide();"/>
-                </p:toolbarGroup>
-            </p:toolbar>
-            <br/>
-        </p:dialog>    
-            -->
         </h:form>     
     </ui:define>
 </ui:composition>

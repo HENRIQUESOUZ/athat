@@ -12,6 +12,11 @@ import javax.persistence.OneToMany;
 
 import br.com.athat.core.entity.AbstractEntity;
 import br.com.athat.core.entity.conta.financeiro.Lancamento;
+import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.Iterator;
+import javax.persistence.*;
+import org.hibernate.annotations.Cascade;
 
 @Entity
 public class Parcela extends AbstractEntity {
@@ -21,14 +26,16 @@ public class Parcela extends AbstractEntity {
 	@ManyToOne
 	private Conta conta;
 
-	@OneToMany(fetch=FetchType.LAZY)
-	private List<Lancamento> lancamentos;
+	@OneToMany(fetch=FetchType.EAGER)
+        @Cascade(org.hibernate.annotations.CascadeType.PERSIST)
+	private List<Lancamento> lancamentos=new ArrayList<Lancamento>();
 	
 	@Enumerated(EnumType.STRING)
 	private SituacaoContaType situacao;
 
 	private int numParcela;
 	
+        @Temporal(javax.persistence.TemporalType.DATE)
 	private Date dataPagamento;
 
 	public Date getDataPagamento() {
@@ -75,6 +82,14 @@ public class Parcela extends AbstractEntity {
 		this.lancamentos.add(lancamento);
 		
 	}
+        public BigDecimal getValorParcela(){
+            BigDecimal valor=BigDecimal.ZERO;
+            for (Lancamento lancamento:lancamentos) {
+                valor=valor.add(lancamento.getValor());
+            }
+            
+            return valor;
+        }
 
 
 }

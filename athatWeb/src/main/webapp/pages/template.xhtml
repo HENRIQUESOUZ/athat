@@ -90,12 +90,16 @@
                             <p:submenu label="Pedido de Compra">                  
                                 <p:menuitem value="Listagem" action="/pages/pedido/listagemPedidoCompra?faces-redirect=true" immediate="true" ajax="false" />
                             </p:submenu> 
+                            <p:submenu label="Pedido de Venda">                  
+                                <p:menuitem value="Listagem" action="/pages/pedido/listagemPedidoVenda?faces-redirect=true" immediate="true" ajax="false" />
+                            </p:submenu> 
                         </p:column>   
                     </p:submenu>
                     <p:submenu label="Financeiro">
                         <p:column>
                             <p:submenu label="Contas">                  
-                                <p:menuitem value="Conta a Pagar" action="/pages/conta/contaAPagar?faces-redirect=true" immediate="true" ajax="false" />
+                                <p:menuitem value="lista Conta a Pagar" action="/pages/conta/listaContaAPagar?faces-redirect=true" immediate="true" ajax="false" />
+                                <p:menuitem value="lista Conta a Receber" action="/pages/conta/listaContaAReceber?faces-redirect=true" immediate="true" ajax="false" />
                             </p:submenu> 
                         </p:column>   
                     </p:submenu>

@@ -1,5 +1,6 @@
 package br.com.athat.web.movimentacao.projeto;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -45,6 +46,7 @@ public class OrcamentoController extends AbstractController {
 	public String salvar() {
 		try {
 			if(validade()) {
+				orcamento.setSituacaoMovimentacaoType(SituacaoMovimentacaoType.ABERTA);
 				levantamentoManager.salvar(orcamento);
 				getMessageCadastroSucesso();
 			}
@@ -60,8 +62,8 @@ public class OrcamentoController extends AbstractController {
 		try {
 			if(validade()) {
 				orcamento.setSituacaoMovimentacaoType(SituacaoMovimentacaoType.FECHADA);
-				levantamentoManager.salvar(orcamento);
-			setMessage("Levantamento Finalizada com Sucesso!");
+				levantamentoManager.finalizarOrcamento(orcamento);
+			setMessage("Orçamento Finalizada com Sucesso!");
 			init();
 			}	
 		}catch(Exception e) {
@@ -111,8 +113,21 @@ public class OrcamentoController extends AbstractController {
 		itemProduto = new ItemProduto();
 	}
 	
+	public void calculaValorTotal() {
+		BigDecimal valor = BigDecimal.ZERO;
+		for(ItemProduto it : orcamento.getItensMovimentacao()){
+			valor = valor.add(it.getValorTotal());
+		}
+		orcamento.setValorTotal(valor);
+	}
+	
 	private boolean validade() {
-		if(orcamento.getItensMovimentacao().size() == 0 ) {
+		if(orcamento.getValorTotal().compareTo(BigDecimal.ZERO) <= 0) {
+			setMessage(FacesMessage.SEVERITY_INFO, null, "Orçamento com valor total zero.");
+			return false;
+		}
+		
+		if(orcamento.getItensMovimentacao().size() <= 0 ) {
 			setMessage(FacesMessage.SEVERITY_INFO, null, "Orçamento sem produtos.");
 			return false;
 		}

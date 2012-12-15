@@ -35,8 +35,6 @@ public class Levantamento extends AbstractEntity {
 
 	private static final long serialVersionUID = 1L;
 	
-	protected Date dataFinalizacao;
-	
 	protected BigDecimal valorTotal;
 	
 	@ManyToOne
@@ -54,6 +52,9 @@ public class Levantamento extends AbstractEntity {
 	@ManyToOne
 	@JoinColumn(name = "funcionarioLevantamento")
 	private Funcionario funcionario;
+	
+	@Column(name = "dataFinalizacaoLevantamento")
+	private Date dataFinalizacao;
 	
 	@Column(length = 2000, name = "observacaoLevantamento")
 	private String observacao;

@@ -16,10 +16,22 @@ public class ItemProduto extends AbstractEntity {
 	
 	private BigDecimal valor = BigDecimal.ZERO;
 	
+	private BigDecimal desconto = BigDecimal.ZERO;
+	
 	private int quantidade = 1;
 	
 	@ManyToOne(fetch = FetchType.EAGER)
 	private Produto produto;
+	
+	public ItemProduto() {}
+
+	public ItemProduto(ItemProduto itemProduto) {
+		valor = itemProduto.getValor();
+		desconto = itemProduto.getValor();
+		quantidade = itemProduto.getQuantidade();
+		produto = itemProduto.getProduto();
+	}
+
 	
 	public BigDecimal getValor() {
 		return valor;
@@ -46,7 +58,14 @@ public class ItemProduto extends AbstractEntity {
 	}
 
 	public BigDecimal getValorTotal() {
-		return valor.multiply(new BigDecimal(quantidade));
+		return valor.multiply(new BigDecimal(quantidade)).subtract(desconto);
 	}
-
+	
+	public BigDecimal getDesconto() {
+		return desconto;
+	}
+	
+	public void setDesconto(BigDecimal desconto) {
+		this.desconto = desconto;
+	}
 }

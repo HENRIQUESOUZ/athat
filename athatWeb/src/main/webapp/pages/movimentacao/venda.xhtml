@@ -99,7 +99,9 @@
 
             <p:toolbar style="height:46px;">
                 <p:toolbarGroup align="right" >
-                    <p:commandButton value="Finalizar" action="#{vendaController.finalizar}" ajax="false" disabled="#{vendaController.venda.id == null}" />    
+                    <p:commandButton value="Finalizar" action="#{vendaController.finalizar}" ajax="false" >   
+                        <f:setPropertyActionListener value="#{vendaController.venda}" target="#{contaAReceberController.venda}" />
+                    </p:commandButton>    
                     <p:commandButton value="Limpar" action="#{vendaController.limpar}" ajax="false" immediate="true" />
                     <p:commandButton value="Voltar" action="/pages/principal?faces-redirect=true" ajax="false" immediate="true" />
                 </p:toolbarGroup>
