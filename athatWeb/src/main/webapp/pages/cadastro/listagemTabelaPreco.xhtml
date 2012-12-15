@@ -40,6 +40,18 @@
                 <p:column headerText="Descrição">
                     <h:outputText value="#{tabelaPreco.nome}" />
                 </p:column>
+                
+                <p:column headerText="Data Início">
+                    <h:outputText value="#{tabelaPreco.dataInicio}" >
+                        <f:convertDateTime pattern="dd/MM/yyyy" locale="pt_BR"  /> 
+                    </h:outputText>    
+                </p:column>
+                
+                <p:column headerText="Data Fim">
+                    <h:outputText value="#{tabelaPreco.dataFim}" >
+                        <f:convertDateTime pattern="dd/MM/yyyy" locale="pt_BR"  /> 
+                    </h:outputText>    
+                </p:column>
                
                  <p:column headerText="Opções">
                      <p:commandButton alt="Editar" action="/pages/cadastro/cadastroTabelaPreco"

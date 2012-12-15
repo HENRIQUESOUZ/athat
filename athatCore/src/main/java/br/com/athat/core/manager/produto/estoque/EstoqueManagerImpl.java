@@ -1,5 +1,7 @@
 package br.com.athat.core.manager.produto.estoque;
 
+import java.util.ArrayList;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -22,11 +24,11 @@ public class EstoqueManagerImpl extends AbstractManagerImpl implements EstoqueMa
 		final Estoque estoque = itemProduto.getProduto().getEstoque();
             
         estoque.setQuantidade(estoque.getQuantidade() + itemProduto.getQuantidade());
-        if(ValidatorUtils.isNotEmptyAndNotNull(estoque.getItemEstoqueList())){
-        	for(ItemEstoque item : estoque.getItemEstoqueList()) {
-        		itemEstoqueManager.salvar(item);
-            }
+        if(estoque.getItemEstoqueList() == null) {
+        	estoque.setItemEstoqueList(new ArrayList<ItemEstoque>());
         }
+        estoque.getItemEstoqueList().add(new ItemEstoque(itemProduto.getValor()));
+        
        getEntityManager().merge(estoque);
 	}
 	

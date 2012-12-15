@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.event.ActionEvent;
 
@@ -17,8 +18,10 @@ import br.com.athat.core.entity.movimentacao.venda.Venda;
 import br.com.athat.core.entity.pessoa.Pessoa;
 import br.com.athat.core.entity.pessoa.cliente.Cliente;
 import br.com.athat.core.entity.produto.Produto;
+import br.com.athat.core.entity.produto.tabelaPreco.TabelaPreco;
 import br.com.athat.core.manager.movimentacao.venda.VendaManager;
 import br.com.athat.core.manager.produto.ProdutoManager;
+import br.com.athat.core.manager.produto.tabelaPreco.TabelaPrecoManager;
 import br.com.athat.web.utils.AbstractController;
 
 public class VendaController extends AbstractController {
@@ -28,6 +31,7 @@ public class VendaController extends AbstractController {
 	private Venda venda;
 	private ItemProduto itemProduto;
 	private List<Produto> produtos;
+	private TabelaPreco tabelaPreco;
 	
 	@Autowired
 	private VendaManager vendaManager;
@@ -35,8 +39,16 @@ public class VendaController extends AbstractController {
 	@Autowired
 	private ProdutoManager produtoManager;
 	
+	@Autowired
+	private TabelaPrecoManager tabelaPrecoManager;
+	
 	public VendaController() {
 		init();
+	}
+	
+	@PostConstruct
+	public void carregarTabelaPreço() {
+		tabelaPreco = tabelaPrecoManager.buscarTabelaVigente(new Date());
 	}
 	
 	private void init() {
@@ -86,8 +98,10 @@ public class VendaController extends AbstractController {
     	} else {
     		context.addCallbackParam("confirmar", true);                
     		itemProduto.setProduto(produto);
+    		itemProduto.setValor(produto.getEstoque().getValorCusto());
     		venda.getItensMovimentacao().add(itemProduto);
     		itemProduto = new ItemProduto();
+    		calculaValorTotal();
     	}
     }
 	
@@ -164,5 +178,9 @@ public class VendaController extends AbstractController {
 
 	public void setProdutoManager(ProdutoManager produtoManager) {
 		this.produtoManager = produtoManager;
+	}
+	
+	public TabelaPreco getTabelaPreco() {
+		return tabelaPreco;
 	}
 }

@@ -17,6 +17,13 @@ public class ItemEstoque extends AbstractEntity{
 	private String identificacao;
 	
 	private Integer quantidadeDesmenbrada = 0;
+	
+	public ItemEstoque() {
+	}
+	
+	public ItemEstoque(BigDecimal valorCusto) {
+		this.valorCusto = valorCusto;
+	}
     
     public BigDecimal getValorCusto() {
         return valorCusto;

@@ -36,6 +36,7 @@
         
         <h:form id="venda" >
 
+            <p:outputPanel  rendered="#{vendaController.tabelaPreco != null}"> 
             <h:panelGrid id="panelCliente" columns="4">
                 <h:outputText value="Cliente: "/>
                 <p:inputText id="Cliente" value="#{vendaController.venda.cliente.pessoa.nomeRazao}" 
@@ -135,7 +136,14 @@
                 </p:toolbarGroup>
             </p:toolbar>
             <br/>
-        </p:dialog>    
+        </p:dialog>  
+       </p:outputPanel> 
+            
+      <p:outputPanel  rendered="#{vendaController.tabelaPreco == null}">
+          <p:panel header="Informativo">
+               <h3>Não possui tabelas de preço para o periodo atual.</h3>
+          </p:panel>    
+      </p:outputPanel>    
             
         </h:form>     
     </ui:define>

@@ -1,19 +1,18 @@
 package br.com.athat.test.produto.estoque;
 
-import java.util.ArrayList;
+import java.math.BigDecimal;
+
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+
 import br.com.athat.core.AbstractTest;
 import br.com.athat.core.PopulateBD;
 import br.com.athat.core.entity.movimentacao.ItemProduto;
 import br.com.athat.core.entity.produto.Produto;
 import br.com.athat.core.entity.produto.categoria.Categoria;
-import br.com.athat.core.entity.produto.estoque.Estoque;
-import br.com.athat.core.entity.produto.estoque.ItemEstoque;
 import br.com.athat.core.manager.produto.estoque.EstoqueManager;
-import java.math.BigDecimal;
 
 public class EstoqueManagerTest extends AbstractTest{
 
@@ -32,9 +31,9 @@ public class EstoqueManagerTest extends AbstractTest{
 	@Test
 	public void entradaTest(){
 		ItemProduto itemProduto = new ItemProduto();
-                itemProduto.setProduto(produto);
-                itemProduto.setQuantidade(10);
-                itemProduto.setValor(BigDecimal.valueOf(100));
+        itemProduto.setProduto(produto);
+        itemProduto.setQuantidade(10);
+        itemProduto.setValor(BigDecimal.valueOf(100));
 		
 		estoqueManager.entrar(itemProduto);
 		
