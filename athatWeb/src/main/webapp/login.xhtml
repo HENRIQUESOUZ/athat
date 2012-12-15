@@ -7,19 +7,19 @@
                 xmlns:p="http://primefaces.org/ui" template="./template.xhtml">
 
     <ui:define name="screen">
-        <p:fieldset id="autenticacao">
+        <p:panel header="Login" style="width: 300px">
             <h:form prependId="false">
                 <h:panelGrid columns="3" id="grid">
-                    <h:outputLabel for="j_username" value="Login" />
-                    <p:inputText id="j_username" required="true" />
-                    <h:message for="j_username" />
+                    <h:outputLabel  value="Login" />
+                    <p:inputText id="nome" value="#{loginController.nome}" required="true" />
+                    <h:message for="nome" />
 
-                    <h:outputLabel for="j_password" value="Senha" />
-                    <h:inputSecret id="j_password" required="true"/>
-                    <h:message for="j_password" />
+                    <h:outputLabel value="Senha" />
+                    <h:inputSecret id="senha"  value="#{loginController.senha}" required="true"/>
+                    <h:message for="senha" />
                 </h:panelGrid>
-                <p:commandButton value="Login" ajax="false" action="#{authenticationController.access}" />
+                <p:commandButton value="Login" action="#{loginController.login}" ajax="false" />
             </h:form>
-        </p:fieldset>
+        </p:panel>
     </ui:define>
 </ui:composition>

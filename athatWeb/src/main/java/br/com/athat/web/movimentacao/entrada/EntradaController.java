@@ -38,7 +38,7 @@ public class EntradaController extends AbstractController {
 			e.printStackTrace();
 		}
 		
-		return "/pages/movimentacao/listagemEntrada";
+		return "/pages/movimentacao/listagemEntrada?faces-redirect=true";
 	}
 	
 	public void buscar() {

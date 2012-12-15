@@ -39,7 +39,7 @@
             <h:panelGrid id="panelCliente" columns="4">
                 <h:outputText value="Cliente: "/>
                 <p:inputText id="Cliente" value="#{vendaController.venda.cliente.pessoa.nomeRazao}" 
-                	required="true" requiredMessage="Campo Cliente obrigatorio"/>
+                             required="true" requiredMessage="Campo Cliente obrigatorio" disabled="true"/>
                 <p:commandButton value="buscar" oncomplete="popPessoa.show()" process="@this">
                     <f:setPropertyActionListener value="cliente" target="#{popPessoaController.papel}"/>
                     <f:setPropertyActionListener value="true" target="#{popPessoaController.disableFornecedor}"/>

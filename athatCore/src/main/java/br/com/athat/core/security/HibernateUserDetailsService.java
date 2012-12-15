@@ -45,9 +45,9 @@ public class HibernateUserDetailsService implements UserDetailsService, Serializ
         		.add(Restrictions.eq("username",username));
         Usuario usuario = (Usuario) criteria.uniqueResult();
         usuario.getAuthorities();
-        usuario.getAutorizacoes();
-        usuario.getNegacoes();
-        
+//        usuario.getAutorizacoes();
+//        usuario.getNegacoes();
+//        
         return usuario;
     }
   

@@ -1,12 +1,15 @@
 package br.com.athat.core.manager.usuario;
 
+import java.util.List;
+
 import org.hibernate.Criteria;
 import org.hibernate.criterion.Restrictions;
+import org.springframework.transaction.annotation.Transactional;
 
 import br.com.athat.core.entity.usuario.Usuario;
 import br.com.athat.core.manager.AbstractManagerImpl;
 
-public class UsuarioManagerImpl extends AbstractManagerImpl implements UsuarioManager{
+public class UsuarioManagerImpl extends AbstractManagerImpl implements UsuarioManager {
 
 	private static final long serialVersionUID = 1L;
 
@@ -46,33 +49,36 @@ public class UsuarioManagerImpl extends AbstractManagerImpl implements UsuarioMa
 
     }
 
-		public void salvar(Usuario usuario) {
-        
-//        if (usuario.getId() == null) {
-//                getEntityManager().persist(usuario);
-//
-//            UsuarioPerfil usuarioPerfil = new UsuarioPerfil();
-//            usuarioPerfil.setUsuario(usuario);
-//            usuarioPerfil.setPerfil(perfil);
-//            getEntityManager().persist(usuarioPerfil);
-
-//        } else {
-//            if (usuario.isEnabled() == false) {
-//                Criteria criteria = createSession().createCriteria(UsuarioPerfil.class)
-//                        .add(Restrictions.eq("enabled", Boolean.TRUE));
-//
-//                List<UsuarioPerfil> usuarioGrandsList = criteria.list();
-//                if (usuarioGrandsList.size() > 1) {
-//                    getEntityManager().merge(usuario);
-//                } else {
-//                    throw new IllegalArgumentException("Usuário não pode ser desativado pois é o unico ativo");
-//                }
-//            } else {
-//                getEntityManager().merge(usuario);
-//            }
-//        }
-
-        
+    @Override
+    @Transactional
+    public void salvar(Usuario usuario) {
+        if(usuario.getId() == null) {
+        	getEntityManager().persist(usuario);
+        } else {
+        	getEntityManager().merge(usuario);
+        }
     }
+
+	@Override
+	@Transactional(readOnly = true)
+	public Usuario login(String nome, String senha) {
+		Criteria criteria = createSession().createCriteria(Usuario.class)
+			.add(Restrictions.eq("username", nome))
+			.add(Restrictions.eq("password", senha))
+		;		
+		return (Usuario) criteria.uniqueResult();
+	}
+
+	@Override
+	@Transactional(readOnly = true)
+	public List<Usuario> buscar(String nome) {
+		Criteria criteria = createSession().createCriteria(Usuario.class);
+		
+		if(nome != null && !nome.isEmpty()) {
+			criteria.add(Restrictions.eq("username", nome));
+		}
+		
+		return null;
+	}
     
 }

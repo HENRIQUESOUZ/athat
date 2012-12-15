@@ -98,7 +98,7 @@
             <h:panelGrid id="panelFornecedor" columns="3">
                 <h:outputText value="Fornecedor: "/>
                 <p:inputText id="fornecedor" value="#{pedidoCompraController.compra.fornecedor.pessoa.nomeRazao}" 
-                	required="true" requiredMessage="Campo Fornecedor obrigatorio"/>
+                             required="true" requiredMessage="Campo Fornecedor obrigatorio" disabled="true"/>
                 <p:commandButton value="buscar" oncomplete="popPessoa.show()" process="@this">
                     <f:setPropertyActionListener value="fornecedor" target="#{popPessoaController.papel}"/>
                     <f:setPropertyActionListener value="true" target="#{popPessoaController.disableCliente}"/>
