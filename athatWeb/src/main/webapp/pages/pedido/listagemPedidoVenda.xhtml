@@ -45,8 +45,8 @@
                     <h:outputText value="#{pedidoVenda.projeto.cliente.pessoa.nomeRazao}" />
                 </p:column>
                 
-                 <p:column headerText="Data Compra">
-                    <h:outputText value="#{pedidoVenda.dataCadastro}" >
+                 <p:column headerText="Data Pedido">
+                    <h:outputText value="#{pedidoVenda.dataFinalizacao}" >
                          <f:convertDateTime pattern="dd/MM/yyyy" locale="pt_BR"  />
                     </h:outputText>    
                 </p:column>
@@ -57,6 +57,10 @@
                 
                 <p:column headerText="Opções">
                     <p:commandButton value="Visualizar"  oncomplete="popProduto.show();"/>
+                <p:column headerText="Opções">
+                    <p:commandButton value="Visualizar" process="@this" update=":listagemPedidoVenda:panelPedido"  oncomplete="popProduto.show();">
+                        <f:setPropertyActionListener value="#{pedidoVenda}" target="#{pedidoVendaController.pedidoVenda}" />
+                    </p:commandButton>    
                 </p:column>
             </p:dataTable>    
             
@@ -69,23 +73,21 @@
              </p:toolbar>     
             
             <p:dialog id="popPedido" widgetVar="popProduto" header="Pedido de Venda" modal="false" resizable="false" dynamic="true">
+                <h:panelGrid id="panelPedido" columns="2">
+                    <h:outputLabel value="Cliente "/>
+                    <h:outputLabel value="#{pedidoVendaController.pedidoVenda.projeto.cliente.pessoa.nomeRazao}" />
 
-                <h:outputLabel value="Cliente "/>
-                <h:outputLabel value="#{pedidoVendaController.pedidoVenda.cliente.pessoa.nomeRazao}" />
+                    <h:outputLabel value="Data Cadastro: " />
+                    <h:outputLabel  value="#{pedidoVendaController.pedidoVenda.dataCadastro}" >
+                        <f:convertDateTime pattern="dd/MM/yyyy" locale="pt_BR" />
+                    </h:outputLabel>    
 
-                <h:outputLabel value="Data Cadastro: " />
-                <h:outputLabel  value="#{pedidoVendaController.pedidoVenda.dataCadastro}" >
-                    <f:convertDateTime pattern="dd/MM/yyyy" locale="pt_BR" />
-                </h:outputLabel>    
-
-                <h:outputLabel value="Data Finalização: " />
-                <h:outputLabel  value="#{pedidoVendaController.pedidoVenda.dataFinalizacao}" >
-                    <f:convertDateTime pattern="dd/MM/yyyy" locale="pt_BR" />
-                </h:outputLabel> 
-
-                <h:outputLabel value="Situação "/>
-                <h:outputLabel value="#{pedidoVendaController.pedidoVenda.situacaoMovimentacaoType.descricao}" />
-
+                    <h:outputLabel value="Data Finalização: " />
+                    <h:outputLabel  value="#{pedidoVendaController.pedidoVenda.dataFinalizacao}" >
+                        <f:convertDateTime pattern="dd/MM/yyyy" locale="pt_BR" />
+                    </h:outputLabel> 
+                </h:panelGrid> 
+                    
                 <br />
 
                 <p:dataTable  id="listaDeProdutos" value="#{pedidoVendaController.pedidoVenda.itensMovimentacao}" var="item"
@@ -97,17 +99,15 @@
                         <h:outputLabel value="#{item.produto.nome}" />
                     </p:column>
                     <p:column headerText="Quantidade">
-                        <p:inputText value="#{item.quantidade}" />  
+                        <h:outputLabel value="#{item.quantidade}" />  
                     </p:column>
                     <p:column headerText="Valor">
-                        <p:inputText value="#{item.valor}" />
+                        <h:outputLabel value="#{item.valor}" />
                     </p:column>
                     <p:column headerText="Desconto">
-                        <p:inputText value="#{item.desconto}" /> 
+                        <h:outputLabel value="#{item.desconto}" /> 
                     </p:column>
-                    <p:column headerText="Valor Total">
-                        <p:inputText value="#{item.valorTotal}" />   
-                    </p:column>
+                    
                 </p:dataTable>
 
                 <br />
@@ -118,7 +118,8 @@
             <p:toolbar style="height:46px;">
                 <p:toolbarGroup align="right" >
                 <p:column headerText="Opções">
-                    <p:commandButton value="Confirmar Chegada" action="#{pedidoVenda.confirmar}"  oncomplete="popProduto.close();"/>
+                    <p:commandButton value="Confirmar Chegada" action="#{pedidoVendaController.confirmar}"  oncomplete="popProduto.close();"
+                                     rendered="#{pedidoVendaController.pedidoVenda.dataSaida == null}"/>
                 </p:column>
                     <p:commandButton value="Voltar" onclick="popProduto.close();"/>
                 </p:toolbarGroup>

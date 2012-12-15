@@ -2,6 +2,7 @@ package br.com.athat.web.movimentacao.compra;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.faces.application.FacesMessage;
@@ -18,6 +19,7 @@ import br.com.athat.core.entity.pessoa.fornecedor.Fornecedor;
 import br.com.athat.core.entity.produto.Produto;
 import br.com.athat.core.manager.movimentacao.compra.CompraManager;
 import br.com.athat.core.manager.produto.ProdutoManager;
+import br.com.athat.core.manager.produto.tabelaPreco.TabelaPrecoManager;
 import br.com.athat.web.utils.AbstractController;
 
 public class CompraController extends AbstractController {
@@ -30,6 +32,9 @@ public class CompraController extends AbstractController {
     private CompraManager compraManager;
     @Autowired
     private ProdutoManager produtoManager;
+
+	@Autowired
+	private TabelaPrecoManager tabelaPrecoManager;
 
     public CompraController() {
         init();

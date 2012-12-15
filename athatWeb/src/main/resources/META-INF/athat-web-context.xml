@@ -40,5 +40,5 @@
     <bean id="contaAReceberController" class="br.com.athat.web.controller.conta.ContaAReceberController" scope="session"/>
     <bean id="baixarParcelaController" class="br.com.athat.web.controller.conta.BaixarParcelaController" scope="session"/>
     <bean id="listaContasController" class="br.com.athat.web.controller.conta.ListaContasController" scope="session"/>
-    
+    <bean id="loginController"  class="br.com.athat.web.controller.authentication.LoginController" scope="session"/>                
 </beans>

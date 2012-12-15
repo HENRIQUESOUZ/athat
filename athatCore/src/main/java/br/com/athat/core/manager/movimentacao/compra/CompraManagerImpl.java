@@ -1,5 +1,6 @@
 package br.com.athat.core.manager.movimentacao.compra;
 
+import java.util.Date;
 import java.util.List;
 
 import org.hibernate.Criteria;
@@ -12,7 +13,9 @@ import br.com.athat.core.entity.movimentacao.ItemProduto;
 import br.com.athat.core.entity.movimentacao.compra.Compra;
 import br.com.athat.core.entity.movimentacao.enuns.SituacaoEntradaType;
 import br.com.athat.core.entity.movimentacao.enuns.SituacaoMovimentacaoType;
+import br.com.athat.core.entity.pedido.PedidoCompra;
 import br.com.athat.core.manager.AbstractManagerImpl;
+import br.com.athat.core.manager.pedido.PedidoCompraManager;
 import br.com.athat.core.manager.produto.estoque.EstoqueManager;
 import br.com.athat.core.vo.compra.CompraVO;
 
@@ -22,6 +25,9 @@ public class CompraManagerImpl extends AbstractManagerImpl implements CompraMana
     
     @Autowired
     private EstoqueManager estoqueManager;
+    
+    @Autowired
+    private PedidoCompraManager pedidoCompraManager;
 
     @Transactional
     public Compra salvar(Compra compra) {
@@ -45,13 +51,13 @@ public class CompraManagerImpl extends AbstractManagerImpl implements CompraMana
         		.add(Restrictions.between("dataEmissaoNF", compra.getDataInicioNF(), compra.getDataFimNF()))
         ;
 
-//        if (compra.getSituacaoMovimentacaoType() != null) {
-//            criteria.add(Restrictions.eq("situacaoMovimentacaoType", compra.getSituacaoMovimentacaoType()));
-//        }
-//        
-//        if (compra.getSituacaoEntradaType() != null) {
-//            criteria.add(Restrictions.eq("situacaoEntradaType", compra.getSituacaoEntradaType()));
-//        }
+        if (compra.getSituacaoMovimentacaoType() != null) {
+            criteria.add(Restrictions.eq("situacaoMovimentacaoType", compra.getSituacaoMovimentacaoType()));
+        }
+        
+        if (compra.getSituacaoEntradaType() != null) {
+            criteria.add(Restrictions.eq("situacaoEntradaType", compra.getSituacaoEntradaType()));
+        }
 
         if (compra.getFornecedor() != null && compra.getFornecedor().getId() != null) {
             criteria.createAlias("fornecedor", "for");
@@ -76,5 +82,15 @@ public class CompraManagerImpl extends AbstractManagerImpl implements CompraMana
 		Compra compra = getEntityManager().find(Compra.class, id);
 		Hibernate.initialize(compra.getItensMovimentacao());
 		return compra;
+	}
+
+	@Override
+	@Transactional
+	public void salvar(List<Compra> compras, PedidoCompra pedidoCompra) {
+		for(Compra c : compras) {
+			salvar(c);
+		}
+		pedidoCompra.setDataEncerramento(new Date());
+		pedidoCompraManager.salvar(pedidoCompra);
 	}
 }

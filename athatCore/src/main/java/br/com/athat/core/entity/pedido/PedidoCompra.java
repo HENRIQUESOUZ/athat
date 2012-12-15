@@ -72,4 +72,12 @@ public class PedidoCompra extends AbstractEntity {
 			SituacaoMovimentacaoType situacaoMovimentacaoType) {
 		this.situacaoMovimentacaoType = situacaoMovimentacaoType;
 	}
+	
+	public Projeto getProjeto() {
+		return projeto;
+	}
+	
+	public void setProjeto(Projeto projeto) {
+		this.projeto = projeto;
+	}
 }

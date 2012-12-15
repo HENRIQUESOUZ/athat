@@ -1,6 +1,7 @@
 package br.com.athat.web.movimentacao.projeto;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.faces.application.FacesMessage;
@@ -12,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import br.com.athat.core.entity.movimentacao.ItemProduto;
 import br.com.athat.core.entity.movimentacao.enuns.SituacaoMovimentacaoType;
 import br.com.athat.core.entity.movimentacao.projeto.Levantamento;
+import br.com.athat.core.entity.movimentacao.projeto.Projeto;
 import br.com.athat.core.entity.pessoa.Pessoa;
 import br.com.athat.core.entity.pessoa.funcionario.Funcionario;
 import br.com.athat.core.entity.produto.Produto;
@@ -25,11 +27,13 @@ public class LevantamentoController extends AbstractController {
 	private Levantamento levantamento;
 	private ItemProduto itemProduto;
 	private List<Produto> produtos;
+	private Projeto projeto;
 	
 	@Autowired
 	private LevantamentoManager levantamentoManager;
 	
 	public LevantamentoController() {
+		projeto = new Projeto();
 		init();
 	}
 
@@ -47,6 +51,7 @@ public class LevantamentoController extends AbstractController {
 			if(validade()) {
 				levantamento.setSituacaoMovimentacaoType(SituacaoMovimentacaoType.ABERTA);
 				levantamentoManager.salvar(levantamento);
+				projeto = levantamento.getProjeto();
 				getMessageCadastroSucesso();
 			}
 		} catch(Exception e) {
@@ -61,9 +66,11 @@ public class LevantamentoController extends AbstractController {
 		try {
 			if(validade()) {
 				levantamento.setSituacaoMovimentacaoType(SituacaoMovimentacaoType.FECHADA);
+				levantamento.setDataFinalizacao(new Date());
 				levantamentoManager.salvar(levantamento);
-			setMessage("Levantamento Finalizada com Sucesso!");
-			init();
+				projeto = levantamento.getProjeto();
+				setMessage("Levantamento Finalizada com Sucesso!");
+				init();
 			}	
 		}catch(Exception e) {
 			getMessageInstabilidade();
@@ -143,5 +150,13 @@ public class LevantamentoController extends AbstractController {
 
 	public void setProdutos(List<Produto> produtos) {
 		this.produtos = produtos;
+	}
+	
+	public Projeto getProjeto() {
+		return projeto;
+	}
+	
+	public void setProjeto(Projeto projeto) {
+		this.projeto = projeto;
 	}
 }

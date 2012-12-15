@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import br.com.athat.core.entity.movimentacao.enuns.SituacaoMovimentacaoType;
 import br.com.athat.core.entity.movimentacao.projeto.Orcamento;
 import br.com.athat.core.manager.movimentacao.projeto.LevantamentoManager;
+import br.com.athat.core.manager.movimentacao.venda.VendaManager;
 import br.com.athat.core.vo.projeto.OrcamentoVO;
 import br.com.athat.web.utils.AbstractController;
 
@@ -22,17 +23,29 @@ public class PedidoVendaController extends AbstractController {
 	@Autowired
 	private LevantamentoManager pedidoVendaManager;
 	
+	@Autowired
+	private VendaManager vendaManager;
+	
 	public PedidoVendaController() {
 		init();
 	}
 	
 	public void buscar() {
 		pedidoVendaVO.setSituacaoMovimentacaoType(SituacaoMovimentacaoType.FECHADA);
+		pedidoVendaVO.setValidaSaidaNula(true);
 		pedidosVenda = pedidoVendaManager.buscar(pedidoVendaVO);
 	}
 
 	public void confirmar() {
-		buscar();
+		try {
+			vendaManager.salvarPedidoVenda(pedidoVenda);
+			init();
+			buscar();
+			setMessage("Baixo no pedido com sucesso!");
+		} catch (Exception e) {
+			e.printStackTrace();
+			getMessageInstabilidade();
+		}
 	}
 	
 	private void init() {

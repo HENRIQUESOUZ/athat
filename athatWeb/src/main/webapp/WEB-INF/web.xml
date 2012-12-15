@@ -111,7 +111,7 @@
     </session-config>
 
     <welcome-file-list>
-        <welcome-file>pages/principal.jsf</welcome-file>
+        <welcome-file>login.jsf</welcome-file>
     </welcome-file-list>
     
 </web-app>

@@ -1,11 +1,14 @@
 package br.com.athat.web.controller.authentication;
 
 import java.util.Collection;
+
 import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.security.access.AccessDecisionVoter;
 import org.springframework.security.access.ConfigAttribute;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.web.FilterInvocation;
+
 import br.com.athat.core.entity.usuario.PermissaoUsuarioType;
 import br.com.athat.core.entity.usuario.Usuario;
 
@@ -28,12 +31,6 @@ public class Voter implements AccessDecisionVoter<FilterInvocation> {
         
         PermissaoUsuarioType permissao = PermissaoUsuarioType.fromUri(uri);
         Usuario usuario = (Usuario) a.getPrincipal();
-        if (usuario.getNegacoes().contains(permissao)) 
-            return ACCESS_DENIED;
-        
-        if (usuario.getAutorizacoes().contains(permissao)) 
-            return ACCESS_GRANTED;
-
         return ACCESS_DENIED;
     }
     

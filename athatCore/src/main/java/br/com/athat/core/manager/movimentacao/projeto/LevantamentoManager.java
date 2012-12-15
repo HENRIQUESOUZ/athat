@@ -12,6 +12,8 @@ public interface LevantamentoManager extends AbstractManager {
 	
 	void salvar(Orcamento orcamento);
 	
+	void salvar(Orcamento orcamento, Levantamento levantamento);
+	
 	void salvar(Levantamento levantamento);
 	
 	List<Levantamento> buscar(LenvamentoVO levantamento);

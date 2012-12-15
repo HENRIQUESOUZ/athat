@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import br.com.athat.core.entity.movimentacao.ItemProduto;
 import br.com.athat.core.entity.movimentacao.enuns.SituacaoMovimentacaoType;
+import br.com.athat.core.entity.movimentacao.projeto.Orcamento;
 import br.com.athat.core.entity.movimentacao.venda.Venda;
 import br.com.athat.core.manager.AbstractManagerImpl;
 import br.com.athat.core.manager.produto.estoque.EstoqueManager;
@@ -33,7 +34,6 @@ public class VendaManagerImpl extends AbstractManagerImpl implements VendaManage
         for(ItemProduto itemProduto : venda.getItensMovimentacao()){
             estoqueManager.sair(itemProduto);           
         }
-
         return venda;
     }
 
@@ -51,12 +51,18 @@ public class VendaManagerImpl extends AbstractManagerImpl implements VendaManage
             criteria.add(Restrictions.eq("situacaoMovimentacao", venda.getSituacaoMovimentacaoType()));
         }
 
-        if (venda.getCliente().getId() != null) {
+        if (venda.getCliente().getId() != null && venda.getCliente().getId() != 0) {
             criteria.createAlias("cliente", "cli");
             criteria.add(Restrictions.eq("cli.id", venda.getCliente().getId()));
         }
         
         return criteria.list();
     }
-    
+
+	@Override
+	@Transactional
+	public void salvarPedidoVenda(Orcamento pedidoVenda) {
+		Venda venda = new Venda(pedidoVenda);
+		salvar(venda);
+	}
 }

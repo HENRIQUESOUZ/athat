@@ -38,7 +38,7 @@
             <h:panelGrid id="panelFuncionario" columns="4">
                 <h:outputText value="Funcionário: "/>
                 <p:inputText id="funcionario" value="#{levantamentoController.levantamento.funcionario.pessoa.nomeRazao}" 
-                	required="true" requiredMessage="Campo Funcionario obrigatorio"/>
+                             required="true" requiredMessage="Campo Funcionario obrigatorio" disabled="true"/>
                 <p:commandButton value="buscar" oncomplete="popPessoa.show()" process="@this">
                     <f:setPropertyActionListener value="funcionario" target="#{popPessoaController.papel}"/>
                     <f:setPropertyActionListener value="true" target="#{popPessoaController.disableCliente}"/>
@@ -56,6 +56,8 @@
             <br />
             
             <p:commandButton value="Novo Produto" actionListener="#{levantamentoController.prepararProduto}" oncomplete="popProduto.show();"/>
+            
+              <br />
             
             <p:dataTable  id="listaDeProdutos" value="#{levantamentoController.levantamento.itensMovimentacao}" var="item"
                           emptyMessage="Não possui produtos adicionados.">
@@ -86,11 +88,11 @@
             <p:toolbar style="height:46px;">
                 <p:toolbarGroup align="right" >
                     <p:commandButton value="Salvar" action="#{levantamentoController.salvar}" ajax="false" 
-                                     actionListener="#{projetoController.carregarOrcamentos(levantamentoController.levantamento.projeto)}" />    
+                                     actionListener="#{projetoController.carregarOrcamentos(levantamentoController.projeto)}" />    
                     <p:commandButton value="Finalizar" action="#{levantamentoController.finalizar}" ajax="false" disabled="#{levantamentoController.levantamento.id == null}"
-                                     actionListener="#{projetoController.carregarOrcamentos(levantamentoController.levantamento.projeto)}" />    
+                                     actionListener="#{projetoController.carregarOrcamentos(levantamentoController.projeto)}" />    
                     <p:commandButton value="Limpar" action="#{levantamentoController.limpar}" ajax="false" immediate="true" />
-                    <p:commandButton value="Voltar" action="/pages/principal?faces-redirect=true" ajax="false" immediate="true" />
+                    <p:commandButton value="Voltar" action="/pages/projeto/projeto?faces-redirect=true" ajax="false" immediate="true" />
                 </p:toolbarGroup>
             </p:toolbar>  
             

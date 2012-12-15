@@ -15,14 +15,25 @@
 
             <h:panelGrid columns="3">
                 <h:outputText value="Descrição: "/>
-                <p:inputText id="descricao" value="#{tabelaPrecoController.tabelaPreco.descricao}" 
+                <p:inputText id="descricao" value="#{tabelaPrecoController.tabelaPreco.nome}" 
                              required="true" requiredMessage="Campo Descrição obrigatório."/>
                 <p:message for="descricao" />
                 
                 <h:outputText value="Porcentagem: "/>
-                <p:inputText id="porcentagem" value="#{tabelaPrecoController.tabelaPreco.porcentagem}" 
-                             required="true" requiredMessage="Campo Porcentagem obrigatório."/>
+                <p:spinner id="porcentagem" value="#{tabelaPrecoController.tabelaPreco.porcentagem}" 
+                             required="true" requiredMessage="Campo Porcentagem obrigatório." stepFactor="0.25"/>
                 <p:message for="porcentagem" />
+                
+                <h:outputText value="Data início: "/>
+                <p:calendar id="dataInicio" value="#{tabelaPrecoController.tabelaPreco.dataInicio}"
+                            pattern="dd/MM/yyyy" locale="pt_BR" size="20" rendered="true" requiredMessage="Campo Data Início obrigatório"/>
+                <p:message for="dataInicio" />  
+                
+                <h:outputText value="Data fim: "/>
+                <p:calendar id="dataFim" value="#{tabelaPrecoController.tabelaPreco.dataFim}"
+                            pattern="dd/MM/yyyy" locale="pt_BR" size="20" required="true" requiredMessage="Campo Data Fim obrigatório"/>
+                <p:message for="dataFim" />
+                
             </h:panelGrid>
 
             <br />

@@ -1,6 +1,7 @@
 package br.com.athat.core.manager.produto;
 
 import java.util.List;
+
 import org.hibernate.Criteria;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.transaction.annotation.Transactional;
@@ -51,6 +52,7 @@ public class ProdutoManagerImpl extends AbstractManagerImpl implements ProdutoMa
 	}
 
 	@Transactional(readOnly = true)
+	@SuppressWarnings("unchecked")
 	@Override
 	public List<Produto> buscarComEstoque(Produto produto) {
 		Criteria criteria = createSession().createCriteria(Produto.class,"p")

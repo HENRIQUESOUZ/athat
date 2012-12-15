@@ -2,6 +2,8 @@
 
 import java.math.BigDecimal;
 
+import java.math.BigDecimal;
+
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Ignore;
@@ -33,9 +35,9 @@ public class EstoqueManagerTest extends AbstractTest{
 	@Ignore
 	public void entradaTest(){
 		ItemProduto itemProduto = new ItemProduto();
-                itemProduto.setProduto(produto);
-                itemProduto.setQuantidade(10);
-                itemProduto.setValor(BigDecimal.valueOf(100));
+        itemProduto.setProduto(produto);
+        itemProduto.setQuantidade(10);
+        itemProduto.setValor(BigDecimal.valueOf(100));
 		
 		estoqueManager.entrar(itemProduto);
 		

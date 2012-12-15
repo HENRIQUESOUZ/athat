@@ -28,6 +28,8 @@ public class CompraVO implements Serializable{
 		dataInicioCompra = DateUtils.obterDataMenosDias(new Date(), 30);
 		dataFimCompra = DateUtils.obterDataMaisDias(new Date(), 30);
 		fornecedor = new Fornecedor();
+		situacaoEntradaType = null;
+		situacaoMovimentacaoType = null;
 	}
 	
 	public Long getId() {

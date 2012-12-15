@@ -66,7 +66,7 @@ public class LevantamentoManagerImpl extends AbstractManagerImpl implements Leva
 //            criteria.add(Restrictions.eq("situacaoMovimentacaoType", compra.getSituacaoMovimentacaoType()));
 //        }
 			
-		if(levantamento.getId() != null) {
+		if(levantamento.getId() != null && levantamento.getId() != 0) {
 			criteria.add(Restrictions.eq("id", levantamento.getId()));
 		}
 	   
@@ -84,8 +84,15 @@ public class LevantamentoManagerImpl extends AbstractManagerImpl implements Leva
 //	            criteria.add(Restrictions.eq("situacaoMovimentacaoType", compra.getSituacaoMovimentacaoType()));
 //	        }
 				
-			if(orcamento.getId() != null) {
+			if(orcamento.getId() != null && orcamento.getId() != 0) {
 				criteria.add(Restrictions.eq("id", orcamento.getId()));
+			}
+			
+			if(orcamento.isValidaSaidaNula()) {
+				criteria.add(Restrictions.isNull("dataSaida"));
+			}
+			for(Orcamento o : (List<Orcamento>) criteria.list()) {
+				Hibernate.initialize(o.getItensMovimentacao());
 			}
 		   
 			return criteria.list();
@@ -145,6 +152,21 @@ public class LevantamentoManagerImpl extends AbstractManagerImpl implements Leva
 	@Transactional
 	public void confirmarChegadaPedidoVenda(Orcamento pedido) {
 		vendaManager.salvar(new Venda(pedido));
+	}
+
+	@Override
+	@Transactional
+	public void salvar(Orcamento orcamento, Levantamento levantamento) {
+			if(orcamento.getId() == null) {
+				getEntityManager().persist(orcamento);
+			} else {
+				getEntityManager().merge(orcamento);
+			}
+			itemProdutoManager.salvar(orcamento.getItensMovimentacao());
+			if(levantamento.getId() != null) {
+				levantamento.setIsOrcamento(true);
+				salvar(levantamento);
+			}
 	}
 
  }

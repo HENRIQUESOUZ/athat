@@ -38,7 +38,7 @@
             <h:panelGrid id="panelFuncionario" columns="4">
                 <h:outputText value="Funcionário: "/>
                 <p:inputText id="funcionario" value="#{orcamentoController.orcamento.funcionario.pessoa.nomeRazao}" 
-                	required="true" requiredMessage="Campo Funcionario obrigatorio"/>
+                             required="true" requiredMessage="Campo Funcionario obrigatorio" disabled="true"/>
                 <p:commandButton value="buscar" oncomplete="popPessoa.show()" process="@this">
                     <f:setPropertyActionListener value="funcionario" target="#{popPessoaController.papel}"/>
                     <f:setPropertyActionListener value="true" target="#{popPessoaController.disableCliente}"/>
@@ -116,11 +116,11 @@
             <p:toolbar style="height:46px;">
                 <p:toolbarGroup align="right" >
                     <p:commandButton value="Salvar" action="#{orcamentoController.salvar}" ajax="false" 
-                                     actionListener="#{projetoController.carregarOrcamentos(orcamentoController.orcamento.projeto)}" />    
+                                     actionListener="#{projetoController.carregarOrcamentos(orcamentoController.projeto)}" />    
                     <p:commandButton value="Finalizar" action="#{orcamentoController.finalizar}" ajax="false" disabled="#{orcamentoController.orcamento.id == null}"
-                                     actionListener="#{projetoController.carregarOrcamentos(orcamentoController.orcamento.projeto)}" />    
+                                     actionListener="#{projetoController.carregarOrcamentos(orcamentoController.projeto)}" />    
                     <p:commandButton value="Limpar" action="#{orcamentoController.limpar}" ajax="false" immediate="true" />
-                    <p:commandButton value="Voltar" action="/pages/principal?faces-redirect=true" ajax="false" immediate="true" />
+                    <p:commandButton value="Voltar" action="/pages/projeto/projeto?faces-redirect=true" ajax="false" immediate="true" />
                 </p:toolbarGroup>
             </p:toolbar>  
             

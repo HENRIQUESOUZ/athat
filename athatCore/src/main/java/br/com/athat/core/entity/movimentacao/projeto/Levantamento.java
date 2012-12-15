@@ -59,6 +59,8 @@ public class Levantamento extends AbstractEntity {
 	@Column(length = 2000, name = "observacaoLevantamento")
 	private String observacao;
 	
+	private Boolean isOrcamento;
+	
 	public Levantamento() {
 		this.orcamentoType = OrcamentoType.LEVANTAMENTO;
 		this.valorTotal = BigDecimal.ZERO;
@@ -127,5 +129,12 @@ public class Levantamento extends AbstractEntity {
 
 	public void setObservacao(String observacao) {
 		this.observacao = observacao;
+	}
+	
+	public Boolean getIsOrcamento() {
+		return isOrcamento;
+	}
+	public void setIsOrcamento(Boolean isOrcamento) {
+		this.isOrcamento = isOrcamento;
 	}
 }

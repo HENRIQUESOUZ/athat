@@ -39,7 +39,7 @@
             <h:panelGrid id="panelFornecedor" columns="4">
                 <h:outputText value="Fornecedor: "/>
                 <p:inputText id="fornecedor" value="#{compraController.compra.fornecedor.pessoa.nomeRazao}" 
-                             required="true" requiredMessage="Campo Fornecedor obrigatorio" disabled="true"/>
+                             required="true" requiredMessage="Campo Fornecedor obrigatorio" disabled="true"  />
                 <p:commandButton value="buscar" oncomplete="popPessoa.show()" process="@this">
                     <f:setPropertyActionListener value="fornecedor" target="#{popPessoaController.papel}"/>
                     <f:setPropertyActionListener value="true" target="#{popPessoaController.disableCliente}"/>
@@ -65,7 +65,8 @@
             <br />
             
             <p:commandButton value="Novo Produto" actionListener="#{compraController.prepararProduto}" oncomplete="popProduto.show();"/>
-            
+           
+             <br /> <br />
             <p:dataTable  id="listaDeProdutos" value="#{compraController.compra.itensMovimentacao}" var="item"
                           emptyMessage="Não possui produtos adicionados.">
                 <p:column headerText="Codigo">

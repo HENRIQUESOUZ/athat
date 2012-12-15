@@ -17,8 +17,7 @@
         </h:panelGrid>
           
         <h:outputText value="Tipo Pessoa:" />
-        <br/>
-        
+
         <p:selectOneRadio id="options" value="#{popPessoaController.papel}" >
             <f:selectItem itemValue="cliente" itemLabel="Cliente" itemDisabled="#{popPessoaController.disableCliente}" noSelectionOption="#{popPessoaController.selectCliente}" />
             <f:selectItem itemValue="fornecedor" itemLabel="Fornecedor" itemDisabled="#{popPessoaController.disableFornecedor}" noSelectionOption="#{popPessoaController.selectFornecedor}"/>
@@ -30,7 +29,7 @@
                              update="listaDePessoas" process="@this" />
         </p:panel>
 
-        <br/>
+        <br/>  <br />
         <p:dataTable id="listaDePessoas" var="pessoa" value="#{popPessoaController.pessoas}"
                      emptyMessage="Nenhum registro foi encontrado." paginator="true" rows="15"
                      paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"

@@ -6,7 +6,7 @@
                 template="/pages/template.xhtml">
     
     <ui:define name="titulo">
-        <h3>Compra</h3>
+        <h3>Venda</h3>
     </ui:define>
     
     <ui:define name="script">
@@ -36,10 +36,11 @@
         
         <h:form id="venda" >
 
+            <p:outputPanel  rendered="#{vendaController.tabelaPreco != null}"> 
             <h:panelGrid id="panelCliente" columns="4">
                 <h:outputText value="Cliente: "/>
                 <p:inputText id="Cliente" value="#{vendaController.venda.cliente.pessoa.nomeRazao}" 
-                	required="true" requiredMessage="Campo Cliente obrigatorio"/>
+                             required="true" requiredMessage="Campo Cliente obrigatorio" disabled="true"/>
                 <p:commandButton value="buscar" oncomplete="popPessoa.show()" process="@this">
                     <f:setPropertyActionListener value="cliente" target="#{popPessoaController.papel}"/>
                     <f:setPropertyActionListener value="true" target="#{popPessoaController.disableFornecedor}"/>
@@ -54,6 +55,8 @@
                              oncomplete="popProduto.show();" process="@this">
                  <f:setPropertyActionListener value="true" target="#{popProdutoController.validaEstoque}"/>
             </p:commandButton>
+            
+             <br /> <br />
             
             <p:dataTable  id="listaDeProdutos" value="#{vendaController.venda.itensMovimentacao}" var="item"
                           emptyMessage="Não possui produtos adicionados.">
@@ -137,7 +140,14 @@
                 </p:toolbarGroup>
             </p:toolbar>
             <br/>
-        </p:dialog>    
+        </p:dialog>  
+       </p:outputPanel> 
+            
+      <p:outputPanel  rendered="#{vendaController.tabelaPreco == null}">
+          <p:panel header="Informativo">
+               <h3>Não possui tabelas de preço para o periodo atual.</h3>
+          </p:panel>    
+      </p:outputPanel>    
             
         </h:form>     
     </ui:define>
