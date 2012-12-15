@@ -58,7 +58,11 @@ public class ItemProduto extends AbstractEntity {
 	}
 
 	public BigDecimal getValorTotal() {
-		return valor.multiply(new BigDecimal(quantidade)).subtract(desconto);
+		valor = valor.multiply(new BigDecimal(quantidade));
+		if(desconto != null) {
+			valor.subtract(valor);
+		}
+		return valor;
 	}
 	
 	public BigDecimal getDesconto() {

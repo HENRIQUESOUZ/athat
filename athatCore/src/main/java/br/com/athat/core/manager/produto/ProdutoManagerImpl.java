@@ -51,6 +51,7 @@ public class ProdutoManagerImpl extends AbstractManagerImpl implements ProdutoMa
 	}
 
 	@Transactional(readOnly = true)
+	@SuppressWarnings("unchecked")
 	@Override
 	public List<Produto> buscarComEstoque(Produto produto) {
 		Criteria criteria = createSession().createCriteria(Produto.class,"p")

@@ -20,9 +20,9 @@
             
             <p:panel header="Consulta">
                 <h:outputText value="Descrição: "/>
-                <p:inputText id="nome" value="#{tabelaPrecoController.tabelaPreco.descricao}" />
+                <p:inputText id="nome" value="#{tabelaPrecoController.tabelaPreco.nome}" />
 
-                <br />
+                <br /><br />
                 
                 <p:commandButton value="Buscar" action="#{tabelaPrecoController.buscar}" 
                                  update="tabelaPrecoDataTable"/>
@@ -38,7 +38,7 @@
                 </p:column>
                 
                 <p:column headerText="Descrição">
-                    <h:outputText value="#{tabelaPreco.descricao}" />
+                    <h:outputText value="#{tabelaPreco.nome}" />
                 </p:column>
                
                  <p:column headerText="Opções">
