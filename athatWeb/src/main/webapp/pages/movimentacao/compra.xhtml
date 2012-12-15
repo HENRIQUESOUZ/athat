@@ -65,7 +65,8 @@
             <br />
             
             <p:commandButton value="Novo Produto" actionListener="#{compraController.prepararProduto}" oncomplete="popProduto.show();"/>
-            
+           
+             <br /> <br />
             <p:dataTable  id="listaDeProdutos" value="#{compraController.compra.itensMovimentacao}" var="item"
                           emptyMessage="Não possui produtos adicionados.">
                 <p:column headerText="Codigo">

@@ -6,7 +6,7 @@
                 template="/pages/template.xhtml">
     
     <ui:define name="titulo">
-        <h3>Compra</h3>
+        <h3>Venda</h3>
     </ui:define>
     
     <ui:define name="script">
@@ -55,6 +55,8 @@
                              oncomplete="popProduto.show();" process="@this">
                  <f:setPropertyActionListener value="true" target="#{popProdutoController.validaEstoque}"/>
             </p:commandButton>
+            
+             <br /> <br />
             
             <p:dataTable  id="listaDeProdutos" value="#{vendaController.venda.itensMovimentacao}" var="item"
                           emptyMessage="Não possui produtos adicionados.">
