@@ -51,7 +51,7 @@ public class VendaManagerImpl extends AbstractManagerImpl implements VendaManage
             criteria.add(Restrictions.eq("situacaoMovimentacao", venda.getSituacaoMovimentacaoType()));
         }
 
-        if (venda.getCliente().getId() != null) {
+        if (venda.getCliente().getId() != null && venda.getCliente().getId() != 0) {
             criteria.createAlias("cliente", "cli");
             criteria.add(Restrictions.eq("cli.id", venda.getCliente().getId()));
         }

@@ -51,13 +51,13 @@ public class CompraManagerImpl extends AbstractManagerImpl implements CompraMana
         		.add(Restrictions.between("dataEmissaoNF", compra.getDataInicioNF(), compra.getDataFimNF()))
         ;
 
-//        if (compra.getSituacaoMovimentacaoType() != null) {
-//            criteria.add(Restrictions.eq("situacaoMovimentacaoType", compra.getSituacaoMovimentacaoType()));
-//        }
-//        
-//        if (compra.getSituacaoEntradaType() != null) {
-//            criteria.add(Restrictions.eq("situacaoEntradaType", compra.getSituacaoEntradaType()));
-//        }
+        if (compra.getSituacaoMovimentacaoType() != null) {
+            criteria.add(Restrictions.eq("situacaoMovimentacaoType", compra.getSituacaoMovimentacaoType()));
+        }
+        
+        if (compra.getSituacaoEntradaType() != null) {
+            criteria.add(Restrictions.eq("situacaoEntradaType", compra.getSituacaoEntradaType()));
+        }
 
         if (compra.getFornecedor() != null && compra.getFornecedor().getId() != null) {
             criteria.createAlias("fornecedor", "for");
