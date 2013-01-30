@@ -57,6 +57,7 @@
                 
                 <p:column headerText="Opções">
                     <p:commandButton value="Visualizar"  oncomplete="popProduto.show();"/>
+                </p:column>    
                 <p:column headerText="Opções">
                     <p:commandButton value="Visualizar" process="@this" update=":listagemPedidoVenda:panelPedido"  oncomplete="popProduto.show();">
                         <f:setPropertyActionListener value="#{pedidoVenda}" target="#{pedidoVendaController.pedidoVenda}" />

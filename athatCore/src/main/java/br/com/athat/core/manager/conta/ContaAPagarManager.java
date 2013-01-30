@@ -11,7 +11,7 @@ import br.com.athat.core.entity.movimentacao.compra.Compra;
 public interface ContaAPagarManager {
 
 	
-	public void salvar(ContaAPagar contaAPagar);
+	public void salvar(ContaAPagar contaAPagar, Compra compra);
 	public List<Conta> buscarContaAberta();
 
 	

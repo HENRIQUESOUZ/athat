@@ -18,8 +18,11 @@ import br.com.athat.core.entity.movimentacao.projeto.Projeto;
 import br.com.athat.core.entity.pessoa.Pessoa;
 import br.com.athat.core.entity.pessoa.funcionario.Funcionario;
 import br.com.athat.core.entity.produto.Produto;
+import br.com.athat.core.entity.produto.tabelaPreco.TabelaPreco;
 import br.com.athat.core.manager.movimentacao.projeto.LevantamentoManager;
+import br.com.athat.core.manager.produto.tabelaPreco.TabelaPrecoManager;
 import br.com.athat.web.utils.AbstractController;
+import javax.annotation.PostConstruct;
 
 public class OrcamentoController extends AbstractController {
 
@@ -29,13 +32,22 @@ public class OrcamentoController extends AbstractController {
 	private ItemProduto itemProduto;
 	private List<Produto> produtos;
 	private Projeto projeto;
+        private TabelaPreco tabelaPreco;
 	
 	@Autowired
 	private LevantamentoManager levantamentoManager;
+        
+        @Autowired
+	private TabelaPrecoManager tabelaPrecoManager;
 	
 	public OrcamentoController() {
             projeto = new Projeto();
 		init();
+	}
+        
+         @PostConstruct
+	public void carregarTabelaPreço() {
+		tabelaPreco = tabelaPrecoManager.buscarTabelaVigente(new Date());
 	}
 
 	private void init() {
@@ -106,6 +118,7 @@ public class OrcamentoController extends AbstractController {
     	} else {
     		context.addCallbackParam("confirmar", true);                
     		itemProduto.setProduto(produto);
+                itemProduto.setValor(produto.getEstoque().calcularValorVenda(tabelaPreco));
     		orcamento.getItensMovimentacao().add(itemProduto);
     		itemProduto = new ItemProduto();
     	}

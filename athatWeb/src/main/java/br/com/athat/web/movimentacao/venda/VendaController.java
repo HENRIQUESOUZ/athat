@@ -96,7 +96,7 @@ public class VendaController extends AbstractController {
     	} else {
     		context.addCallbackParam("confirmar", true);                
     		itemProduto.setProduto(produto);
-    		itemProduto.setValor(produto.getEstoque().getValorCusto());
+    		itemProduto.setValor(produto.getEstoque().calcularValorVenda(tabelaPreco));
     		venda.getItensMovimentacao().add(itemProduto);
     		itemProduto = new ItemProduto();
     		calculaValorTotal();

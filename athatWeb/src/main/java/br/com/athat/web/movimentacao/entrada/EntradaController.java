@@ -24,21 +24,21 @@ public class EntradaController extends AbstractController {
 	private CompraManager compraManager;
 	
 	public EntradaController() {
-		limpar();
+            limpar();
 	}
 	
 	public String entrar() {
-		try {
-			compra.setSituacaoEntradaType(SituacaoEntradaType.EFETIVADO);
-			compraManager.entrada(compra);
+            try {
+                compra.setSituacaoEntradaType(SituacaoEntradaType.EFETIVADO);
+                compraManager.entrada(compra);
 			
-			setMessage("Entrada efeituada com sucesso!");
-			limpar();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+                setMessage("Entrada efeituada com sucesso!");
+                limpar();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
 		
-		return "/pages/movimentacao/listagemEntrada?faces-redirect=true";
+            return "/pages/movimentacao/listagemEntrada?faces-redirect=true";
 	}
 	
 	public void buscar() {
@@ -51,14 +51,6 @@ public class EntradaController extends AbstractController {
 		compra = compraManager.buscarCompraPorIdFull(Long.valueOf(compra.getId()));
 		return "/pages/movimentacao/entrada?faces-redirect=true"; 
 	}
-	
-//	public BigDecimal getValorTotal() {
-//		BigDecimal total = BigDecimal.ZERO;
-//		for(ItemProduto it: compra.getItensMovimentacao()) {
-//			total = total.add(it.getValorTotal());
-//		}
-//		return total;
-//	}
 	
 	private void limpar() {
 		compra = new Compra();

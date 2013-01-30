@@ -12,6 +12,9 @@ import javax.persistence.OneToOne;
 
 import br.com.athat.core.entity.AbstractEntity;
 import br.com.athat.core.entity.produto.Produto;
+import br.com.athat.core.entity.produto.tabelaPreco.TabelaPreco;
+import java.math.RoundingMode;
+import java.util.Collections;
 
 @Entity
 public class Estoque extends AbstractEntity{
@@ -32,13 +35,25 @@ public class Estoque extends AbstractEntity{
 	
 	public BigDecimal getValorCusto() {
 		BigDecimal valor = BigDecimal.ZERO;
-		for(ItemEstoque it : itemEstoqueList) {
-			if(it.getValorCusto().compareTo(valor) > 0 ) {
-				valor = it.getValorCusto();
-			}
-		}
+                if(itemEstoqueList != null) {
+                    Collections.reverse(itemEstoqueList);
+                    BigDecimal valor1 = itemEstoqueList.get(0) != null ? itemEstoqueList.get(0).getValorCusto() : BigDecimal.ZERO;
+                    BigDecimal valor2 = itemEstoqueList.get(1) != null ? itemEstoqueList.get(1).getValorCusto() : BigDecimal.ZERO;
+                    BigDecimal valor3 = itemEstoqueList.get(2) != null ? itemEstoqueList.get(2).getValorCusto() : BigDecimal.ZERO;
+                    valor = media(valor1, valor2, valor3);
+                }
 		return valor;
 	}
+        
+         public BigDecimal calcularValorVenda(TabelaPreco tabelaPreco) {
+            return tabelaPreco.getPorcentagem() != null ? getValorCusto().multiply(tabelaPreco.getPorcentagem()) : getValorCusto();
+        }
+        
+        private BigDecimal media(BigDecimal valor1, BigDecimal valor2, BigDecimal valor3) {
+            BigDecimal media = BigDecimal.ZERO;
+            media = media.add(valor1).add(valor2).add(valor3);
+            return media.divide(new BigDecimal(3), 2, RoundingMode.HALF_EVEN);
+        }
 
 	public Produto getProduto() {
 		return produto;

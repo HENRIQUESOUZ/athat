@@ -32,8 +32,10 @@ public class ContaAPagarController extends AbstractController {
     private List<Parcela> parcelas;
     private int numParcelas;
     private Date dataInicial;
+    
     @Autowired
     private CompraManager compraManager;
+    
     @Autowired
     private ContaAPagarManager contaAPagarManager;
 
@@ -116,11 +118,9 @@ public class ContaAPagarController extends AbstractController {
     public String salvar() {
         try {
             if (validateSalvar()) {
-                contaAPagarManager.salvar(contaAPagar);
                 compra.setSituacaoMovimentacaoType(SituacaoMovimentacaoType.FECHADA);
                 compra.setContaAPagar(contaAPagar);
-                compraManager.salvar(compra);
-                contaAPagarManager.salvar(contaAPagar);
+                contaAPagarManager.salvar(contaAPagar, compra);
                 getMessageCadastroSucesso();
             }
         } catch (Exception e) {

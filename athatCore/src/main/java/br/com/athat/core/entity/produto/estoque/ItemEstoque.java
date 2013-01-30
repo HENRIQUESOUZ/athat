@@ -6,7 +6,7 @@ import javax.persistence.Entity;
 import br.com.athat.core.entity.AbstractEntity;
 
 @Entity
-public class ItemEstoque extends AbstractEntity{
+public class ItemEstoque extends AbstractEntity implements Comparable<ItemEstoque> {
 
 	private static final long serialVersionUID = 1L;
 
@@ -48,4 +48,9 @@ public class ItemEstoque extends AbstractEntity{
 	public void setQuantidadeDesmenbrada(Integer quantidadeDesmenbrada) {
 		this.quantidadeDesmenbrada = quantidadeDesmenbrada;
 	}
+        
+        @Override
+    public int compareTo(ItemEstoque it) {
+        return getDataCadastro().compareTo(it.getDataCadastro());
+    }
 }

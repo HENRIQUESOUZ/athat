@@ -27,18 +27,19 @@ public class TabelaPrecoController extends AbstractController{
 	}
 	
 	@PostConstruct
-    public void init(){
-		String id = getParametro("id");
-		if (id != null) 
-			tabelaPreco = tabelaPrecoManager.buscarPorId(Long.valueOf(id));
-    }
+        public void init(){
+            String id = getParametro("id");
+            if (id != null) {
+                tabelaPreco = tabelaPrecoManager.buscarPorId(Long.valueOf(id));
+            }
+        }
 	
 	public String salvar() {
-		tabelaPrecoManager.salvar(tabelaPreco);
-        getMessageCadastroSucesso();
+            tabelaPrecoManager.salvar(tabelaPreco);
+            getMessageCadastroSucesso();
         
-        return "cadastroTabelaPreco";
-    }
+            return "cadastroTabelaPreco";
+        }
 	
     public void buscar() {
         tabelaPrecos = tabelaPrecoManager.buscar(tabelaPreco);

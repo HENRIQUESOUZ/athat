@@ -10,6 +10,7 @@ import javax.persistence.OneToOne;
 public class ContaAPagar extends Conta {
 
 	private static final long serialVersionUID = 1L;
+        
         @OneToOne
 	private Compra compra;
 

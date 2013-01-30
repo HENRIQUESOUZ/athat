@@ -28,13 +28,15 @@ public class CompraController extends AbstractController {
     private Compra compra;
     private ItemProduto itemProduto;
     private List<Produto> produtos;
+    
     @Autowired
     private CompraManager compraManager;
+    
     @Autowired
     private ProdutoManager produtoManager;
 
-	@Autowired
-	private TabelaPrecoManager tabelaPrecoManager;
+    @Autowired
+    private TabelaPrecoManager tabelaPrecoManager;
 
     public CompraController() {
         init();
@@ -63,6 +65,7 @@ public class CompraController extends AbstractController {
     public String finalizar() {
         try {
             if (validade()) {
+                compra.setSituacaoMovimentacaoType(SituacaoMovimentacaoType.FECHADA);
                 compraManager.salvar(compra);
                 setMessage("Compra Finalizada com Sucesso!");
                 init();

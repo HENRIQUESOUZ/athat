@@ -6,8 +6,10 @@ import br.com.athat.core.entity.conta.Conta;
 import br.com.athat.core.entity.conta.ContaAPagar;
 import br.com.athat.core.entity.conta.Parcela;
 import br.com.athat.core.entity.conta.SituacaoContaType;
+import br.com.athat.core.entity.movimentacao.compra.Compra;
 import br.com.athat.core.manager.AbstractManager;
 import br.com.athat.core.manager.AbstractManagerImpl;
+import br.com.athat.core.manager.movimentacao.compra.CompraManager;
 import org.hibernate.Criteria;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,16 +21,22 @@ public class ContaAPagarManagerImpl extends AbstractManagerImpl implements Conta
     
     @Autowired
     private ParcelaManager parcelaManager;
+    
+    @Autowired
+    private CompraManager compraManager;
 
     @Transactional
     @Override
-    public void salvar(ContaAPagar conta) {
+    public void salvar(ContaAPagar conta, Compra compra) {
         if (conta.getId() == null) {
             getEntityManager().persist(conta);
         } else {
             getEntityManager().merge(conta);
         }
-
+        if(compra != null) {
+            compraManager.salvar(compra); 
+        }
+       
     }
 
     @Override

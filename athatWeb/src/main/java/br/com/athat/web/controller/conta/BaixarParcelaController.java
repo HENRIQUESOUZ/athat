@@ -52,7 +52,7 @@ public class BaixarParcelaController extends AbstractController {
         try {
             if (validateSalvar()) {
                 if (conta.getTipoConta() == ContaType.PAGAR) {
-                    contaAPagarManager.salvar((ContaAPagar) conta);
+                    contaAPagarManager.salvar((ContaAPagar) conta, null);
                 } else {
                     contaAReceberManager.salvar((ContaAReceber) conta);
                 }

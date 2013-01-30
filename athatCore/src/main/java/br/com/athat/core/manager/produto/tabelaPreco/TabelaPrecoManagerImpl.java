@@ -20,10 +20,11 @@ public class TabelaPrecoManagerImpl extends AbstractManagerImpl implements Tabel
 	@Transactional
 	@Override
 	public void salvar(TabelaPreco tabelaPreco) {
-		if(tabelaPreco != null)
-			getEntityManager().persist(tabelaPreco);
-		else
-			getEntityManager().merge(tabelaPreco);
+            if(tabelaPreco != null){
+                getEntityManager().persist(tabelaPreco);
+            } else {
+		getEntityManager().merge(tabelaPreco);
+           }
 	}
 
 	@SuppressWarnings("unchecked")
@@ -55,8 +56,8 @@ public class TabelaPrecoManagerImpl extends AbstractManagerImpl implements Tabel
 	@Override
 	public TabelaPreco buscarTabelaVigente(Date data) {
 		Criteria criteria = createSession().createCriteria(TabelaPreco.class)
-			.add(Restrictions.le("dataInicio", data))
-			.add(Restrictions.ge("dataFim",data))
+			.add(Restrictions.ge("dataInicio", data))
+			.add(Restrictions.le("dataFim",data))
 			.addOrder(Order.asc("dataFim"))
 		;
 		List<TabelaPreco> tabelas = (List<TabelaPreco>) criteria.list();
