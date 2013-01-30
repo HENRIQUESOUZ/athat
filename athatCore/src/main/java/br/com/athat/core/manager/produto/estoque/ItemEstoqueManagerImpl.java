@@ -6,14 +6,13 @@ import org.springframework.transaction.annotation.Transactional;
 
 public class ItemEstoqueManagerImpl extends AbstractManagerImpl implements ItemEstoqueManager{
 
-	private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 
-	@Transactional
+    @Transactional
     public void salvar(ItemEstoque itemEstoque) {
-        if(itemEstoque != null) {
+        if(itemEstoque == null) {
             getEntityManager().persist(itemEstoque);
-        }
-        else {
+        } else {
             getEntityManager().merge(itemEstoque);
         }
     }

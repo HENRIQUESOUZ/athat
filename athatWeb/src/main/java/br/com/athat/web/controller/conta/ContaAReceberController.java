@@ -28,8 +28,10 @@ public class ContaAReceberController extends AbstractController {
     private List<Parcela> parcelas;
     private int numParcelas;
     private Date dataInicial;
+    
     @Autowired
     private VendaManager vendaManager;
+    
     @Autowired
     private ContaAReceberManager contaAReceberManager;
 
@@ -38,11 +40,6 @@ public class ContaAReceberController extends AbstractController {
     }
 
     private void init() {
-//        if (compra == null) {
-//            compra = new Venda();
-//            compra.setValorTotal(BigDecimal.ZERO);
-//        }
-//        contaAReceberManager = new ContaAReceberManagerImpl();
         contaAReceber = new ContaAReceber();
         contaAReceber.setMovimentacao(venda);
         contaAReceber.setSituacao(SituacaoContaType.ABERTA);
@@ -115,7 +112,7 @@ public class ContaAReceberController extends AbstractController {
                 venda.setSituacaoMovimentacaoType(SituacaoMovimentacaoType.FECHADA);
                 venda.setContaAReceber(contaAReceber);
 		vendaManager.salvar(venda);
-
+                init();
                 getMessageCadastroSucesso();
             } 
         } catch (Exception e) {

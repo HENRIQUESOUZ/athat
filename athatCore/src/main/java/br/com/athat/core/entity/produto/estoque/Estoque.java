@@ -14,6 +14,7 @@ import br.com.athat.core.entity.AbstractEntity;
 import br.com.athat.core.entity.produto.Produto;
 import br.com.athat.core.entity.produto.tabelaPreco.TabelaPreco;
 import java.math.RoundingMode;
+import java.util.ArrayList;
 import java.util.Collections;
 
 @Entity
@@ -35,24 +36,50 @@ public class Estoque extends AbstractEntity{
 	
 	public BigDecimal getValorCusto() {
 		BigDecimal valor = BigDecimal.ZERO;
-                if(itemEstoqueList != null) {
+                if(itemEstoqueList != null && !itemEstoqueList.isEmpty()) {
                     Collections.reverse(itemEstoqueList);
-                    BigDecimal valor1 = itemEstoqueList.get(0) != null ? itemEstoqueList.get(0).getValorCusto() : BigDecimal.ZERO;
-                    BigDecimal valor2 = itemEstoqueList.get(1) != null ? itemEstoqueList.get(1).getValorCusto() : BigDecimal.ZERO;
-                    BigDecimal valor3 = itemEstoqueList.get(2) != null ? itemEstoqueList.get(2).getValorCusto() : BigDecimal.ZERO;
+                    BigDecimal valor1 = BigDecimal.ZERO;
+                    BigDecimal valor2 = BigDecimal.ZERO;
+                    BigDecimal valor3 = BigDecimal.ZERO;
+                    valor1 = itemEstoqueList.get(0) != null ? itemEstoqueList.get(0).getValorCusto() : BigDecimal.ZERO;
+                    if(itemEstoqueList.size() > 2) {
+                        valor2 = itemEstoqueList.get(1) != null ? itemEstoqueList.get(1).getValorCusto() : BigDecimal.ZERO;
+                    }
+                    if(itemEstoqueList.size() > 3) {
+                        valor3 = itemEstoqueList.get(2) != null ? itemEstoqueList.get(2).getValorCusto() : BigDecimal.ZERO;
+                    }
                     valor = media(valor1, valor2, valor3);
                 }
 		return valor;
 	}
         
          public BigDecimal calcularValorVenda(TabelaPreco tabelaPreco) {
-            return tabelaPreco.getPorcentagem() != null ? getValorCusto().multiply(tabelaPreco.getPorcentagem()) : getValorCusto();
+            BigDecimal vlrCusto = getValorCusto();
+            return tabelaPreco.getPorcentagem() != null ? vlrCusto
+                    .multiply(tabelaPreco.getPorcentagem()).divide(new BigDecimal(100), 2, RoundingMode.HALF_EVEN) 
+                    .add(vlrCusto)
+                    : getValorCusto().setScale(2, RoundingMode.HALF_EVEN);
         }
         
         private BigDecimal media(BigDecimal valor1, BigDecimal valor2, BigDecimal valor3) {
+            int divisao = divisor(valor1,valor2,valor3);
             BigDecimal media = BigDecimal.ZERO;
             media = media.add(valor1).add(valor2).add(valor3);
-            return media.divide(new BigDecimal(3), 2, RoundingMode.HALF_EVEN);
+            return media.divide(new BigDecimal(divisao), 2, RoundingMode.HALF_EVEN);
+        }
+        
+        private int divisor(BigDecimal valor1, BigDecimal valor2, BigDecimal valor3) {
+            int divisao = 0;
+            if(valor1 != null && valor1.compareTo(BigDecimal.ZERO) > 0) {
+                divisao++;
+            } 
+            if(valor2 != null && valor2.compareTo(BigDecimal.ZERO) > 0) {
+                divisao++;
+            } 
+            if(valor3 != null && valor3.compareTo(BigDecimal.ZERO) > 0) {
+                divisao++;
+            } 
+            return divisao;
         }
 
 	public Produto getProduto() {

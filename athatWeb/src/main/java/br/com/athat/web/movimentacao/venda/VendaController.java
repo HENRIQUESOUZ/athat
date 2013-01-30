@@ -1,5 +1,6 @@
 package br.com.athat.web.movimentacao.venda;
 
+import br.com.athat.core.entity.conta.SituacaoContaType;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Date;
@@ -64,7 +65,7 @@ public class VendaController extends AbstractController {
     public String finalizar() {
         try {
             if (validade()) {
-                
+                venda.setSituacaoMovimentacaoType(SituacaoMovimentacaoType.FECHADA);
                 setMessage("Venda Finalizada com Sucesso!");
                 init();
             }

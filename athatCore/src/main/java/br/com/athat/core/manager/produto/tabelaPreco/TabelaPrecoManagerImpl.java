@@ -11,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import br.com.athat.core.entity.produto.tabelaPreco.TabelaPreco;
 import br.com.athat.core.manager.AbstractManagerImpl;
+import br.com.athat.utils.validators.DateUtils;
 import br.com.athat.utils.validators.ValidatorUtils;
 
 public class TabelaPrecoManagerImpl extends AbstractManagerImpl implements TabelaPrecoManager{
@@ -20,7 +21,7 @@ public class TabelaPrecoManagerImpl extends AbstractManagerImpl implements Tabel
 	@Transactional
 	@Override
 	public void salvar(TabelaPreco tabelaPreco) {
-            if(tabelaPreco != null){
+            if(tabelaPreco == null){
                 getEntityManager().persist(tabelaPreco);
             } else {
 		getEntityManager().merge(tabelaPreco);
@@ -56,13 +57,13 @@ public class TabelaPrecoManagerImpl extends AbstractManagerImpl implements Tabel
 	@Override
 	public TabelaPreco buscarTabelaVigente(Date data) {
 		Criteria criteria = createSession().createCriteria(TabelaPreco.class)
-			.add(Restrictions.ge("dataInicio", data))
-			.add(Restrictions.le("dataFim",data))
+			.add(Restrictions.le("dataInicio", DateUtils.zerarHoras(data)))
+			.add(Restrictions.ge("dataFim", DateUtils.horasFinal(data)))
 			.addOrder(Order.asc("dataFim"))
 		;
 		List<TabelaPreco> tabelas = (List<TabelaPreco>) criteria.list();
 		TabelaPreco tabelaPreco = null;
-		if( tabelas != null && tabelas.size() > 1) {
+		if( tabelas != null && !tabelas.isEmpty()) {
 			tabelaPreco = tabelas.get(0);
 		}
 		
