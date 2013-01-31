@@ -11,6 +11,7 @@ import br.com.athat.core.manager.movimentacao.projeto.LevantamentoManager;
 import br.com.athat.core.manager.movimentacao.venda.VendaManager;
 import br.com.athat.core.vo.projeto.OrcamentoVO;
 import br.com.athat.web.utils.AbstractController;
+import java.util.Date;
 
 public class PedidoVendaController extends AbstractController {
 
@@ -38,6 +39,7 @@ public class PedidoVendaController extends AbstractController {
 
 	public void confirmar() {
             try {
+                pedidoVenda.setDataSaida(new Date());
                 vendaManager.salvarPedidoVenda(pedidoVenda);
                 init();
                 buscar();

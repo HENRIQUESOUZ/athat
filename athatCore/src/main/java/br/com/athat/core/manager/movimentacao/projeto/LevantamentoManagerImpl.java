@@ -80,22 +80,20 @@ public class LevantamentoManagerImpl extends AbstractManagerImpl implements Leva
 		Criteria criteria = createSession().createCriteria(Orcamento.class)
 				.add(Restrictions.between("dataCadastro", orcamento.getDataInicio(), orcamento.getDataFim()))
 		    ;	
-//	        if (compra.getSituacaoMovimentacaoType() != null) {
-//	            criteria.add(Restrictions.eq("situacaoMovimentacaoType", compra.getSituacaoMovimentacaoType()));
-//	        }
 				
-			if(orcamento.getId() != null && orcamento.getId() != 0) {
-				criteria.add(Restrictions.eq("id", orcamento.getId()));
-			}
+		if(orcamento.getId() != null && orcamento.getId() != 0) {
+                    criteria.add(Restrictions.eq("id", orcamento.getId()));
+		}
 			
-			if(orcamento.isValidaSaidaNula()) {
-				criteria.add(Restrictions.isNull("dataSaida"));
-			}
-			for(Orcamento o : (List<Orcamento>) criteria.list()) {
-				Hibernate.initialize(o.getItensMovimentacao());
-			}
+		if(orcamento.isValidaSaidaNula()) {
+                    criteria.add(Restrictions.isNull("dataSaida"));
+		}
+                
+                for(Orcamento o : (List<Orcamento>) criteria.list()) {
+                    Hibernate.initialize(o.getItensMovimentacao());
+                }
 		   
-			return criteria.list();
+		return criteria.list();
 	}
 
 	@Override

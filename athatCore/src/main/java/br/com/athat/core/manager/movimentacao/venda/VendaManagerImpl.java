@@ -12,15 +12,19 @@ import br.com.athat.core.entity.movimentacao.enuns.SituacaoMovimentacaoType;
 import br.com.athat.core.entity.movimentacao.projeto.Orcamento;
 import br.com.athat.core.entity.movimentacao.venda.Venda;
 import br.com.athat.core.manager.AbstractManagerImpl;
+import br.com.athat.core.manager.movimentacao.projeto.LevantamentoManager;
 import br.com.athat.core.manager.produto.estoque.EstoqueManager;
 
 public class VendaManagerImpl extends AbstractManagerImpl implements VendaManager {
     
 	private static final long serialVersionUID = 1L;
 
-	@Autowired
+    @Autowired
     private EstoqueManager estoqueManager;
 
+    @Autowired
+    private LevantamentoManager levantamentoManager;
+    
     @Override
     @Transactional
     public Venda salvar(Venda venda) {
@@ -62,7 +66,8 @@ public class VendaManagerImpl extends AbstractManagerImpl implements VendaManage
 	@Override
 	@Transactional
 	public void salvarPedidoVenda(Orcamento pedidoVenda) {
+            levantamentoManager.salvar(pedidoVenda);
             Venda venda = new Venda(pedidoVenda);
-            salvar(venda);
+            salvar(venda);        
 	}
 }
