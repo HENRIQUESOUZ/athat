@@ -47,9 +47,6 @@
                     </h:outputText>    
                 </p:column>
                 
-                 <p:column headerText="Situação">
-                    <h:outputText value="#{pedidoCompra.situacaoMovimentacaoType.descricao}" />
-                </p:column> 
                  <p:column headerText="Opções">
                     <p:commandButton value="Visualizar" process="@this" update=":listagemPedidoCompra:panelPedido"  oncomplete="popProduto.show();">
                         <f:setPropertyActionListener value="#{pedidoCompra}" target="#{pedidoCompraController.pedidoCompra}" />

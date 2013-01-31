@@ -14,13 +14,13 @@ public class ItemProdutoManagerImpl extends AbstractManagerImpl implements ItemP
 	@Override
 	@Transactional
 	public void salvar(List<ItemProduto> itensProduto) {
-		for(ItemProduto it : itensProduto) {
-			if(it.getId() == null) {
-				getEntityManager().persist(it);
-			} else {
-				getEntityManager().merge(it);
-			}
+            for(ItemProduto it : itensProduto) {
+                if(it.getId() == null) {
+                    getEntityManager().persist(it);
+                } else {
+                    getEntityManager().merge(it);
 		}
+            }
 	}
 
 }

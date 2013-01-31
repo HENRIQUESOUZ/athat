@@ -27,31 +27,31 @@ public class PedidoVendaController extends AbstractController {
 	private VendaManager vendaManager;
 	
 	public PedidoVendaController() {
-		init();
+            init();
 	}
 	
 	public void buscar() {
-		pedidoVendaVO.setSituacaoMovimentacaoType(SituacaoMovimentacaoType.FECHADA);
-		pedidoVendaVO.setValidaSaidaNula(true);
-		pedidosVenda = pedidoVendaManager.buscar(pedidoVendaVO);
+            pedidoVendaVO.setSituacaoMovimentacaoType(SituacaoMovimentacaoType.FECHADA);
+            pedidoVendaVO.setValidaSaidaNula(true);
+            pedidosVenda = pedidoVendaManager.buscar(pedidoVendaVO);
 	}
 
 	public void confirmar() {
-		try {
-			vendaManager.salvarPedidoVenda(pedidoVenda);
-			init();
-			buscar();
-			setMessage("Baixo no pedido com sucesso!");
-		} catch (Exception e) {
-			e.printStackTrace();
-			getMessageInstabilidade();
-		}
+            try {
+                vendaManager.salvarPedidoVenda(pedidoVenda);
+                init();
+                buscar();
+                setMessage("Baixo no pedido com sucesso!");
+            } catch (Exception e) {
+                e.printStackTrace();
+                getMessageInstabilidade();
+            }
 	}
 	
 	private void init() {
-		pedidoVenda = new Orcamento();
-		pedidosVenda  = new ArrayList<Orcamento>();
-		pedidoVendaVO = new OrcamentoVO();
+            pedidoVenda = new Orcamento();
+            pedidosVenda  = new ArrayList<Orcamento>();
+            pedidoVendaVO = new OrcamentoVO();
 	}
 
 	public Orcamento getPedidoVenda() {

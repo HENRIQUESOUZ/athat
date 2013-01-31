@@ -121,12 +121,14 @@ public class OrcamentoController extends AbstractController {
                 itemProduto.setValor(produto.getEstoque().calcularValorVenda(tabelaPreco));
     		orcamento.getItensMovimentacao().add(itemProduto);
     		itemProduto = new ItemProduto();
+                calculaValorTotal();
     	}
     }
 	
 	public void removerProduto() {
 		orcamento.getItensMovimentacao().remove(itemProduto);
 		itemProduto = new ItemProduto();
+                calculaValorTotal();
 	}
 	
 	public void prepararProduto() {
@@ -134,11 +136,11 @@ public class OrcamentoController extends AbstractController {
 	}
 	
 	public void calculaValorTotal() {
-		BigDecimal valor = BigDecimal.ZERO;
-		for(ItemProduto it : orcamento.getItensMovimentacao()){
-			valor = valor.add(it.getValorTotal());
-		}
-		orcamento.setValorTotal(valor);
+            BigDecimal valor = BigDecimal.ZERO;
+            for(ItemProduto it : orcamento.getItensMovimentacao()){
+                valor = valor.add(it.getValorTotal());
+            }
+            orcamento.setValorTotal(valor);
 	}
 	
 	private boolean validade() {

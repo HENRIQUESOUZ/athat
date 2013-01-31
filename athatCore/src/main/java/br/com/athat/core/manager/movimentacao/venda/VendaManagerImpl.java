@@ -62,7 +62,7 @@ public class VendaManagerImpl extends AbstractManagerImpl implements VendaManage
 	@Override
 	@Transactional
 	public void salvarPedidoVenda(Orcamento pedidoVenda) {
-		Venda venda = new Venda(pedidoVenda);
-		salvar(venda);
+            Venda venda = new Venda(pedidoVenda);
+            salvar(venda);
 	}
 }

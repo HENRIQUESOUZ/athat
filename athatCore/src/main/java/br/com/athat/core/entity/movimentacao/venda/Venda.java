@@ -40,12 +40,10 @@ public class Venda extends Movimentacao {
     	valorTotal = orcamento.getValorTotal();
     	itensMovimentacao = new ArrayList<ItemProduto>();
     	for(ItemProduto it : orcamento.getItensMovimentacao()) {
-    		itensMovimentacao.add(new ItemProduto(it));
+            itensMovimentacao.add(new ItemProduto(it));
     	}
     	dataEncerramento = new Date();
     	situacaoMovimentacaoType = SituacaoMovimentacaoType.FECHADA;
-    	
-    	//TODO: conta a receber
     }
 
     

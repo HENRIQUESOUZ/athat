@@ -36,23 +36,23 @@ public class LevantamentoManagerImpl extends AbstractManagerImpl implements Leva
 	@Override
 	@Transactional
 	public void salvar(Orcamento orcamento) {
-		if(orcamento.getId() == null) {
-			getEntityManager().persist(orcamento);
-		} else {
-			getEntityManager().merge(orcamento);
-		}
-		itemProdutoManager.salvar(orcamento.getItensMovimentacao());
+            if(orcamento.getId() == null) {
+                getEntityManager().persist(orcamento);
+            } else {
+                getEntityManager().merge(orcamento);
+            }
+            itemProdutoManager.salvar(orcamento.getItensMovimentacao());
 	}
 	
 	@Override
 	@Transactional
 	public void salvar(Levantamento levantamento) {
-		if(levantamento.getId() == null) {
-			getEntityManager().persist(levantamento);
-		} else {
-			getEntityManager().merge(levantamento);
-		}
-		itemProdutoManager.salvar(levantamento.getItensMovimentacao());
+            if(levantamento.getId() == null) {
+                getEntityManager().persist(levantamento);
+            } else {
+		getEntityManager().merge(levantamento);
+            }
+            itemProdutoManager.salvar(levantamento.getItensMovimentacao());
 	}
 
 	@Override

@@ -66,11 +66,11 @@
                 </p:column>
                <p:column headerText="Opções">
                    <p:commandButton value="Gerar Orçamento" ajax="false" immediate="true" action="/pages/projeto/orcamento?faces-redirect=true" 
-                                    rendered="#{lev.situacaoMovimentacaoType == 'FECHADA' and lev.orcamentoType == 'LEVANTAMENTO' and !isOrcamento}">
+                                    rendered="#{lev.situacaoMovimentacaoType == 'FECHADA' and lev.orcamentoType == 'LEVANTAMENTO' and !lev.isOrcamento}">
                        <f:setPropertyActionListener value="#{projetoController.transformerLevToOrcamento(lev)}" target="#{orcamentoController.orcamento}" />
                    </p:commandButton>   
                    <p:commandButton value="Levantamento" ajax="false" immediate="true" action="/pages/projeto/levantamento?faces-redirect=true" 
-                                    rendered="#{lev.situacaoMovimentacaoType == 'ABERTA'}">
+                                    rendered="#{lev.situacaoMovimentacaoType == 'ABERTA'} and !lev.isOrcamento}">
                        <f:setPropertyActionListener value="#{lev}" target="#{levantamentoController.levantamento}" />
                    </p:commandButton>
                 </p:column>
